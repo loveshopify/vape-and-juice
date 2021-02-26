@@ -1,0 +1,58 @@
+{% comment %}
+  <!-- /snippets/collection-sorting.liquid -->
+  Toggle between collection.liquid and collection.list.liquid with the
+  ?view= parameter.
+{% endcomment %}
+
+<div class="collection-sorting-container">
+  {% if settings.collection_view_enable %}
+  <div class="collection-view">
+    <span class="collection-view-text">{{ 'collections.general.view_as' | t }}</span>
+    <button type="button" data-toggle="tooltip" title="{{ 'collections.general.grid_view' | t }}" class="change-view{% unless template contains 'list' %} change-view--active{% endunless %}" data-view="grid">
+      <span class="icon-fallback-text">
+        <i class="fa fa-th-large" aria-hidden="true"></i>
+        <span class="fallback-text">{{ 'collections.general.grid_view' | t }}</span>
+      </span>
+    </button>
+    <button type="button" data-toggle="tooltip" title="{{ 'collections.general.list_view' | t }}" class="change-view{% if template contains 'list' %} change-view--active{% endif %}" data-view="list">
+      <span class="icon-fallback-text">
+        <i class="fa fa-th-list" aria-hidden="true"></i>
+        <span class="fallback-text">{{ 'collections.general.list_view' | t }}</span>
+      </span>
+    </button> 
+  </div>
+  {% endif %}
+
+  <div class="tp-collection-sort">
+    <label for="SortBy">{{ 'collections.sorting.title' | t }}</label>
+    <div class="dropdown">
+      <span class="dropdown-toggle" data-toggle="dropdown">{{ 'collections.sorting.featured' | t }}</span>
+      <ul class="dropdown-menu">
+        <li data-value="manual" class="active">{{ 'collections.sorting.featured' | t }}</li>
+        <li data-value="best-selling">{{ 'collections.sorting.best_selling' | t }}</li>
+        <li data-value="price-ascending">{{ 'collections.sorting.price_ascending' | t }}</li>
+        <li data-value="price-descending">{{ 'collections.sorting.price_descending' | t }}</li>
+        <li data-value="title-ascending">{{ 'collections.sorting.az' | t }}</li>
+        <li data-value="title-descending">{{ 'collections.sorting.za' | t }}</li>
+        <li data-value="created-descending">{{ 'collections.sorting.date_descending' | t }}</li>
+        <li data-value="created-ascending">{{ 'collections.sorting.date_ascending' | t }}</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<script>
+  {% comment %}
+    Inline JS because collection liquid object is only available
+    on collection pages and not external JS files
+  {% endcomment %}
+  Shopify.queryParams = {};
+  if (location.search.length) {
+    for (var aKeyValue, i = 0, aCouples = location.search.substr(1).split('&'); i < aCouples.length; i++) {
+      aKeyValue = aCouples[i].split('=');
+      if (aKeyValue.length > 1) {
+        Shopify.queryParams[decodeURIComponent(aKeyValue[0])] = decodeURIComponent(aKeyValue[1]);
+      }
+    }
+  }
+</script>

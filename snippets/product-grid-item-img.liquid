@@ -1,0 +1,46 @@
+{% assign imgWidth1 = settings.product_image_ratio_width %}
+{% assign imgWidth = imgWidth1 | remove: 'px' %}
+
+{% assign imgHeight1 = settings.product_image_ratio_height %}
+{% assign imgHeight = imgHeight1 | remove: 'px' %}
+
+{% assign img_var = imgWidth | append: 'x' | append: imgHeight %}
+
+<a href="{{ product.url | within: collection }}" class="grid-image {% if settings.product_item_image_swap %}image-swap{% endif %}">
+
+  {% if settings.product_item_image_swap %}
+  {% for image in product.images %}
+  <img src="{{ image.src | product_img_url: img_var }}" alt="{{ image.alt | escape }}" data-id="{{image.id}}" width="{{ imgWidth }}" height="{{ imgHeight }}px" />
+  {% endfor %}
+  {% else %}
+  <img src="{{ product.featured_image.src | img_url: img_var }}" alt="{{ product.featured_image.alt | escape }}" data-id="{{product.featured_image.id}}" width="{{ imgWidth }}px" height="{{ imgHeight }}px" />
+  {% endif %}
+</a>
+
+
+{% comment %}
+<div class="tp-product-image-slider">
+  {% if settings.product_item_image_swap %}
+  {% for image in product.images limit:3 %}
+  <a href="{{ product.url | within: collection }}" class="grid-image">
+    <img src="{{ image.src | product_img_url: 'large' }}" alt="{{ image.alt | escape }}" data-id="{{image.id}}">
+  </a>
+  {% endfor %}
+  {% else %}
+  <a href="{{ product.url | within: collection }}" class="grid-image">
+    <img src="{{ product.featured_image.src | img_url: 'large' }}" alt="{{ product.featured_image.alt | escape }}" data-id="{{product.featured_image.id}}">
+  </a>
+  {% endif %}
+</div>
+
+<script>
+  jQuery(document).ready(function() {
+    var owl = jQuery(".tp-product-image-slider");
+    owl.owlCarousel({
+      loop:true,
+      items:1,
+      lazyLoad : true
+    })
+  });
+</script>
+{% endcomment %}

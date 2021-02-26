@@ -1,0 +1,17 @@
+{% comment %} 
+<!-- Go to www.addthis.com/dashboard to customize your tools -->
+
+{% if settings.pd_social %}
+<div class="tp-product-addthis">
+	<label>{{ 'products.product.share' | t }}:</label>
+	<div class="tp-product-addthis-code">
+		{% if settings.pd_social_share_code != blank %}
+		{{ settings.pd_social_share_code }}
+		<!-- Go to www.addthis.com/dashboard to customize your tools -->
+		<div class="addthis_inline_share_toolbox"></div>
+		{% endif %}
+	</div>
+</div>
+{% endif %}
+
+{% endcomment %}

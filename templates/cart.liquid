@@ -1,0 +1,237 @@
+{% if cart.item_count > 0 %}
+  
+  <div class="tp-page-heading"><h1>{{ 'cart.general.title' | t }}</h1></div>
+<div class="show-msg">{{ settings.free_shipping_sucess }}</div>
+  <form action="/cart" method="post" novalidate class="cart">
+    <div class="row">
+
+      {% comment %} Cart Table {% endcomment %}
+      <div class="col-md-9 wow fadeIn" data-wow-delay="{{ settings.delay_time_ra }}ms">
+        <div class="table-wrap">
+
+          <table class="cart-table">
+            <thead class="cart-row">
+              <th colspan="2">{{ 'cart.label.product' | t }}</th>
+              <th class="text-center hidden-xs">{{ 'cart.label.price' | t }}</th>
+              <th class="text-center hidden-xs">{{ 'cart.label.quantity' | t }}</th>
+              <th class="text-center td-price-total">{{ 'cart.label.total' | t }}</th>
+              <th class="td-close hidden-xs">&nbsp;</th>
+            </thead>
+            <tfoot>
+              <tr>
+                <td colspan="6">
+                  <input type="submit" name="update" class="btn-secondary update-cart" value="{{ 'cart.general.update' | t }}" />
+                  <a class="btn continue-shopping" href="/collections/all" title="{{ 'cart.general.continue_shopping' | t }}" >{{ 'cart.general.continue_shopping' | t }}</a>
+                </td>
+              </tr>
+            </tfoot>
+            <tbody>
+              {% for item in cart.items %}
+
+                <tr class="cart-row table-section">
+                  <td data-label="{{ 'customer.order.product' | t }}" class="td-product-img">
+                    <a href="{{ item.url | within: collections.all }}" class="cart-image">
+                      {% comment %}
+                        More image size options at:
+                          - http://docs.shopify.com/themes/filters/product-img-url
+                      {% endcomment %}
+                      <img src="{{ item | img_url: '135x135' }}" alt="{{ item.title | escape }}">
+                    </a>
+                  </td>
+                  <td class="td-product-info hidden-xs">
+                    <a href="{{ item.url }}" class="product-name">
+                      {{ item.product.title }}
+                    </a>
+                    {% unless item.variant.title contains 'Default' %}
+                      <p class="size">{{ item.variant.title }}</p>
+                    {% endunless %}
+
+                    {% if settings.cart_vendor_enable %}
+                      <p class="vendor">{{ item.vendor }}</p>
+                    {% endif %}
+
+                    {% comment %}
+                      Optional, loop through custom product line items if available
+
+                      For more info on line item properties, visit:
+                        - http://docs.shopify.com/support/your-store/products/how-do-I-collect-additional-information-on-the-product-page-Like-for-a-monogram-engraving-or-customization
+                    {% endcomment %}
+                    {% assign property_size = item.properties | size %}
+                    {% if property_size > 0 %}
+                      {% for p in item.properties %}
+                        <!-- Zapiet | Store Pickup + Delivery -->
+{% unless p.last == blank or p.first == "_ZapietId" %}
+<!-- Zapiet | Store Pickup + Delivery -->
+                          {{ p.first }}:
+
+                          {% comment %}
+                            Check if there was an uploaded file associated
+                          {% endcomment %}
+                          {% if p.last contains '/uploads/' %}
+                            <a href="{{ p.last }}">{{ p.last | split: '/' | last }}</a>
+                          {% else %}
+                            {{ p.last }}
+                          {% endif %}
+
+                          <br>
+                        {% endunless %}
+                      {% endfor %}
+                    {% endif %}
+                    
+                  </td>
+                  <td data-label="{{ 'cart.label.price' | t }}" class="td-price-unit hidden-xs">
+                    <span class="h3">
+                      {{ item.price | money }}
+                    </span>
+                  </td>
+                  <td data-label="{{ 'cart.label.quantity' | t }}" class="td-quantity">
+
+                    <div class="product-info-mobile">
+                      <a href="{{ item.url }}" class="product-name">
+                        {{ item.product.title }}
+                      </a>
+                      {% unless item.variant.title contains 'Default' %}
+                        <p class="size">{{ item.variant.title }}</p>
+                      {% endunless %}
+
+                      {% if settings.cart_vendor_enable %}
+                        <p class="vendor">{{ item.vendor }}</p>
+                      {% endif %}
+
+                      {% comment %}
+                        Optional, loop through custom product line items if available
+
+                        For more info on line item properties, visit:
+                          - http://docs.shopify.com/support/your-store/products/how-do-I-collect-additional-information-on-the-product-page-Like-for-a-monogram-engraving-or-customization
+                      {% endcomment %}
+                      {% assign property_size = item.properties | size %}
+                      {% if property_size > 0 %}
+                        {% for p in item.properties %}
+                          <!-- Zapiet | Store Pickup + Delivery -->
+{% unless p.last == blank or p.first == "_ZapietId" %}
+<!-- Zapiet | Store Pickup + Delivery -->
+                            {{ p.first }}:
+
+                            {% comment %}
+                              Check if there was an uploaded file associated
+                            {% endcomment %}
+                            {% if p.last contains '/uploads/' %}
+                              <a href="{{ p.last }}">{{ p.last | split: '/' | last }}</a>
+                            {% else %}
+                              {{ p.last }}
+                            {% endif %}
+
+                            <br>
+                          {% endunless %}
+                        {% endfor %}
+                      {% endif %}
+                    </div>
+
+                    <input type="number" name="updates[]" id="updates_{{ item.id }}" value="{{ item.quantity }}" {{ bold_qty_attr }}  min="0">
+                  </td>
+                  <td data-label="{{ 'cart.label.total' | t }}" class="td-price-total">
+                    {% if item.original_line_price != item.line_price %}
+                      <span class="cart-item__original-price"><s>{{ item.original_line_price | money }}</s></span>
+                    {% endif %}
+                    <span class="h3">
+                      {{ item.line_price | money }}
+                    </span>
+                    {% for discount in item.discounts %}
+                      <span class="cart-item__discount">{{ discount.title }}</span>
+                    {% endfor %}  
+
+                    <div class="product-info-mobile">
+                      <a href="/cart/change?line={{ forloop.index }}&amp;quantity=0" class="cart-remove">
+                        <small>{{ 'cart.general.remove' | t }}</small>
+                      </a>
+                    </div>
+                  </td>
+                  <td class="td-close hidden-xs">
+                    <a href="/cart/change?line={{ forloop.index }}&amp;quantity=0" class="cart-remove">
+                      <small>{{ 'cart.general.remove' | t }}</small>
+                    </a>
+                  </td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+
+        </div>
+      </div>
+      
+      {% comment %} Cart Sidebar {% endcomment %}
+      <div class="col-md-3">
+         <div class="tp-sidebar-block cart-row wow fadeIn" data-wow-delay="{{ settings.delay_time_ra | plus: 100 }}ms">
+          <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+            
+            {% if settings.cart_estimate_shipping_enable %}
+            <div class="panel panel-default">
+              <div class="panel-heading" role="tab" id="headingOne">
+                <h4 class="panel-title">
+                  <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                    {{ 'cart.general.estimate_shipping_tax' | t }}
+                  </a>
+                </h4>
+              </div>
+              <div id="collapseOne" class="panel-collapse collapse" role="tabpanel">
+                <div class="panel-body">
+                  {% unless cart.item_count == 0 %}
+                  {% include 'tp-shipping-rates-calculator' %}
+                  {% endunless %}
+                </div>
+              </div>
+            </div>
+            {% endif %}
+
+            <div class="panel panel-default">
+              <div class="panel-heading" role="tab" id="headingThree">
+                <h4 class="panel-title">
+                  <a  role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+                   {{ 'cart.general.subtotal' | t }}
+                  </a>
+                </h4>
+              </div>
+              <div id="collapseThree" class="panel-collapse collapse in" role="tabpanel">
+                <div class="panel-body">
+                  {% if settings.cart_note_enable %}
+                  <div class="tp-cart-note">
+                    <label for="CartSpecialInstructions">{{ 'cart.general.note' | t }}</label>
+                    <textarea name="note" class="input-full" id="CartSpecialInstructions">{{ cart.note }}</textarea>
+                  </div>
+                  {% endif %}
+                  <div class="tp-cart-total">
+                    <p>
+                      <span class="cart-subtotal-title">{{ 'cart.general.subtotal' | t }}</span>
+                      <span class="h3 cart-subtotal">{{ cart.total_price | money }}</span>
+                    </p>
+                    {% if cart.total_discounts > 0 %}
+                    {% assign savings = cart.total_discounts | money %}
+                    <p>
+                      <span class="cart-subtotal__savings"><em>{{ 'cart.general.savings_html' | t: price: savings }}</em></span>
+                    </p>
+                    {% endif %}
+
+                    <!-- Zapiet | Store Pickup + Delivery -->
+<div id="storePickupApp"></div>
+<!-- Zapiet | Store Pickup + Delivery --><input type="submit" name="checkout" class="btn-checkout btn-large btn-full" value="{{ 'cart.general.checkout' | t }}">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+{% else %}
+  {% comment %} The cart is empty {% endcomment %}
+  <div class="text-center cart-empty">
+    <img class="img-cart-empty" src="{{ 'icon-empty-cart.png' | asset_url }}" alt="{{ shop.name }}" >
+    <p>{{ 'cart.general.empty' | t }}</p>
+    <p><a href="/collections/all" title="{{ 'cart.general.continue_shopping' | t }}" class="btn">{{ 'cart.general.continue_shopping' | t }}</a></p>
+  </div>
+{% endif %}<div id="shopfront-cart-page"><span id="sft-subtotal-cart">{{ cart.total_price | money }}</span></div>
+<script type="text/javascript" src="https://api.feefo.com/api/javascript/vape-juice"></script>
+  
+  <div id="feefo-service-review-floating-widgetId"></div>
+{% include "sloyalty-statusbar" %}

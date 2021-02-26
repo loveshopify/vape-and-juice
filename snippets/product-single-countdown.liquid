@@ -1,0 +1,16 @@
+{% assign field = product.metafields.countdown %}
+{% assign key = 'countdownkey' %}
+{% if field[key] != blank %}
+<div class="tp-countdown">
+	<div class="countdown-inner">
+	    <div id="tp-clock" class="countdown-clock countdown-big"></div>
+	</div>
+    <script>
+	  $(window).load(function() {
+	    $("#tp-clock").countdown('{{ field[key] }}', function(event) {
+	      $(this).html(event.strftime(' ' + '<span><strong>%D</strong>{{ 'general.countdown.days' | t }}</span>' + '<span><strong>%H</strong>{{ 'general.countdown.hours' | t }}</span>' + '<span><strong>%M</strong>{{ 'general.countdown.mins' | t }}</span>' + '<span><strong>%S</strong>{{ 'general.countdown.secs' | t }}</span>'));
+	    });
+	  })
+	</script>
+</div>
+{% endif %}

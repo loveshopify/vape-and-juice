@@ -1,0 +1,90 @@
+{% if section.blocks.size > 0 %}
+<ul>
+  {% for block in section.blocks %}
+    {% case block.type %}
+      {% when 'register_link' %}
+        <li>
+          {% if customer %}
+            <a href="/account">{{ 'layout.customer.account' | t }}</a>
+          {% else %}
+            <a href="/account/register">{{ 'layout.customer.register' | t }}</a>
+          {% endif %}
+        </li>
+      {% when 'login_link' %}
+        <li>
+          {% if customer %}
+            <a href="/account/logout">{{ 'layout.customer.log_out' | t }}</a>
+          {% else %}
+            <a href="/account/login">{{ 'layout.customer.log_in' | t }}</a>
+          {% endif %}
+        </li>
+      {% else %}
+          <input type="hidden" value="{{ block.settings.link }}" id='pidaraz'>
+        {% if block.settings.link != blank and block.settings.title != blank %}
+          {% if block.settings.link != '/account/login' %}
+            {% if block.settings.link != '/account/register' %}
+              {% if block.settings.link != '/pages/wishlists' %}
+                <li>
+                   <a href="{{ block.settings.link }}">{{ block.settings.title }}</a>
+                </li>
+              {% endif %}
+           {% endif %}
+          {% endif %}
+        {% endif %}
+    {% endcase %}
+  {% endfor %}
+  <li><a href="/pages/wishlists">Favorites</a></li>
+</ul>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Header Top Link",
+  "class": "header-top-menu",
+  "blocks": [
+    {
+      "type": "link",
+      "name": "Link",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Link Title",
+          "default": "Title"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
+    },
+    {
+      "type": "register_link",
+      "name": "Resgiter/Account Link",
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "On beginning, this text is Register. After we logged in store, this text is Account. You can change this text at Online Store --> Themes --> Actions --> Edit Languages. "
+        }
+      ]
+    },
+    {
+      "type": "login_link",
+      "name": "Login/Logout Link",
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "On beginning, this text is Log in. After we logged in store, this text is Log out. You can change this text at Online Store --> Themes --> Actions --> Edit Languages. "
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+.header-top-menu {display: inline-block;}
+.header-top-menu ul {padding: 0; margin: 0;}
+.header-top-menu li {list-style: none; display: inline-block;}
+{% endstylesheet %}

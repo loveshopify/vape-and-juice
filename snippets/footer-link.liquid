@@ -1,0 +1,15 @@
+{% if linklists[link_lists].links.size > 0 %}
+<ul class="footer-links">
+  {% for link in linklists[link_lists].links %}
+  <li>
+    <a href="{{ link.url }}" title="{{ link.title }}">{{ link.title }}</a>
+  </li>
+  {% endfor %}
+</ul>
+{% else %}
+<ul class="footer-links">
+	{% for link in (1..4) %}
+	<li><a href="#">Custom Link {{ forloop.index }}</a></li>
+	{% endfor %}
+</ul>
+{% endif %}

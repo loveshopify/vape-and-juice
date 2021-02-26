@@ -1,0 +1,59 @@
+{%assign sca_price = sca_product.price%}
+{%assign sca_price_min = sca_product.price_max%}
+{%assign sca_price_max = sca_product.price_min%}
+{%assign sca_compare_at_price = sca_product.compare_at_price%}
+{%assign sca_compare_at_price_min = sca_product.compare_at_price_max%}
+{%assign sca_compare_at_price_max = sca_product.compare_at_price_min%}
+{%assign sca_product_available = false %}
+{%assign sca_product_variantCount = 0 %}
+{% for variant in sca_product.variants %}
+  {% unless variant.metafields.secomapp.freegifts %}
+  {% unless variant.title contains '(Freegifts)' %}
+  {% unless variant.title contains '% Off' %}
+  {% unless variant.metafields.shappify_qb.qb_hide == "1" %}
+  {% unless variant.metafields.shappify_bundle.is_bundle == "true" %}
+  {% unless variant.metafields.brodev_scn.hide == "true" %}  
+  {% unless variant.metafields.wholesaler2.wholesale %}  
+  {% unless variant.metafields.Wholesaler.level %}
+  {% unless variant.title contains '(Wholesale' %}
+    {% if sca_price_min >= variant.price %}
+      {% assign sca_price_min = variant.price %}
+      {% assign sca_price = variant.price %}
+    {%endif%}
+    {% if sca_price_max <= variant.price %}
+      {% assign sca_price_max = variant.price %}
+    {%endif%}
+    {%if variant.compare_at_price %}
+      {% if sca_compare_at_price_min >= variant.compare_at_price %}
+        {% assign sca_compare_at_price_min = variant.compare_at_price %}
+        {% assign sca_compare_at_price = variant.compare_at_price %}
+      {%endif%}
+      {% if sca_compare_at_price_max <= variant.compare_at_price %}
+        {% assign sca_compare_at_price_max = variant.compare_at_price %}
+      {%endif%}
+    {%endif%}
+    {% if variant.available == true %}
+      {% assign sca_product_available = true %}
+    {% endif %}
+    {% assign sca_product_variantCount = sca_product_variantCount | plus: 1 %}
+  {%endunless%}
+  {%endunless%}
+  {%endunless%}
+  {%endunless%}
+  {%endunless%}
+  {%endunless%}
+  {%endunless%}
+  {%endunless%}
+  {%endunless%}
+{% endfor %}
+{% if sca_price_min < sca_price_max %}
+  {%assign sca_price_varies = true%}
+{%else%}
+  {%assign sca_price_varies = false%}
+{%endif%}
+
+{% if sca_compare_at_price_min < sca_compare_at_price_max %}
+  {%assign sca_compare_at_price_varies = true%}
+{%else%}
+  {%assign sca_compare_at_price_varies = false%}
+{%endif%}

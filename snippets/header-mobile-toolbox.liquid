@@ -1,0 +1,32 @@
+<div class="visible-xs visible-sm site-header-mobile">
+  <div class="tp-menu-mobile">
+
+    {% if settings.header_currency_enable %}
+    <div class="tp-col-currency">
+      {% include 'header-currency' %}
+    </div>
+    {% endif %}
+
+    <div class="tp-col-search">
+      <div class="dropdown">
+        <button class="dropdown-toggle" data-toggle="dropdown"></button>
+        <div class="dropdown-menu">
+          {% include 'search-bar' %}
+        </div>
+      </div>
+    </div>
+
+    <div class="tp-col-link">
+      <div class="dropdown">
+        <button class="dropdown-toggle" data-toggle="dropdown"></button>
+        {% section 'tp-section-header-top-link' %}
+      </div>
+    </div>
+
+    
+    <div class="tp-col-close">
+      <button class="btn-close"></button>
+    </div>
+    
+  </div>
+</div>

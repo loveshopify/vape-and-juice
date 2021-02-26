@@ -1,0 +1,31 @@
+{% if settings.product_item_variant_color_enable %}
+<div class="item-color-swatch">
+  <ul>
+    {% for option in product.options %}
+      {% if option == 'Color' %}
+        {% assign index = forloop.index0 %}
+      {% assign colors = '' %}
+        {% for variant in product.variants %}
+
+          {% capture color %}
+        {{ variant.options[index] }}
+        {% endcapture %}
+        {% unless colors contains color %}
+            {% assign link_color = color | handleize %}
+            <li>
+              <span class="bg-{{ color | split: ' ' | last | handle }}" style="{% if link_color contains 'white' %}border:1px solid #ddd;{% endif %} {% if settings.product_item_variant_color_option == 'image' %} background-color: {{ color | split: ' ' | last | handle }}; background-image: url({{ link_color | append: '.png' | file_url }}); {% endif %} {% if settings.product_item_variant_color_option == 'name' %} background-color: {{ color | split: ' ' | last | handle }}; {% endif %}"></span>
+              <div class="hidden">
+                <img src="{{ variant.image.src | product_img_url: 'large' }}" alt="{{ variant.image.alt | escape }}" data-id="{{variant.image.id}}">
+              </div>
+            </li>
+            {% capture tempColors %}
+              {{ colors | append: color | append: ' ' }}
+            {% endcapture %}
+            {% assign colors = tempColors %}
+        {% endunless %}
+        {% endfor %}
+      {% endif %}
+    {% endfor%}
+  </ul>
+</div>
+{% endif %}

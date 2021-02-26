@@ -1,0 +1,148 @@
+<style type="text/css">
+  .tp-home-product-list-1.section-{{ section.id }} {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+      background-color: {{ section.settings.bg_color}};
+  }
+  @media (min-width: 992px) {
+    .tp-home-product-list-1.section-{{ section.id }} .tp-product-grid .grid-item:nth-child({{ settings.product_item_per_row }}n+1) {
+      clear: none;
+    }
+    .tp-home-product-list-1.section-{{ section.id }} .tp-product-grid .grid-item:nth-child({{ section.settings.product_item_per_row }}n+1) {
+      clear: left;
+    }
+    .tp-home-product-list-1.section-{{ section.id }} .tp-product-grid .grid-item {
+      width: {{ 100 | divided_by: section.settings.product_item_per_row }}%;
+    }
+  }
+  {% if section.settings.block_layout == 'extrawidth' %}
+    @media (min-width: 1300px) {
+      .tp-home-product-list-1.section-{{ section.id }} .container { width: 100%; padding-left: 50px; padding-right: 50px;}
+    }
+  {% endif %}
+</style>
+
+{% stylesheet %}
+@media (min-width: 768px) and (max-width: 991px) {
+  .tp-home-product-list-1 .tp-product-grid .grid-item {
+    width: 33.333%;
+  }
+  .tp-home-product-list-1 .tp-product-grid .grid-item:nth-child(3n+1) {
+    clear: left;
+  }
+}
+@media (max-width: 767px) {
+  .tp-home-product-list-1 .tp-product-grid .grid-item {
+    width: 50%;
+  }
+  .tp-home-product-list-1 .tp-product-grid .grid-item:nth-child(2n+1) {
+    clear: left;
+  }
+}
+{% endstylesheet %}
+
+<div class="tp-home-product-list-1 section-{{ section.id }}">
+  <div class="container">
+    {% if section.settings.heading != blank %}
+    <div class="tp-block-heading">
+      <h3><a href="collections/{{ section.settings.choose_collection | handleize }}">{{ section.settings.heading }}</a></h3>
+    </div>
+    {% endif %}
+
+    {% if section.settings.choose_collection != blank and collections[section.settings.choose_collection] != blank %}
+      <div class="tp-product-grid">
+        {% for product in collections[section.settings.choose_collection].products limit: section.settings.limit_number %}
+          {% include 'product-grid-item' %}
+        {% endfor %}
+      </div>
+    {% else %}
+      <p class="tp-message">Please select a collection at Sections --> PRODUCT LIST 1 --> Choose Collection!</p>
+    {% endif %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Product List 1",
+  "class": "index-section",
+  "settings": [
+    {
+      "type": "select",
+      "id": "block_layout",
+      "label": "Layout",
+      "options": [
+        {
+          "value": "extrawidth",
+          "label": "Extra Width"
+        },
+        {
+          "value": "box",
+          "label": "Box 1170"
+        }
+      ],
+      "default": "box"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 40
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#fff"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "New Products"
+    },
+	    {
+      "type": "collection",
+      "id": "choose_collection",
+      "label": "Choose Collection"
+    },
+    {
+      "type": "range",
+      "id": "product_item_per_row",
+      "min": 0,
+      "max": 10,
+      "step": 1,
+      "label": "Product Item to show",
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "limit_number",
+      "min": 0,
+      "max": 12,
+      "step": 1,
+      "label": "Limit Product Item",
+      "default": 8
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product List 1",
+      "category": "Product List"
+    }
+  ]
+}
+{% endschema %}

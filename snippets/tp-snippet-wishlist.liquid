@@ -1,0 +1,11 @@
+{% if settings.product_item_wishlist_enable %}
+<div class="tp-wishlist-wrap">
+	<a class="tp-wishlist wishlist-{{ product.handle }}" data-id="{{ product.id }}" data-handle="{{ product.handle }}" data-name="{{product.title}}" data-toggle="tooltip" title="{{ "general.wishlist.add_wishlist" | t }}"><span>{{ "general.wishlist.add_wishlist" | t }}</span></a>
+</div>
+{% endif %}
+{% comment %}
+{% capture the_snippet_fave_icon %}{% include 'ssw-widget-faveicon' with product.id %}{% endcapture %}
+{% unless the_snippet_fave_icon contains 'Liquid error' %}
+    {{ the_snippet_fave_icon }}
+{% endunless %}
+{% endcomment %}

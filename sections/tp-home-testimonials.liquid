@@ -1,0 +1,187 @@
+<style type="text/css">
+  .tp-home-testimonials.section-{{ section.id }} {
+    padding-top: {{ section.settings.padding_top | remove: 'px' }}px;
+    padding-bottom : {{ section.settings.padding_bottom | remove: 'px' }}px;
+    background-color: {{ section.settings.bg_color }};
+    color: {{ section.settings.text_color }};
+    {% if section.settings.bg_img_enable %}
+    background-image: url({{ section.settings.image_bg | img_url : '1920x' }});
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: repeat;
+    {% endif %}
+  }
+  .tp-home-testimonials.section-{{ section.id }} .tp-block-heading h3 {
+    color: {{ section.settings.heading_color }};
+  }
+  .tp-home-testimonials.section-{{ section.id }} .tp-block-heading h3:after,
+  .tp-home-testimonials.section-{{ section.id }} .slick-dots li:not(.slick-active) button {
+    border-color: {{ section.settings.heading_color }};
+  }
+  .tp-home-testimonials .testimonials-item figure:before {font-family: {{ settings.fonts_name_3 }}; background-color: {{ settings.color_primary }}; color: {{ settings.color_text_on_primary }}; }
+  .tp-home-testimonials .testimonials-item .content-text {font-family: {{ settings.fonts_name_3 }}; }
+  {% if section.settings.block_layout == "fullwidth" %}
+  @media (min-width: 1300px) {
+    .tp-home-testimonials.section-{{ section.id }} .container {width: 100%; padding-left: 50px; padding-right: 50px;}
+  }
+  {% endif %}
+</style>
+
+{% stylesheet %}
+.tp-home-testimonials .testimonials-item {text-align: center; padding-top: 10px;}
+.tp-home-testimonials .testimonials-item figure { margin-bottom: 30px; position: relative; display: inline-block; position: relative;}
+.tp-home-testimonials .testimonials-item figure:before {content: '“'; font-size: 40px; font-weight: bold; width: 36px; height: 36px; line-height: 50px; display: block; position: absolute; top: 5px; left: -10px; border-radius: 50%;}
+.tp-home-testimonials .testimonials-item img {border-radius: 60px;}
+.tp-home-testimonials .testimonials-item .content-text {font-size: 18px; font-style: italic; width: 750px; max-width: 100%; margin: 0 auto 30px;}
+.tp-home-testimonials .testimonials-item strong {font-stye: normal;}
+.tp-home-testimonials .testimonials-item .author {text-transform: uppercase; margin-bottom: 40px; display: block; font-size: 14px;}
+{% endstylesheet %}
+
+<section class="tp-home-testimonials section-{{ section.id }}">
+  <div class="container">
+    {% if section.settings.heading != blank %}
+    <div class="tp-block-heading wow fadeIn" data-wow-delay="{{ settings.delay_time_ra }}ms">
+        <h3>{{ section.settings.heading }}</h3>
+    </div>
+    {% endif %}
+    <div class="testimonials-content-slider">
+       {% for block in section.blocks %}
+          <div class="testimonials-item wow fadeIn" data-wow-delay="{{ settings.delay_time_ra | plus: 100 }}ms">
+            <figure><img src="{{  block.settings.image | img_url: '120x120' }}" alt="{{ block.settings.image.alt }}"/></figure>
+            {% if block.settings.quote != blank %}
+            <div class="content-text">{{ block.settings.quote }}</div>
+            {% endif %}
+            {% if block.settings.author != blank %}
+            <strong class="author">{{ block.settings.author }}</strong>
+            {% endif %}
+          </div>
+       {% endfor %}
+    </div>
+  </div>
+
+  <script>
+    $(window).load(function() {
+      $(".testimonials-content-slider").slick({
+        slidesToShow: 1,
+        dots: true,
+        arrows: false
+      });
+    });
+  </script>
+</section>
+
+{% schema %}
+{
+  "name" : "Testimonials",
+  "class" : "index-section",
+  "max_blocks": 10,
+  "settings" : [
+    {
+      "type": "select",
+      "id": "block_layout",
+      "options": [
+        { "value": "box", "label": "Box 1170px"},
+        { "value": "fullwidth", "label": "Full Width"}
+      ],
+      "label": "Layout",
+      "default": "box"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 40
+    },
+    {
+      "type" : "text",
+      "id" : "heading",
+      "label" : "Heading",
+      "default" : "We love our clients"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#000"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading Color",
+      "default": "#fff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#fff"
+    },
+    {
+      "type": "checkbox",
+      "id": "bg_img_enable",
+      "label": "Enable Background Image?"
+    },
+    {
+      "type" : "image_picker",
+      "id" : "image_bg",
+      "label" : "Image Background"
+    }
+  ],
+  "blocks" : [
+    {
+      "type" : "quote",
+      "name" : "Testimonial",
+      "settings" : [
+          {
+            "type" : "image_picker",
+            "id" : "image",
+            "label" : "Image"
+          },
+          {
+            "type": "richtext",
+             "id": "quote",
+             "label": "Text",
+             "default": "<p>Add customer reviews and testimonials to showcase your store’s happy customers.</p>"
+          },
+          {
+            "type": "text",
+            "id": "author",
+            "label": "Author",
+            "default": "Author's name"
+          }
+      ]
+    }
+  ],
+  "presets" : [
+  {
+    "name": "Testimonials",
+    "blocks": [
+      {
+        "type": "quote"
+      },
+      {
+        "type": "quote"
+      },
+      {
+        "type": "quote"
+      }
+    ]
+  }
+  ]
+}
+{% endschema %}

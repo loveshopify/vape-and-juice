@@ -1,0 +1,458 @@
+<div class="tp-sidebar tp-sidebar-toggle tp-sidebar-collection tp-collection-filter">
+
+  
+  {% if section.blocks.size > 0 %}
+		{% for block in section.blocks %}
+			{% assign time = settings.delay_time_ra | times: forloop.index | divided_by: 2 %}
+			{% case block.type %}
+				{% when 'category' %}
+				<div class="tp-sidebar-block tp-block-categories wow fadeIn" data-wow-delay="{{ time }}ms">
+				    {% if block.settings.title != blank %}
+				    <div class="tp-sidebar-heading">
+				      	<h3>
+				      		<span>{{ block.settings.title }}</span>
+				      		<i class="fa fa-angle-down"></i>
+				      	</h3>
+				    </div>
+				    {% endif %}
+				    <div class="tp-sidebar-content">
+				      	<ul class="category-navi">
+				      		{% case block.settings.top_categories_source %}
+				      			{% when 'show_all' %}
+					      			{% for cate in collections %}
+		                                {% if cate.products.size > 0 and cate.handle != 'all' %}
+		                                <li class="cat-item{%- if collection.handle == cate.handle %} current-cat-parent{%- endif -%}"><a href="{{ cate.url }}">{{ cate.title }}</a></li>
+		                                {% endif %}
+		                          	{% endfor %}
+				      			{% else %}
+				      				{% if block.settings.top_categories_link_list != blank %}
+								        {% for link in linklists[block.settings.top_categories_link_list].links %}
+									        {% if linklists[link.handle].links.size > 0 %}
+									        <li class="cat-item cat-item-parent">
+									          	<a href="{{ link.url }}"><span class="link-title">{{ link.title }}</span></a>
+									          	<i class="fa fa-angle-down"></i>
+									          	<ul class="category-sublink">
+									            	{% for sublink in linklists[link.handle].links %}
+									            	<li><a href="{{ sublink.url }}"><span class="link-title">{{ sublink.title }}</span></a></li>
+									            	{% endfor %}
+									          	</ul>
+									        </li>
+									        {% else %}
+									        <li class="cat-item">
+									          	<a href="{{ link.url }}">{{ link.title }}</a>
+									        </li>
+									        {% endif %}
+								        {% endfor %}
+							        {% else %}
+							        	<li class="tp-message-empty">Please choose a link list</li>
+							        {% endif %}
+				      		{% endcase %}
+				        </ul>
+				    </div>
+			    </div>
+		    	{% when 'color' %}
+
+			    <div class="tp-sidebar-block tp-filter-block tp-filter-color tp-filter-color_sg wow fadeIn" data-wow-delay="{{ time }}ms">
+			    	{% if block.settings.title != blank %}
+				  		<div class="tp-sidebar-heading">
+				  			<h3>
+				  				<span>{{ block.settings.title }}</span>
+				  				<i class="fa fa-angle-down"></i>
+				  			</h3>
+				  		</div>
+				  	{% endif %}
+				  	<div class="tp-sidebar-content tp-filter-content">
+				  		<ul>
+				  			{% assign tags = block.settings.filter_by_tags_color | split: ',' %}
+							{% for t in tags %}
+							{% assign tag = t | strip %}
+							{% assign tag_value = tag | handleize | downcase %}
+							{% capture tag_contain %}{{ false }}{% endcapture %}
+							{% capture tag_contain_block %}{{ false }}{% endcapture %}
+							{% for e_tags in current_tags %}
+								{% assign new_e_tags = e_tags | handleize | strip | downcase %}
+								{% if new_e_tags == tag_value %}
+									{% assign tag_contain_block = true %}
+									{% break %}
+								{% endif %}
+							{% endfor %}
+							{% for e_tags in collection.all_tags %}
+{%- if e_tags contains '_HIDDEN_PRODUCT' -%}{%- continue -%}{%- endif -%}
+								{% assign new_e_tags = e_tags | handleize | strip | downcase %}
+								{% if new_e_tags == tag_value %}
+									{% assign tag_contain = true %}
+									{% break %}
+								{% endif %}
+							{% endfor %}
+							{% if tag_contain_block == true %}
+							<li>
+		                        <input type="checkbox" value="{{ tag_value }}" checked id="tag-{{ tag_value }}"/>
+		                        <label for="tag-{{ tag_value }}" class="bg-{{ tag_value }}" data-toggle="tooltip" title="{{ tag }}" style="background-color: {{ tag_value }};"></labeL>
+							</li>
+		                    {% elsif tag_contain == true %}
+							<li  class="filter_colors" data-fcolor="true">
+		                        <input type="checkbox" value="{{ tag_value }}" id="tag-{{ tag_value }}"/>
+		                        <label for="tag-{{ tag_value }}" class="bg-{{ tag_value }}" data-toggle="tooltip" title="{{ tag }}" style="background-color: {{ tag_value }};"></labeL>
+							</li>
+							{% endif %}
+							{% endfor %}
+				  		</ul>
+				  	</div>
+			    </div>
+ 
+		    	{% when 'size' %}
+
+
+			    <div class="tp-sidebar-block tp-filter-block tp-filter-size tp-filter-size_sg wow fadeIn" data-wow-delay="{{ time }}ms">
+			    	{% if block.settings.title != blank %}
+				  		<div class="tp-sidebar-heading">
+				  			<h3>
+				  				<span>{{ block.settings.title }}</span>
+				  				<i class="fa fa-angle-down"></i>
+				  			</h3>
+				  		</div>
+				  	{% endif %}
+				  	<div class="tp-sidebar-content tp-filter-content">
+				  		<ul>
+				  			{% assign tags = block.settings.filter_by_tags_size | split: ',' %}
+							{% for t in tags %}
+							{% assign tag = t | strip %}
+							{% assign tag_value = tag | handleize | downcase %}
+							{% capture tag_contain %}{{ false }}{% endcapture %}
+							{% capture tag_contain_block %}{{ false }}{% endcapture %}
+							{% for e_tags in current_tags %}
+								{% assign new_e_tags = e_tags | handleize | strip | downcase %}
+								{% if new_e_tags == tag_value %}
+									{% assign tag_contain_block = true %}
+									{% break %}
+								{% endif %}
+							{% endfor %}
+							{% for e_tags in collection.all_tags %}
+{%- if e_tags contains '_HIDDEN_PRODUCT' -%}{%- continue -%}{%- endif -%}
+								{% assign new_e_tags = e_tags | handleize | strip | downcase %}
+								{% if new_e_tags == tag_value %}
+									{% assign tag_contain = true %}
+									{% break %}
+								{% endif %}
+							{% endfor %}
+							{% if tag_contain_block == true %}
+							<li>
+		                        <input type="checkbox" value="{{ tag_value }}" checked id="tag-{{ tag_value }}"/>
+		                        <label for="tag-{{ tag_value }}">{{ tag }}</labeL>
+							</li>
+		                    {% elsif tag_contain == true %}
+							<li class="filter_sizes" data-fsize="true">
+		                        <input type="checkbox" value="{{ tag_value }}" id="tag-{{ tag_value }}"/>
+		                        <label for="tag-{{ tag_value }}">{{ tag }}</labeL>
+							</li>
+							{% endif %}
+							{% endfor %}
+				  		</ul>
+				  	</div>
+			    </div>
+
+		    	{% when 'price' %}
+  
+
+			    <div class="tp-sidebar-block tp-filter-block tp-filter-price tp-filter-price_sg wow fadeIn" data-wow-delay="{{ time }}ms">
+			    	{% if block.settings.title != blank %}
+				  		<div class="tp-sidebar-heading">
+				  			<h3>
+				  				<span>{{ block.settings.title }}</span>
+				  				<i class="fa fa-angle-down"></i>
+				  			</h3>
+				  		</div>
+				  	{% endif %}
+				  	<div class="tp-sidebar-content tp-filter-content">
+				  		<ul>
+				  			{% assign tags = block.settings.filter_by_tags_price | split: ',' %}
+							{% for t in tags %}
+							{% assign tag = t | strip %}
+							{% assign tag_value = tag | handleize | downcase %}
+							{% capture tag_contain %}{{ false }}{% endcapture %}
+							{% capture tag_contain_block %}{{ false }}{% endcapture %}
+							{% for e_tags in current_tags %}
+								{% assign new_e_tags = e_tags | handleize | strip | downcase %}
+								{% if new_e_tags == tag_value %}
+									{% assign tag_contain_block = true %}
+									{% break %}
+								{% endif %}
+							{% endfor%}
+							{% for e_tags in collection.all_tags %}
+{%- if e_tags contains '_HIDDEN_PRODUCT' -%}{%- continue -%}{%- endif -%}
+								{% assign new_e_tags = e_tags | handleize | strip | downcase %}
+								{% if new_e_tags == tag_value %}
+									{% assign tag_contain = true %}
+									{% break %}
+								{% endif %}
+							{% endfor %}
+							{% if tag_contain_block == true %}
+							<li>
+		                        <input type="checkbox" value="{{ tag_value }}" checked id="tag-{{ tag_value }}"/>
+		                        <label for="tag-{{ tag_value }}" class="active">{{ tag }}</labeL>
+							</li>
+		                    {% elsif tag_contain == true %}
+							<li class="filter_prices" data-fprice="true">
+		                        <input type="checkbox" value="{{ tag_value }}" id="tag-{{ tag_value }}"/>
+		                        <label for="tag-{{ tag_value }}">{{ tag }}</labeL>
+							</li>
+							{% endif %}
+							{% endfor %}
+				  		</ul>
+				  	</div>
+			    </div>
+
+		    	{% when 'brand' %}
+  
+
+			    <div class="tp-sidebar-block tp-filter-block tp-filter-brand tp-filter-brand_sg wow fadeIn" data-wow-delay="{{ time }}ms">
+			    	{% if block.settings.title != blank %}
+				  		<div class="tp-sidebar-heading">
+				  			<h3>
+				  				<span>{{ block.settings.title }}</span>
+				  				<i class="fa fa-angle-down"></i>
+				  			</h3>
+				  		</div>
+				  	{% endif %}
+				  	<div class="tp-sidebar-content tp-filter-content">
+				  		<ul>
+				  			{% assign tags_brand = block.settings.filter_by_tags_brand | split: ',' %}
+							{% for t in tags_brand %}
+							{% assign tag = t | strip %}
+							{% assign tag_value = tag | handleize | downcase %}
+							{% capture tag_contain %}{{ false }}{% endcapture %}
+							{% capture tag_contain_block %}{{ false }}{% endcapture %}
+							{% for e_tags in current_tags %}
+								{% assign new_e_tags = e_tags | handleize | strip | downcase %}
+								{% if new_e_tags == tag_value %}
+									{% assign tag_contain_block = true %}
+									{% break %}
+								{% endif %}
+							{% endfor %}
+							{% for e_tags in collection.all_tags %}
+{%- if e_tags contains '_HIDDEN_PRODUCT' -%}{%- continue -%}{%- endif -%}
+								{% assign new_e_tags = e_tags | handleize | strip | downcase %}
+								{% if new_e_tags == tag_value %}
+									{% assign tag_contain = true %}
+									{% break %}
+								{% endif %}
+							{% endfor %}
+							{% if tag_contain_block == true %}
+							<li>
+		                        <input type="checkbox" value="{{ tag_value }}" checked id="tag-{{ tag_value }}"/>
+		                        <label for="tag-{{ tag_value }}" class="active">{{ tag }}</labeL>
+							</li>
+		                    {% elsif tag_contain == true %}
+							<li  class="filter_brands" data-fbrand="true">
+		                        <input type="checkbox" value="{{ tag_value }}" id="tag-{{ tag_value }}"/>
+		                        <label for="tag-{{ tag_value }}">{{ tag }}</labeL>
+							</li>
+							{% endif %}
+							{% endfor %}
+				  		</ul>
+				  	</div>
+			    </div>
+
+			    {% else %}
+  
+
+  
+			    <div class="tp-sidebar-block tp-filter-block tp-filter-other tp-filter-other_sg wow fadeIn" data-wow-delay="{{ time }}ms">
+			    	{% if block.settings.title != blank %}
+				  		<div class="tp-sidebar-heading">
+				  			<h3>
+				  				<span>{{ block.settings.title }}</span>
+				  				<i class="fa fa-angle-down"></i>
+				  			</h3>
+				  		</div> 
+				  	{% endif %}
+				  	<div class="tp-sidebar-content tp-filter-content">
+				  		<ul>
+				  			{% assign tags_brand = block.settings.filter_by_tags_other | split: ',' %}
+							{% for t in tags_brand %}
+							{% assign tag = t | strip %}
+							{% assign tag_value = tag | handleize | downcase %}
+							{% capture tag_contain %}{{ false }}{% endcapture %}
+							{% capture tag_contain_block %}{{ false }}{% endcapture %}
+							{% for e_tags in current_tags %}
+								{% assign new_e_tags = e_tags | handleize | strip | downcase %}
+								{% if new_e_tags == tag_value %}
+									{% assign tag_contain_block = true %}
+									{% break %}
+								{% endif %}
+							{% endfor %}
+							{% for e_tags in collection.all_tags %}
+{%- if e_tags contains '_HIDDEN_PRODUCT' -%}{%- continue -%}{%- endif -%}
+								{% assign new_e_tags = e_tags | handleize | strip | downcase %}
+								{% if new_e_tags == tag_value %}
+									{% assign tag_contain = true %}
+									{% break %}
+								{% endif %}
+							{% endfor %}
+							{% if tag_contain_block == true %}
+							<li>
+		                        <input type="checkbox" value="{{ tag_value }}" checked id="tag-{{ tag_value }}"/>
+		                        <label for="tag-{{ tag_value }}" class="active">{{ tag }}</labeL>
+							</li>
+		                    {% elsif tag_contain == true %}
+							<li class="filter_others" data-fothers="true">
+		                        <input type="checkbox" value="{{ tag_value }}" id="tag-{{ tag_value }}"/>
+		                        <label for="tag-{{ tag_value }}">{{ tag }}</labeL>
+							</li>
+							{% endif %}
+							{% endfor %}
+				  		</ul>
+				  	</div>
+			    </div>
+
+			{% endcase %}
+		{% endfor %}
+	{% else %}
+	<div class="tp-message-empty">
+		Please go <strong>Sections --> Collection Filter</strong> to add a block
+	</div>
+	{% endif %}
+</div>
+
+
+{% schema %} 
+{
+    "name": "Collection Filter",
+    "class": "section-sidebar",
+    "max_blocks": 10,
+    "blocks": [
+      {
+        "type": "category",
+        "name": "Categories",
+        "limit": 1,
+        "settings": [
+	        { 
+	            "type": "text",
+	            "id": "title",
+	            "label": "Heading",
+	            "default": "Categories"
+	        },
+	        {
+	            "type": "radio",
+	            "id": "top_categories_source",
+	            "label": "Show all \/ Show a link list",
+	            "options": [
+	            {
+	               "value": "show_all",
+	               "label": "Show all categories"
+	            },
+	            {
+	               "value": "link_list",
+	               "label": "Show a link list"
+	            }
+	           ]
+	        },
+	        {
+	           "type": "link_list",
+	           "id": "top_categories_link_list",
+	           "label": "Choose a link list"
+	        }
+        ]
+      },
+      {
+        "type": "color",
+        "name": "Filter by Color",
+        "limit": 1,
+        "settings": [
+	        { 
+	          "type": "text", 
+	          "id": "title",
+	          "label": "Filter Title",
+	          "default": "Filter by Color"
+	        },
+	        {
+	           "type": "textarea",
+	           "id": "filter_by_tags_color",
+	           "label": "Filter by tags list",
+	           "default": "Red, Blue, Pink, Black, Yellow, Green, Orange, White",
+	           "info": "Separate by a comma, Ex: Tag1, Tag2, Tag3"
+	        }
+        ]
+      },
+      {
+        "type": "size",
+        "name": "Filter by Size",
+        "limit": 1,
+        "settings": [
+	        { 
+	          "type": "text",
+	          "id": "title",
+	          "label": "Filter Title",
+	          "default": "Filter by Size"
+	        },
+	        {
+	           "type": "textarea",
+	           "id": "filter_by_tags_size",
+	           "label": "Filter by tags list",
+	           "default": "XS, S, M, L, XL, XXL",
+	           "info": "Separate by a comma, Ex: Tag1, Tag2, Tag3"
+	        }
+        ]
+      },
+      {
+        "type": "price",
+        "name": "Filter by Price",
+        "limit": 1,
+        "settings": [
+	        { 
+	          "type": "text",
+	          "id": "title",
+	          "label": "Filter Title",
+	          "default": "Filter by Price"
+	        },
+	        {
+	           "type": "textarea",
+	           "id": "filter_by_tags_price",
+	           "label": "Filter by tags list",
+	           "default":"Under $100, $100 - $200, $200 - $300, Above $300",
+	           "info": "Separate by a comma, Ex: Tag1, Tag2, Tag3"
+	        }
+        ]
+      },
+      {
+        "type": "brand",
+        "name": "Filter by Brand",
+        "limit": 1,
+        "settings": [
+	        { 
+	          "type": "text",
+	          "id": "title",
+	          "label": "Filter Title",
+	          "default": "Filter by Brand"
+	        },
+	        {
+	           "type": "textarea",
+	           "id": "filter_by_tags_brand",
+	           "label": "Filter by tags list",
+	           "default":"Adidas, Chanel, Nike, Puma",
+	           "info": "Separate by a comma, Ex: Tag1, Tag2, Tag3"
+	        }
+        ]
+      },
+      {
+        "type": "other_1",
+        "name": "Filter by Other",
+        "limit": 1,
+        "settings": [
+	        { 
+	          "type": "text",
+	          "id": "title",
+	          "label": "Filter Title",
+	          "default": "Filter by Other"
+	        },
+	        {
+	           "type": "textarea",
+	           "id": "filter_by_tags_other",
+	           "label": "Filter by tags list",
+	           "info": "Separate by a comma, Ex: Tag1, Tag2, Tag3"
+	        }
+        ]
+      }
+    ]
+}
+{% endschema %}

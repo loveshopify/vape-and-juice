@@ -1,0 +1,26 @@
+<ul class="site-nav-dropdown">
+  {% if linklists[link_child].links.size > 0 %}
+    {% for link_child_item in linklists[link_child].links %}
+    <li {% if linklists[link_child_item.handle] != empty %}class="dropdown"{% endif %}>
+
+      {% if linklists[link_child_item.handle] == empty %}
+      <a href="{{ link_child_item.url }}">
+        {{ link_child_item.title }}
+      </a>
+      {% else %}
+        <h5 class="tp-mega-heading">
+          <a href="{{ link_child_item.url }}">
+            {{ link_child_item.title }}
+          </a>
+          <span class="icon-plus visible-xs visible-sm"></span>
+        </h5>
+       
+        {% assign link_child = link_child_item.handle %}
+        {% include 'tp-dropdown-menu' with link_child %}
+      {% endif %}
+    </li>
+    {% endfor %}
+  {% else %}
+    <li class="tp-message">Please create a linklist</li>
+  {% endif %}
+</ul>

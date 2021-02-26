@@ -1,0 +1,72 @@
+{% comment %}
+NOTE:
+This file contains content used by S Loyalty (www.sloyalty.com) to power your loyalty program on your storefront for this theme. DO NOT edit or delete this file as it would lead to service interruptions. If you have any inquiries, please contact us at support@sloyalty.com.
+{% endcomment %}
+
+
+
+{% if customer %} {% assign digest = customer.id | append:customer.email | downcase | append:'5eff1227-c477-452a-94d0-7d772ce27a45' | md5 %} {% endif %}
+
+<script type="text/javascript">
+window.sloyalty = window.sloyalty || {};
+window.sloyalty.shop = '{{ shop.permanent_domain }}';
+
+window.sloyalty.customer_id = '{% if customer %}{{ customer.id }}{% endif %}';
+window.sloyalty.digest = '{% if customer %}{{ digest }}{% endif %}';
+
+
+{% assign default_langify_id = shop.metafields.languages['default'] %}
+{% if default_langify_id %}
+  {% comment %}verified langify exist{% endcomment %}
+  {% comment %}preferred_lang_code format: 'en'{% endcomment %}
+  {% assign preferred_lang_code = null %}
+  {% comment %}selected_langify_language format: 'ly57034'{% endcomment %}
+  {% assign selected_langify_language = null %}
+
+  {% assign host = request.host %}
+  {% assign domains = shop.metafields.language_domains %}
+  {% if domains != null %}
+  {% for domain in domains %}
+  {% assign key = domain | first %}{% assign value = domain | last | split: ',' %}
+  {% if value contains host %}{% assign selected_langify_language = key %}{% endif %}
+  {% endfor %}
+  {% endif %}
+  {% if selected_langify_language == null %}{% assign selected_langify_language = cart.attributes["language"] %}{% endif %}
+  {% for language_code in shop.metafields.language_codes %}
+    {% if language_code.first == selected_langify_language %}
+      {% assign preferred_lang_code = language_code.last %}
+    {% endif %}
+  {% endfor %}
+  {% if preferred_lang_code == null %}
+  	{% assign preferred_lang_code = shop.metafields.language_codes[default_langify_id] %}
+  {% endif %}
+{% else %}
+  {% assign preferred_lang_code = shop.locale %}
+{% endif %}
+window.sloyalty.preferred_lang_code = '{{ preferred_lang_code }}';
+
+</script>
+
+
+
+
+  
+
+
+{% if customer %}
+{% assign digest = customer.id | append:customer.email | downcase | append:'5eff1227-c477-452a-94d0-7d772ce27a45' | md5 %}
+
+<div class="sloyalty-loyalty-widget"
+     data-digest="{{ digest }}"
+     data-shop="{{ shop.permanent_domain }}"
+     data-customer="{{ customer.id }}"></div>
+{% else %}
+<div class="sloyalty-loyalty-widget"
+     data-shop="{{ shop.permanent_domain }}"></div>
+{% endif %}
+
+
+
+
+
+

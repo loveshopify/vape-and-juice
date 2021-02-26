@@ -1,0 +1,457 @@
+<style type="text/css">
+  .tp-home-text-and-image.section-{{ section.id }} {
+    padding-top: {{section.settings.padding_top | remove: 'px'}}px;
+    padding-bottom: {{section.settings.padding_bottom | remove: 'px'}}px;
+  }
+  {% if section.settings.block_layout == 'fullwidth' %}
+  .tp-home-text-and-image.section-{{ section.id }} .container {width: 100%; padding-left: 0; padding-right: 0; overflow: hidden;}
+  {% endif %}
+  {% if section.settings.block_layout == 'extrawidth' %}
+  @media (min-width: 1300px) {
+    .tp-home-text-and-image.section-{{ section.id }} {padding-left: 50px; padding-right: 50px;}
+    .tp-home-text-and-image.section-{{ section.id }} .container {width: 100%; padding-left: 0; padding-right: 0;}
+  }
+  {% endif %}
+</style>
+
+<section class="tp-home-text-and-image section-{{ section.id }}"> 
+  {% if section.blocks.size > 0 %}
+    {% for block in section.blocks %}
+    <div class="tp-block-wrap container {% if block.type contains 'overlay' %}tp-block-wrap-overlay{% endif %}">
+      {% case block.type %}
+        {% when 'image_right' %}
+        <div class="tp-block-wrap-inner tp-block-image-right block-{{ block.id }}">
+          <div class="tp-block-image visible-xs">
+            {% if block.settings.image != blank %}
+            <a href="{{ block.settings.url }}">
+            	<img src="{{ block.settings.image | img_url: 'master' }}" alt="{{ block.settings.image.alt }}"/>
+            </a>
+            {% else %}
+              {% include 'sample', hd_height: 'height-420', hd_text: 'Please upload an image' %}
+            {% endif %}
+          </div>
+          <div class="tp-block-text">
+            {% if block.settings.heading != blank %}
+            <div class="tp-heading">
+              <h3>{{ block.settings.heading }}</h3>
+            </div>
+            {% endif %}
+            {% if block.settings.content != blank %}
+            <div class="tp-content">{{ block.settings.content }}</div>
+            {% endif %}
+            {% if block.settings.button != blank %}
+            <a href="{{ block.settings.button_url }}" class="btn-secondary">{{ block.settings.button }}</a>
+            {% endif %}
+          </div>
+          <div class="tp-block-image hidden-xs" style="width: {{ block.settings.image_width }}%">
+            {% if block.settings.image != blank %}
+            <a href="{{ block.settings.url }}">
+            	<img src="{{ block.settings.image | img_url: 'master' }}" alt="{{ block.settings.image.alt }}"/>
+            </a>
+            {% else %}
+              {% include 'sample', hd_height: 'height-420', hd_text: 'Please upload an image' %}
+            {% endif %}
+          </div>
+        </div>
+        {% when 'image_left' %}
+        <div class="tp-block-wrap-inner tp-block-image-left block-{{ block.id }}">
+          <div class="tp-block-image" style="width: {{ block.settings.image_width }}%">
+            {% if block.settings.image != blank %}
+            <a href="{{ block.settings.url }}">
+            	<img src="{{ block.settings.image | img_url: 'master' }}" alt="{{ block.settings.image.alt }}"/>
+            </a>
+            {% else %}
+              {% include 'sample', hd_height: 'height-420', hd_text: 'Please upload an image' %}
+            {% endif %}
+          </div>
+          <div class="tp-block-text">
+            {% if block.settings.heading != blank %}
+            <div class="tp-heading">
+              <h3>{{ block.settings.heading }}</h3>
+            </div>
+            {% endif %}
+            {% if block.settings.content != blank %}
+            <div class="tp-content">{{ block.settings.content }}</div>
+            {% endif %}
+            {% if block.settings.button != blank %}
+            <a href="{{ block.settings.button_url }}" class="btn-secondary">{{ block.settings.button }}</a>
+            {% endif %}
+          </div>
+        </div>
+      	{% when 'text_overlay_center' %}
+        <div class="tp-block-wrap-inner tp-block-text-overlay center block-{{ block.id }}" style="{% if block.settings.bg_image != blank %}background-image: url({{ block.settings.bg_image | img_url: 'master' }});{% else %}background-color: rgba(0,0,0,0.25);{% endif %}">
+          <div class="tp-block-text">
+            {% if block.settings.heading != blank %}
+            <div class="tp-heading">
+              <h3>{{ block.settings.heading }}</h3>
+            </div>
+            {% endif %}
+            {% if block.settings.content != blank %}
+            <div class="tp-content">{{ block.settings.content }}</div>
+            {% endif %}
+            {% if block.settings.button != blank %}
+            <a href="{{ block.settings.button_url }}" class="btn-secondary">{{ block.settings.button }}</a>
+            {% endif %}
+          </div>
+        </div>
+        {% when 'text_center' %}
+        <div class="tp-block-wrap-inner tp-block-text-center block-{{ block.id }}">
+          <div class="tp-block-image">
+            {% if block.settings.image_1 != blank %}
+            <a href="{{ block.settings.url }}">
+              <img src="{{ block.settings.image_1 | img_url: 'master' }}" alt="{{ block.settings.image_1.alt }}"/>
+            </a>
+            {% else %}
+              {% include 'sample', hd_height: 'height-500', hd_text: 'Please upload an image' %}
+            {% endif %}
+          </div>
+          <div class="tp-block-image">
+            {% if block.settings.image_2 != blank %}
+            <a href="{{ block.settings.url }}">
+              <img src="{{ block.settings.image_2 | img_url: 'master' }}" alt="{{ block.settings.image_2.alt }}"/>
+            </a>
+            {% else %}
+              {% include 'sample', hd_height: 'height-500', hd_text: 'Please upload an image' %}
+            {% endif %}
+          </div>
+          <div class="tp-block-text">
+            {% if block.settings.heading != blank %}
+            <div class="tp-heading">
+              <h3>{{ block.settings.heading }}</h3>
+            </div>
+            {% endif %}
+            {% if block.settings.content != blank %}
+            <div class="tp-content">{{ block.settings.content }}</div>
+            {% endif %}
+            {% if block.settings.button != blank %}
+            <a href="{{ block.settings.url }}" class="btn-secondary">{{ block.settings.button }}</a>
+            {% endif %}
+          </div>
+        </div>
+        {% else %}
+        {% if block.settings.html != blank%}
+        <div class="tp-block-wrap-inner block-html">
+          {{ block.settings.html }}
+        </div>
+        {% endif %}
+        {% if block.settings.css != blank%}
+        <style type="text/css">
+          {{ block.settings.css }}
+        </style>
+        {% endif %}
+      {% endcase %}
+    </div>
+    {% endfor %}
+  {% else %}
+  	<div class="tp-message">Please add a block</div>
+  {% endif %}
+</section>
+
+{% stylesheet %}
+.tp-home-text-and-image .tp-block-text {text-align: center; padding: 4%;}
+.tp-home-text-and-image .tp-block-image img {display: block;}
+.tp-home-text-and-image .tp-heading {margin-bottom: 20px;}
+.tp-home-text-and-image .tp-content {margin-bottom: 25px;}
+.tp-home-text-and-image .btn-secondary {border-radius: 0; -webkit-border-radius: 0; max-width: 100%; line-height: 42px;  padding-left: 40px; padding-right: 40px; text-transform: uppercase;}
+.tp-home-text-and-image .tp-heading h3 {font-size: 30px; font-weight: 400; line-height: 1.25; margin: 0;}
+.tp-home-text-and-image .tp-heading h3 span {display: block; font-size: 0.6em; font-weight: 400; margin-bottom: 6px; color: #999;}
+.tp-home-text-and-image .tp-block-text-overlay {background-color: #aaa; background-repeat: no-repeat; background-position: center center; background-size: cover; color: #fff;}
+.tp-home-text-and-image .tp-block-wrap-overlay:first-child {border-top: 0 none; border-bottom: 0 none; margin-bottom: 0;}
+.tp-home-text-and-image .tp-block-wrap-overlay:first-child+.tp-block-wrap {border-top: 0 none;}
+.tp-home-text-and-image .tp-block-text-overlay .tp-block-text {display: block; width: 900px; max-width: 100%; margin: 0 auto; padding: 5% 25px;}
+.tp-home-text-and-image .tp-block-text-overlay .tp-heading h3,
+.tp-home-text-and-image .tp-block-text-overlay .tp-heading h3 span {color: inherit;} 
+.tp-home-text-and-image .tp-block-text-overlay .tp-banner {border: 15px solid #d1d3d9;}  
+.tp-home-text-and-image .tp-block-text-overlay .btn-secondary {background: none; color: #fff; border-color: #fff; margin-bottom: 50px;}
+.tp-home-text-and-image .tp-block-text-overlay .btn-secondary:hover {background: #fff; color: #000; border-color: #fff;}
+@media (min-width: 768px) {
+	.tp-home-text-and-image .tp-block-wrap:last-child {border-bottom: 0 none; margin-bottom: 0;}
+	.tp-home-text-and-image .tp-block-wrap-inner {display: table; width: 100%; table-layout: fixed;}
+	.tp-home-text-and-image .tp-block-text,
+	.tp-home-text-and-image .tp-block-image {display: table-cell; vertical-align: middle;}
+	.tp-home-text-and-image .tp-heading-line {width: 85px; height: 0; line-height: 0; border-top: 1px solid #000; margin: -2px auto 20px;} 
+  .tp-home-text-and-image .tp-block-text-center {table-layout: initial; position: relative;} 
+  .tp-home-text-and-image .tp-block-text-center .tp-block-image {width: 50%; padding-right: 10px;}
+  .tp-home-text-and-image .tp-block-text-center .tp-block-image+.tp-block-image {padding-right: 0; padding-left: 10px;}
+  .tp-home-text-and-image .tp-block-text-center .tp-block-text {position: absolute; top: 50%; left: 50%; width: 400px; max-width: 100%; background-color: #fff; padding: 20px; transform: translate(-50%,-50%); -webkit-transform: translate(-50%,-50%);}
+}
+@media (min-width: 1300px) {
+  .tp-home-text-and-image .tp-block-text-center .tp-block-text {padding: 50px 30px;}
+}
+@media (min-width: 768px) and (max-width: 992px) {
+  .tp-home-text-and-image .tp-block-image-left .tp-content,
+  .tp-home-text-and-image .tp-block-image-right .tp-content {display: none;}
+}
+@media (max-width: 767px) {
+	.tp-home-text-and-image .tp-block-text,
+	.tp-home-text-and-image .tp-block-text-overlay .tp-block-text {padding: 25px;}
+	.tp-home-text-and-image .tp-block-wrap .tp-block-image {width: auto !important;}
+}
+{% endstylesheet %}
+
+{% schema %}
+  {
+    "name": "Text & Image",
+    "class": "index-section",
+    "max_blocks": 30,
+    "settings": [
+      {
+        "type": "select",
+        "id": "block_layout",
+        "label": "Block Layout",
+        "options": [
+          {"value": "box", "label": "Box"},
+          {"value": "fullwidth", "label": "Fullwidth"},
+          { "value": "extrawidth", "label": "Extra Width" }
+        ],
+        "default": "box"
+      },
+      {
+        "type": "range",
+        "id": "padding_top",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "label": "Padding Top",
+        "default": 40
+      },
+      {
+        "type": "range",
+        "id": "padding_bottom",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "label": "Padding Bottom",
+        "default": 40
+      }
+    ],
+    "blocks": [
+	    {
+          "type": "image_right",
+          "name": "Image On Right",
+          "settings": [
+      		  {
+              "type": "header",
+              "content": "Image"
+            },
+            {
+              "type": "image_picker",
+              "id": "image",
+              "label": "Image"
+            },
+            {
+              "type": "range",
+              "id": "image_width",
+              "min": 0,
+              "max": 100,
+              "step": 1,
+              "unit": "%",
+              "label": "Image Width",
+              "default": 50
+            },
+      		  {
+              "type": "header",
+              "content": "Text"
+            },
+            {
+              "type": "textarea",
+              "id": "heading",
+              "label": "Heading",
+      	      "default": "<span>Sub Text<\/span>Heading"
+            },
+      			{
+              "type": "html",
+              "id": "content",
+              "label": "Content",
+              "default": "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium"
+            },
+      			{
+              "type": "text",
+              "id": "button",
+              "label": "Button",
+              "default": "Shop Now"
+            },
+      			{
+              "type": "url",
+              "id": "url",
+              "label": "URL"
+            }
+        ]
+      },
+  	  {
+        "type": "image_left",
+        "name": "Image On Left",
+        "settings": [
+    		  {
+            "type": "header",
+            "content": "Image"
+          },
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+          },
+          {
+            "type": "range",
+            "id": "image_width",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "%",
+            "label": "Image Width",
+            "default": 50
+          },
+    		  {
+            "type": "header",
+            "content": "Text"
+          },
+          {
+            "type": "textarea",
+            "id": "heading",
+            "label": "Heading",
+    	      "default": "<span>Sub Text<\/span>Heading"
+          },
+    			{
+            "type": "html",
+            "id": "content",
+            "label": "Content",
+            "default": "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium"
+          },
+    			{
+            "type": "text",
+            "id": "button",
+            "label": "Button",
+            "default": "Shop Now"
+          },
+    			{
+            "type": "url",
+            "id": "url",
+            "label": "URL"
+          }
+        ]
+      },
+  	  {
+        "type": "text_overlay_center",
+        "name": "Text Overlay",
+        "settings": [
+    		  {
+            "type": "header",
+            "content": "Background Image"
+          },
+          {
+            "type": "image_picker",
+            "id": "bg_image",
+            "label": "Background Image"
+          },
+    		  {
+            "type": "header",
+            "content": "Text"
+          },
+          {
+            "type": "textarea",
+            "id": "heading",
+            "label": "Heading",
+    	      "default": "<span>Sub Text<\/span>Heading"
+          },
+    			{
+            "type": "html",
+            "id": "content",
+            "label": "Content",
+            "default": "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium"
+          },
+    			{
+            "type": "text",
+            "id": "button",
+            "label": "Button",
+            "default": "Shop Now"
+          },
+    			{
+            "type": "url",
+            "id": "button_url",
+            "label": "Button URL"
+          }
+        ]
+      },
+      {
+        "type": "text_center",
+        "name": "Text On Center",
+        "settings": [
+          {
+            "type": "header",
+            "content": "Image 1"
+          },
+          {
+            "type": "image_picker",
+            "id": "image_1",
+            "label": "Image 1"
+          },
+          {
+            "type": "header",
+            "content": "Image 2"
+          },
+          {
+            "type": "image_picker",
+            "id": "image_2",
+            "label": "Image 2"
+          },
+          {
+            "type": "header",
+            "content": "Text"
+          },
+          {
+            "type": "textarea",
+            "id": "heading",
+            "label": "Heading",
+            "default": "<span>Sub Text<\/span>Heading"
+          },
+          {
+            "type": "html",
+            "id": "content",
+            "label": "Content",
+            "default": "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium"
+          },
+          {
+            "type": "text",
+            "id": "button",
+            "label": "Button",
+            "default": "Shop Now"
+          },
+          {
+            "type": "url",
+            "id": "button_url",
+            "label": "Button URL"
+          }
+        ]
+      },
+      {
+        "type": "html",
+        "name": "Custom HTML",
+        "settings": [
+          {
+            "type": "html",
+            "id": "html",
+            "label": "HTML Code"
+          },
+          {
+            "type": "html",
+            "id": "css",
+            "label": "CSS Code"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Text & Image",
+        "category": "Text Block",
+        "blocks": [
+          {
+            "type": "image_left"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

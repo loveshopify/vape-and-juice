@@ -1,0 +1,148 @@
+{% if section.blocks.size > 0 %}
+<div class="tp-faq-page">
+	{% if section.settings.filter1 != blank or section.settings.filter2 != blank or section.settings.filter3 != blank %}
+		<input id="reset" type="radio" name="faq" checked />
+		<label for="reset">{{ 'layout.faq.all' | t }}</label>
+	{% endif %}
+	{% if section.settings.filter1 != blank %}
+		<input id="filter1" type="radio" name="faq" />
+	  	<label for="filter1">{{ section.settings.filter1 }}</label>
+  	{% endif %}
+  	{% if section.settings.filter1 != blank %}
+	  	<input id="filter2" type="radio" name="faq" />
+	  	<label for="filter2">{{ section.settings.filter2 }}</label>
+  	{% endif %}
+  	{% if section.settings.filter1 != blank %}
+	  	<input id="filter3" type="radio" name="faq" />
+	  	<label for="filter3">{{ section.settings.filter3 }}</label>
+  	{% endif %}
+
+  	<div class="tp-faq-list">
+		{% for block in section.blocks %}
+	    	{% assign productIndex = forloop.index | times: 0.5 %}
+          	{% assign delayTime = settings.delay_time_ra | times : productIndex %}
+	    	{% case block.type %}
+	    		{% when 'filter1' %}
+				<div class="tp-faq-item filter1 wow fadeIn" data-wow-delay="{{ delayTime }}ms">
+		          	<div class="tp-question">
+		            	{{ block.settings.question }}
+		          	</div>
+		          	<div class="tp-answer">
+		            	{{ block.settings.answer }}
+		          	</div>
+		        </div>
+		        {% when 'filter2' %}
+				<div class="tp-faq-item filter2 wow fadeIn" data-wow-delay="{{ delayTime }}ms">
+		          	<div class="tp-question">
+		            	{{ block.settings.question }}
+		          	</div>
+		          	<div class="tp-answer">
+		            	{{ block.settings.answer }}
+		          	</div>
+		        </div>
+		        {% else %}
+				<div class="tp-faq-item filter3 wow fadeIn" data-wow-delay="{{ delayTime }}ms">
+		          	<div class="tp-question">
+		            	{{ block.settings.question }}
+		          	</div>
+		          	<div class="tp-answer">
+		            	{{ block.settings.answer }}
+		          	</div>
+		        </div>
+	        {% endcase %}
+	    {% endfor %}
+	</div>
+</div>
+<script>
+	$(window).load(function() {
+		$('.tp-faq-item .tp-question').click(function(){
+			$(this).toggleClass('active').next('.tp-answer').slideToggle();
+			$(this).parent('.tp-faq-item').siblings().find('.tp-question').removeClass('active');
+			$(this).parent('.tp-faq-item').siblings().find('.tp-answer').slideUp();
+		});
+	});
+</script>
+{% endif %}
+
+
+{% schema %}
+{
+	"name": "FAQ List",
+	"settings": [
+	    {
+	      	"type": "text",
+	      	"id": "filter1",
+	      	"label": "Label Filter 1",
+	      	"default": "Filter 1"
+	    },
+	    {
+	      	"type": "text",
+	      	"id": "filter2",
+	      	"label": "Label Filter 2",
+	      	"default": "Filter 2"
+	    },
+	    {
+	      	"type": "text",
+	      	"id": "filter3",
+	      	"label": "Label Filter 3",
+	      	"default": "Filter 3"
+	    }
+    ],
+	"blocks" : [
+	  	{
+		  	"type": "filter1",
+		  	"name": "Filter 1",
+		  	"settings": [
+		  		{
+	              	"type": "html",
+	              	"id": "question",
+	              	"label": "Question",
+	              	"default": "What is it?"
+	          	},
+	          	{
+	              	"type": "html",
+	              	"id": "answer",
+	              	"label": "Answer",
+	              	"default": "It is an answer"
+	          	}
+		  	]
+	  	},
+	  	{
+		  	"type": "filter2",
+		  	"name": "Filter 2",
+		  	"settings": [
+		  		{
+	              	"type": "html",
+	              	"id": "question",
+	              	"label": "Question",
+	              	"default": "What is it?"
+	          	},
+	          	{
+	              	"type": "html",
+	              	"id": "answer",
+	              	"label": "Answer",
+	              	"default": "It is an answer"
+	          	}
+		  	]
+	  	},
+	  	{
+		  	"type": "filter3",
+		  	"name": "Filter 3",
+		  	"settings": [
+		  		{
+	              	"type": "html",
+	              	"id": "question",
+	              	"label": "Question",
+	              	"default": "What is it?"
+	          	},
+	          	{
+	              	"type": "html",
+	              	"id": "answer",
+	              	"label": "Answer",
+	              	"default": "It is an answer"
+	          	}
+		  	]
+	  	}
+	]
+}
+{% endschema %}

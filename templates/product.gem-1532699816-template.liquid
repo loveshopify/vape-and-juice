@@ -1,0 +1,249 @@
+{% comment %}
+	GEMPAGE BUILDER (https://apps.shopify.com/gempage)
+
+	You SHOULD NOT modify source code in this page because
+	It is automatically generated from GEMPAGE BUILDER
+	Try to edit page with the live editor.
+{% endcomment %}
+
+<div id="product" class="{{ product.handle }}">
+  
+  <div class="row clearfix">
+    
+    <!-- Mobile Begin breadcrumb -->
+      <div class="breadcrumb clearfix mobile_view">
+        <div class="span12">
+        <span itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a href="{{ shop.url }}" title="{{ shop.name | escape }}" itemprop="url"><span itemprop="title">Home</span></a></span> 
+        <span class="arrow-space">&#62;</span>
+        <span itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+          {% if collection %}
+            <a href="{{ collection.url }}" title="{{ collection.title | escape }}">{{ collection.title }}</a>
+          {% else %}
+            <a href="/collections/all" title="All Products">Products</a>
+          {% endif %}
+        </span>
+        <span class="arrow-space">&#62;</span>
+        <span>{{ product.title }}</span>
+        </div>
+      </div>
+      <!-- End breadcrumb -->
+    
+    <!-- Begin breadcrumb -->
+    <div class="span12 desktop_view">
+      <div class="breadcrumb clearfix">
+        <span itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a href="{{ shop.url }}" title="{{ shop.name | escape }}" itemprop="url"><span itemprop="title">Home</span></a></span> 
+        <span class="arrow-space">&#62;</span>
+        <span itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+          {% if collection %}
+            <a href="{{ collection.url }}" title="{{ collection.title | escape }}">{{ collection.title }}</a>
+          {% else %}
+            <a href="/collections/all" title="All Products">Products</a>
+          {% endif %}
+        </span>
+        <span class="arrow-space">&#62;</span>
+        
+        
+        
+        
+      </div>
+    </div>
+    <!-- End breadcrumb -->
+    <!-- Begin product photos -->
+    <div class="{% if product.images.size == 1 or settings.thumbnails_position == 'below' %}span6{% else %}span5 prod__img{% endif %}">
+      
+      
+      <!-- Begin featured image -->
+      <div class="imagefeatured">
+        {% if settings.enable_product_image_zoom %}
+        <a href="{{ product.featured_image | product_img_url: 'original' }}" class="cloud-zoom" rel="position: 'inside', showTitle: 'false'" id="placeholder">
+          <img src="{{ product.featured_image | product_img_url: 'original' }}" alt="{{ product.featured_image.alt | escape }}" />
+        </a>
+        {% else %}
+        <a href="{{ product.featured_image | product_img_url: 'original' }}" class="zoom" id="placeholder">
+          <img src="{{ product.featured_image | product_img_url: 'original' }}" alt="{{ product.featured_image.alt | escape }}" />
+        </a>
+        {% endif %}
+      </div>
+      <!-- End product image -->
+      
+      
+      
+      {% if product.images.size > 1 and settings.thumbnails_position == 'below' %}
+      <!-- Begin thumbnails -->
+      <div class="thumbs clearfix" style="margin-left:-15px;">
+        {% for image in product.images %}
+        {% if settings.enable_product_image_zoom %}
+        <div class="image span2{% cycle 'last-in-row': '', '', ' last-in-row' %}">
+          <a href="{{ image | product_img_url: 'original' }}" class="cloud-zoom-gallery" rel="useZoom: 'placeholder', smallImage: '{{ image | product_img_url: 'original' }}', tint: '#ffffff'">
+            <img src="{{ image | product_img_url: 'medium' }}" alt="{{ image.alt | escape }}" />
+          </a>
+        </div>
+        {% else %}
+        <div class="image span2{% cycle 'last-in-row': '', '', ' last-in-row' %}">
+          <a href="{{ image | product_img_url: 'original' }}" data-original-image="{{ image | product_img_url: 'original' }}">
+            <img src="{{ image | product_img_url: 'medium' }}" alt="{{ image.alt | escape }}" />
+          </a>
+        </div>
+        {% endif %}
+        {% endfor %}
+      </div>
+      <!-- End thumbnails -->
+      <style>
+      .thumbs .image { margin: 15px 0 }
+      .thumbs .image { padding: 0 15px }
+      .thumbs .last-in-row { padding-right: 0 }
+      </style>
+      {% endif %}
+      
+    </div>
+    <!-- End product photos -->
+    
+    {% if product.images.size > 1 and settings.thumbnails_position == 'right' %}
+    <!-- Begin thumbnails -->
+    <div class="span1 prod__thumb">
+      <div class="thumbs clearfix">
+        {% for image in product.images %}
+        {% if settings.enable_product_image_zoom %}
+        <div class="image">
+          <a href="{{ image | product_img_url: 'original' }}" class="cloud-zoom-gallery" rel="useZoom: 'placeholder', smallImage: '{{ image | product_img_url: 'grande' }}', tint: '#ffffff'">
+            <img src="{{ image | product_img_url: 'small' }}" alt="{{ image.alt | escape }}" />
+          </a>
+        </div>
+        {% else %}
+        <div class="image">
+          <a href="{{ image | product_img_url: 'original' }}" data-original-image="{{ image | product_img_url: 'original' }}">
+            <img src="{{ image | product_img_url: 'small' }}" alt="{{ image.alt | escape }}" />
+          </a>
+        </div>
+        {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+    <!-- End thumbnails -->
+    {% endif %}
+    
+    
+    <!-- Begin description -->
+    <div class="span6">
+      
+      <h1 class="title">{{ product.title }}</h1>
+
+
+
+      
+      <div class="purchase">
+        <h2 class="price" id="price-preview">{{ product.price_min | money }}{% if product.price_min < product.compare_at_price_min %} <del>{{ product.compare_at_price_min | money }}</del>{% endif %}</h2>
+      </div>   
+      
+      
+      <div id="fbrb_snippet_{{product.id}}" class="fbrb_snippet" data-id="{{product.id}}">{{product.metafields.virthium.snippet}}</div>
+      
+      
+      
+          <form id="add-item-form" action="/cart/add" method="post" class="variants clearfix">
+        
+        <!-- Begin product options -->
+        <div class="product-options">
+        
+          <div class="select clearfix" {% if hide_default_title %}style="display:none"{% endif %}>
+            <select id="product-select" name="id">
+              {% for variant in product.variants %}
+
+              <option value="{{ variant.id }}">{{ variant.title }} - {{ variant.price | money }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          
+          {% if settings.display_quantity_dropdown %}
+          <div class="selector-wrapper">
+            <label>Quantity</label>
+            <input id="quantity" type="number" name="quantity" value="1"  min="1" class="tc item-quantity" />
+          </div>
+          {% endif %}
+          
+          <div class="purchase-section{% if product.variants.size > 1 %} multiple{% endif %}">
+            <div class="purchase">
+              {% unless product.available %}
+              <p>Sold Out</p>
+              {% else %}
+              <input type="submit" id="add-to-cart" class="btn" name="add" value="Add to cart" />
+              {% endunless %}
+            </div>
+          </div>
+          
+        </div>
+            <div id="smartwishlist" data-product="{{ product.id }}" data-variant="{{ product.variants.first.id }}"></div>
+            <div class="returnsanddelivery" id="returnsanddelivery">
+              <div class="link"><a href="/pages/shipping-information" title="Free standard Delivery"> </a> <img src="https://cdn.shopify.com/s/files/1/0290/5629/t/28/assets/returnsanddelivery.png?9929241419611650881"></div>
+              
+              </div>
+            
+      </form>
+      
+      
+      {% assign hide_default_title = false %}
+      {% if product.variants.size == 1 and product.variants.first.title contains 'Default' %}
+        {% assign hide_default_title = true %}
+      {% endif %}
+            
+      
+      <div class="description1">
+        {% include 'product-description-tabs' %}
+      </div>
+           
+      {% if settings.show_social %}
+    
+      {% endif %}
+    
+    </div>
+    <!-- End description -->
+ <div id="feefo-product-review-widgetId" class="feefo-review-widget-product" data-feefo-product-id={{ product.id }}>
+    <div class="span12">
+           
+    </div>   
+   {% include 'questions-answers' %}
+  </div>
+    
+    
+    
+    
+    <div id='virthium_widget_{{product.id}}' class='virthium_widget' data-id='{{product.id}}'></div>
+    
+    
+    
+    
+  
+  <!-- Begin related product -->
+  {% if settings.show_related_products %}
+    {% include 'linkcious' %}
+  {% endif %}
+
+{% include 'linkcious' %} 
+  
+</div> 
+
+
+
+<div style="display:none" id="preloading">
+{% for image in product.images offset: 1 %}
+{{ image | product_img_url: 'original' | img_tag }}
+{% endfor %}
+</div>
+
+<!-- AddShoppers Product Schema Start -->
+<div itemscope itemtype="http://schema.org/Product" style="display: none">
+<span itemprop="name">{{ product.title }}</span>
+<span itemprop="description">{% include 'product-description-tabs' %}</span>
+<img itemprop="image" src="{{ product.featured_image | product_img_url: 'compact' }}"/>
+<div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+<span itemprop="price">{{ product.price | money }}</span>
+{% if product.available %}
+<link itemprop="availability" href="http://schema.org/InStock">In Stock</link>
+{% else %}
+<link itemprop="availability" href="http://schema.org/OutOfStock">Out of Stock</link>
+{% endif %}
+</div>
+</div>
+<!-- AddShoppers Product Schema End -->
+
+

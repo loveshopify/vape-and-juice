@@ -1,0 +1,207 @@
+<style type="text/css">
+  
+  /* Setting */
+  .tp-home-newsletter.section-{{ section.id }} {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom : {{ section.settings.padding_bottom }}px;
+    background-color: {{ section.settings.color_bg }};
+    {% if section.settings.enable_image_bg and section.settings.image_bg != blank %}
+    background-image: url({{ section.settings.image_bg | img_url : '1920x' }});
+    background-size: cover;
+    background-position: {{ section.settings.banner_bg_position_x }} {{ section.settings.banner_bg_position_y }};
+    background-repeat: {{ section.settings.banner_bg_repeat}};
+    background-attachment: {{ section.settings.banner_bg_attachment}};
+    {% endif %}
+  }
+  
+  .tp-home-newsletter .tp-inner-text .tp-heading h3 {
+    color: {{ section.settings.color_heading }};
+    font-size: {{ settings.heading_custom_font_size }}px;
+    font-weight: {{ settings.heading_custom_font_weight }};
+    text-transform: {{ settings.heading_custom_case }};
+  }
+  .tp-home-newsletter .tp-inner-text .description {
+    color: {{ section.settings.color_description }};
+  }
+  .tp-home-newsletter .tp-inner-form .input-group {
+      border: 1px solid {{ section.settings.color_input_border }};
+      background-color: {{ section.settings.color_input_bg }};
+      color: {{ section.settings.color_input_text }};
+  }
+  .tp-home-newsletter .tp-inner-form .input-group-btn .btn {
+      background-color: {{ section.settings.color_button_bg }};
+      color: {{ section.settings.color_button_text }};
+  }
+</style>
+
+{% stylesheet %}
+.tp-home-newsletter .tp-heading h3 {margin-bottom: 0;}
+.tp-home-newsletter .container {padding-top: 20px; padding-bottom: 20px;}
+.tp-home-newsletter .tp-inner-form .input-group {position: relative; padding: 5px; display: block;}
+.tp-home-newsletter .tp-inner-form .input-group-field {height: 40px; background: none; border: 0 none; color: inherit;}
+.tp-home-newsletter .tp-inner-form .input-group-btn {width: auto; position: absolute; top: 5px; right: 5px;}
+.tp-home-newsletter .tp-inner-form .input-group-btn .btn {height: 40px; border-radius: 0;}
+
+.tp-home-newsletter.style-center .container {width: 600px; max-width: 100%;}
+.tp-home-newsletter.style-center .container [class*="col-"] {float: none; width: 100%;}
+.tp-home-newsletter.style-center .tp-inner-text {margin-bottom: 20px; text-align: center;}
+.tp-home-newsletter.style-center .tp-heading h3 {margin-bottom: 15px;}
+@media (max-width: 991px) {
+  .tp-home-newsletter .tp-inner-text {margin-bottom: 20px; text-align: center;}
+}
+{% endstylesheet %}
+
+<section class="tp-home-newsletter section-{{ section.id }} style-{{ section.settings.block_style }}">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 tp-inner-text wow fadeIn" data-wow-delay="{{ settings.delay_time_ra }}ms">
+          {% if section.settings.heading != blank %}
+          <div class="tp-heading">
+            <h3>{{ section.settings.heading }}</h3>
+          </div>
+          {% endif %}
+          {% if section.settings.description != blank %}
+          <div class="description">{{ section.settings.description }}</div>
+          {% endif %}
+      </div>
+      <div class="col-md-6 tp-inner-form wow fadeIn" data-wow-delay="{{ settings.delay_time_ra | plus: 100 }}ms">
+        {% include 'newsletter-form' %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Newsletter",
+  "class": "index-section",
+  "settings": [
+  {
+    "type": "select",
+    "id": "block_layout",
+    "label": "Block Layout",
+    "options": [
+      {
+        "value": "fullwidth",
+        "label": "Full Width"
+      },
+      {
+        "value": "box",
+        "label": "Box 1170"
+      }
+    ],
+    "default":   "box"
+  },
+  {
+    "type": "range",
+    "id": "padding_top",
+    "min": 0,
+    "max": 200,
+    "step": 2,
+    "unit": "px",
+    "label": "Padding Top",
+    "default": 40
+  },
+  {
+    "type": "range",
+    "id": "padding_bottom",
+    "min": 0,
+    "max": 200,
+    "step": 2,
+    "unit": "px",
+    "label": "Padding Bottom",
+    "default": 40
+  },
+  {
+    "type": "select",
+    "id": "block_style",
+    "options": [
+      { "value": "simple", "label": "Simple"},
+      { "value": "center", "label": "Center"}
+    ],
+    "label": "Layout",
+    "default": "simple"
+  },
+  {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Join our mailing list"
+  },
+  {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Sign up for newsletters and receive tons of discount events."
+  },
+  {
+      "type": "header",
+      "content": "Background & Color"
+  },
+  {
+      "type": "checkbox",
+      "id": "enable_image_bg",
+      "label": "Enable Background Image",
+      "default" : false
+  },
+  {
+      "type" : "image_picker",
+      "id" : "image_bg",
+      "label" : "Image Background"
+  },
+  {
+    "type": "color",
+      "id": "color_bg",
+      "label": "Section Background Color",
+      "default" : "#f1f1f1"
+  },
+  {
+      "type": "color",
+      "id": "color_heading",
+      "label": "Heading Color",
+      "default" : "#000"
+  },
+  {
+      "type": "color",
+      "id": "color_description",
+      "label": "Description Color",
+      "default" : "#333"
+  },
+  {
+      "type": "color",
+      "id": "color_input_bg",
+      "label": "Input Background Color ",
+      "default" : "#fff"
+  },
+  {
+      "type": "color",
+      "id": "color_input_text",
+      "label": "Input Text Color ",
+      "default" : "#333"
+  },
+  {
+      "type": "color",
+      "id": "color_input_border",
+      "label": "Input Border Color",
+      "default" : "#e4e4e4"
+  },
+  {
+      "type": "color",
+      "id": "color_button_bg",
+      "label": "Button Background",
+      "default" : "#e62294"
+  },
+  {
+      "type": "color",
+      "id": "color_button_text",
+      "label": "Button Color",
+      "default" : "#fff"
+  }
+],
+"presets": [
+    {
+        "name": "Newsletter"
+    }
+  ]
+}
+{% endschema %}

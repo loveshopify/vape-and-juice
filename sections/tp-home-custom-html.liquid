@@ -1,0 +1,132 @@
+<style type="text/css">
+  .tp-home-custom-html.section-{{ section.id }} {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    background-color: {{ section.settings.bg_color }}
+  }
+  {% if section.settings.block_layout == 'extrawidth' %}
+  @media (min-width: 1300px) {
+    .tp-home-custom-html.section-{{ section.id }} .container { width:100%; padding-left: 50px; padding-right: 50px;}
+  }
+  {% endif %}
+</style>
+
+<section class="tp-home-custom-html section-{{ section.id }}">
+  <div class="container">
+    {% if section.settings.heading != blank %}
+      <div class="tp-block-heading">
+        <h3>{{ section.settings.heading }}</h3>
+      </div>
+    {% endif %}
+    <div class="content">
+      {% for block in section.blocks %}
+        {% case block.type %}
+          {% when 'image' %}
+            <a href="{{ block.settings.url }}">
+              <img src="{{ block.settings.image | img_url: 'master' }}" alt="{{ block.section.image }}">
+            </a>
+          {% else %}
+            {{ block.settings.html }}
+        {% endcase %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Custom Html",
+  "class": "index-section",
+  "settings": [
+    {
+      "type": "radio",
+      "id": "block_layout",
+      "label": "Block Layout",
+      "options": [
+        {
+          "value": "extrawidth",
+          "label": "Extra Width"
+        },
+        {
+          "value": "box",
+          "label": "Box 1170"
+        }
+      ],
+      "default":   "box"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 0
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background color",
+      "default": "#fff"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default":"Custom HTML"
+    }
+	],
+  "blocks" : [
+    {
+      "type" : "image",
+      "name" : "Image",
+      "settings" : [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
+    },
+    {
+      "type" : "html",
+      "name" : "HTML",
+      "settings" : [
+        {
+          "type": "html",
+          "id": "html",
+          "label": "Custom HTML",
+          "default": "This is custom content"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Html",
+      "category": "Text Block",
+      "blocks": [
+        {
+          "type": "html"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

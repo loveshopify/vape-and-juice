@@ -1,0 +1,66 @@
+{{ "currencies.js" | asset_url | script_tag }}
+{{ "jquery.currencies.min.js" | asset_url | script_tag }}
+
+<script>      
+  // Pick your format here:  
+  // Can be 'money_format' or 'money_with_currency_format'
+  Currency.format = 'money_format';
+  var shopCurrency = '{{ shop.currency }}';
+  var cookieCurrency = Currency.cookie.read();
+  jQuery(document).ready(function(){
+    if(cookieCurrency===null) cookieCurrency = shopCurrency;
+    jQuery("span.visible-phone span").text(cookieCurrency);
+    jQuery(".currencies-modal strong").text(cookieCurrency);
+  })
+  // Fix for customer account pages 
+  jQuery('span.money span.money').each(function() {
+    jQuery(this).parent('span.money').removeClass('money');
+  });
+
+  // Add precalculated shop currency to data attribute 
+  jQuery('span.money').each(function() {
+    jQuery(this).attr('data-currency-{{ shop.currency }}', jQuery(this).html());
+  });
+
+  // Select all your currencies buttons.
+  var currencySwitcher = jQuery('.select-currency li');
+
+  // When the page loads.
+  if (cookieCurrency == null || cookieCurrency == shopCurrency) {
+    Currency.currentCurrency = shopCurrency;
+  }
+  else {
+    Currency.currentCurrency = cookieCurrency;
+    currencySwitcher.val(cookieCurrency); 
+    Currency.convertAll(shopCurrency, cookieCurrency);  
+  }
+
+  jQuery('.select-currency li').each(function() {
+    if (jQuery(this).data('currency') == cookieCurrency ) {
+      jQuery(this).addClass('selected').siblings().removeClass('selected');
+    }
+  })
+
+  currencySwitcher.on( "click", function() {
+    currencySwitcher.removeClass('selected');
+    var newCurrency =  jQuery(this).data('currency');
+    jQuery("span.visible-phone span").text(newCurrency);
+    Currency.convertAll(Currency.currentCurrency, newCurrency); 
+    //show modal
+    jQuery(".currencies-modal strong").text(newCurrency);
+    if (jQuery("#cart-currency").length >0) {
+      jQuery("#cart-currency").text(newCurrency);
+    }
+    jQuery(".currencies-modal").fadeIn(500).delay(2000).fadeOut(500);
+    jQuery(this).addClass('selected');
+  });
+
+  
+  // For product options.
+  var original_selectCallback = window.selectCallback;
+  var selectCallback = function(variant, selector) {
+    original_selectCallback(variant, selector);
+    Currency.convertAll(shopCurrency, jQuery('.select-currency li.selected').data('currency'));
+  };
+  
+</script>

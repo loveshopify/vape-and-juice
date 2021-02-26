@@ -1,0 +1,53 @@
+{{ '//ajax.aspnetcdn.com/ajax/jquery.templates/beta1/jquery.tmpl.min.js' | script_tag }}
+{{ 'jquery.products.min.js' | asset_url | script_tag }}
+
+<section id="recently-viewed-products-wrap" style="display: none;">
+  <div class="tp-block-heading">
+    <h3>Recently Viewed Products</h3>
+  </div>
+
+  <div class="products-grid" id="recently-viewed-products">
+  </div>
+</section>
+
+{% raw %}
+<script id="recently-viewed-products-template" type="text/x-jquery-tmpl">
+  <div class="grid-item wow fadeIn" data-wow-delay="{{ delayTime }}ms">
+    <div class="grid-item-inner">
+      <div class="grid-item-image sca-qv-image">
+        <a href="${url}" class="grid-image">
+          <img src="${Shopify.Products.resizeImage(featured_image, "medium")}" />
+        </a>
+      </div>
+      <div class="tp-item-des">
+        <p class="tp-product-item-name">
+          <a href="${url}">${title}</a>
+        </p>
+        <div class="tp-product-item-price">
+        <span class="money">
+          {{html Shopify.formatMoney(price, window.money_format)}}   
+          {{if compare_at_price > price}} 
+            <s>{{html Shopify.formatMoney(compare_at_price, window.money_format)}}</s>
+          {{/if}}
+          </span>
+        </div>
+        <span class="shopify-product-reviews-badge" data-id="${id}"></span>
+      </div>
+    </div>
+  </div>
+</script>
+{% endraw %}
+
+<script>
+Shopify.Products.showRecentlyViewed({ 
+  howManyToShow: 4, 
+  wrapperId: 'recently-viewed-products', 
+  templateId: 'recently-viewed-products-template',
+  onComplete: function() {
+    if (jQuery('#recently-viewed-products').children().length > 0) {
+      jQuery('#recently-viewed-products-wrap').show();
+    }
+  }
+});
+Shopify.Products.recordRecentlyViewed();
+</script>

@@ -1,0 +1,1703 @@
+{
+  "current": {
+    "favicon_enable": true,
+    "site_layout": "box",
+    "color_body_bg": "#ffffff",
+    "radius": 5,
+    "enable_reveal_animations": true,
+    "enable_reveal_animations_mobile": true,
+    "delay_time_ra": 200,
+    "font_1": "normal_fonts",
+    "fonts_name_1": "Calibri",
+    "base_font_size": 15,
+    "font_2": "normal_fonts",
+    "fonts_name_2": "Calibri",
+    "font_3": "normal_fonts",
+    "fonts_name_3": "Calibri",
+    "heading_padding_top": 15,
+    "heading_padding_bottom": 15,
+    "heading_margin_bottom": 30,
+    "heading_custom_font_size": 20,
+    "heading_custom_font_family": "$font_3",
+    "heading_custom_font_weight": "500",
+    "heading_custom_font_style": "normal",
+    "heading_custom_position": "center",
+    "heading_custom_case": "uppercase",
+    "heading_custom_type": "bottom",
+    "height_heading_custom_line": 2,
+    "width_heading_custom_line": 70,
+    "heading_custom_line_position": "full",
+    "heading_custom_line_color": "#e62294",
+    "heading_page_font_size": 25,
+    "heading_page_font_family": "$font_1",
+    "heading_page_font_weight": "700",
+    "heading_page_text_transform": "uppercase",
+    "heading_sidebar_font_size": 16,
+    "heading_sidebar_font_family": "$font_2",
+    "heading_sidebar_font_weight": "600",
+    "heading_sidebar_text_transform": "uppercase",
+    "blog_name_font_family": "$font_1",
+    "blog_name_font_size": 18,
+    "blog_name_font_weight": "700",
+    "blog_name_text_transform": "none",
+    "color_body_text": "#464646",
+    "color_link": "#000000",
+    "color_link_hover": "#e62294",
+    "color_heading": "#000000",
+    "color_dark": "#000000",
+    "color_light": "#7d7d7d",
+    "color_primary": "#e62294",
+    "color_secondary": "#fbaf5d",
+    "color_third": "#fd6282",
+    "color_borders": "#ebebeb",
+    "color_text_on_primary": "#ffffff",
+    "dropdown_bg": "#fff",
+    "dropdown_text": "#1d1d1d",
+    "dropdown_bg_active": "#f7f7f7",
+    "dropdown_text_active": "#e62294",
+    "color_breadcrumb_text": "#8d8d8d",
+    "color_breadcrumb_link": "#8d8d8d",
+    "button_df_bg_color": "#e62294",
+    "button_df_color": "#ffffff",
+    "button_df_bg_color_hover": "#000000",
+    "button_df_color_hover": "#ffffff",
+    "button_second_bg_color": "#ffffff",
+    "button_second_bd_color": "#ebebeb",
+    "button_second_color": "#000000",
+    "button_second_bg_color_hover": "#e62294",
+    "button_second_bd_color_hover": "#e62294",
+    "button_second_color_hover": "#ffffff",
+    "button_cart_bg_color": "#000000",
+    "button_cart_bd_color": "#000000",
+    "button_cart_color": "#ffffff",
+    "button_cart_bg_color_hover": "#e62294",
+    "button_cart_bd_color_hover": "#e62294",
+    "button_cart_color_hover": "#ffffff",
+    "button_checkout_bg_color": "#ed145b",
+    "button_checkout_color": "#ffffff",
+    "button_checkout_bg_color_hover": "#000000",
+    "button_checkout_color_hover": "#ffffff",
+    "button_tag_bg_color": "#f6f7fb",
+    "button_tag_color": "#000000",
+    "button_tag_bg_color_hover": "#e62294",
+    "button_tag_color_hover": "#fff",
+    "button_arrow_bg_color": "#fff",
+    "button_arrow_bd_color": "#e4e4e4",
+    "button_arrow_color": "#000",
+    "button_arrow_bg_color_hover": "#e62294",
+    "button_arrow_bd_color_hover": "#e62294",
+    "button_arrow_color_hover": "#fff",
+    "input_common_bg_color": "#ffffff",
+    "input_common_color": "#000",
+    "input_common_border_color": "#e4e4e4",
+    "button_height": 40,
+    "button_padding": 20,
+    "button_radius": 5,
+    "button_small_height": 30,
+    "button_small_padding": 15,
+    "button_small_radius": 3,
+    "button_large_height": 50,
+    "button_large_padding": 30,
+    "button_large_radius": 5,
+    "social_facebook_link": "http:\/\/www.facebook.com\/vapeandjuiceuk",
+    "social_twitter_link": "http:\/\/www.twitter.com\/vapeandjuiceuk",
+    "social_pinterest_link": "https:\/\/www.pinterest.com\/vapeandjuiceonline",
+    "social_googleplus_link": "https:\/\/plus.google.com\/u\/0\/?tab=mXhttps:\/\/plus.google.com\/u\/0\/?tab=mX",
+    "social_youtube_link": "https:\/\/www.youtube.com\/c\/vapeandjuicetv",
+    "social_rss_link": "",
+    "social_instagram_link": "http:\/\/www.instagram.com\/vapeandjuiceuk",
+    "social_linkedin_link": "https:\/\/www.linkedin.com\/company\/vape-and-juice",
+    "currency_1_unit": "AUD",
+    "currency_2_unit": "EUR",
+    "currency_3_unit": "GBP",
+    "currency_4_unit": "USD",
+    "currency_5_unit": "",
+    "wrap_nav_bg": "#1d1d1d",
+    "nav_bg": "#070606",
+    "nav_text": "#ffffff",
+    "nav_text_hover": "#e62294",
+    "nav_text_fixed": "#fff",
+    "navigation_font_size": 15,
+    "navigation_font_family": "$font_1",
+    "navigation_font_weight": "700",
+    "navigation_text_transform": "capitalize",
+    "nav_dropdown_bg": "#ffffff",
+    "nav_dropdown_text": "#3d3d3d",
+    "nav_dropdown_text_hover": "#e62294",
+    "navi_mobile_bg": "#ffffff",
+    "navi_mobile_color": "#0f0f0f",
+    "navi_mobile_color_hover": "#e62294",
+    "navi_mobile_border": "#faf1f1",
+    "display_popup_newsletter": false,
+    "popup_newsletter_heading": "NEWSLETTER",
+    "popup_newsletter_message": "Enter your <strong>email address<\/strong> for our mailing list to<br>keep your seft update",
+    "popup_newsletter_alert": "Don't show this popup again",
+    "popup_newsletter_image_position": "under_text",
+    "popup_newsletter_bgcolor": "#ffffff",
+    "popup_newsletter_heading_color": "#000000",
+    "popup_newsletter_color": "#333333",
+    "popup_newsletter_color_hover": "#e62294",
+    "newsletter_type": "mailchimp",
+    "newsletter_form_action": "https:\/\/vapeandjuice.us9.list-manage.com\/subscribe\/post?u=511086b323b2dc43873ae7a89&amp;id=62d7cb091f",
+    "newsletter_form_constant_contact": "",
+    "header_option": "header-layout-1",
+    "header_layout": "box",
+    "logo_use_image": true,
+    "header_currency_enable": true,
+    "promotion_bar_enable": true,
+    "header_sticky_enable": true,
+    "header_fixed_enable": false,
+    "header_bg": "#fff",
+    "header_text": "#4d4d4d",
+    "header_text_hover": "#e62294",
+    "header_fixed_text": "#fff",
+    "header_top_bg": "#fff",
+    "header_top_text": "#6d6d6d",
+    "header_top_text_hover": "#e62294",
+    "header_fixed_top_text": "#fff",
+    "cart_text": "#1d1d1d",
+    "cart_text_hover": "#e62294",
+    "cart_fixed_text": "#fff",
+    "cart_count_bg": "#e62294",
+    "cart_count_text": "#fff",
+    "search_input_bg": "#fff",
+    "search_input_text": "#4d4d4d",
+    "search_input_border": "#e4e4e4",
+    "search_button_bg": "#1d1d1d",
+    "search_button_text": "#fff",
+    "footer_option": "footer-layout-1",
+    "footer_layout": "box",
+    "footer_bg": "#1d1d1d",
+    "footer_heading": "#fff",
+    "footer_text": "#8d8d8d",
+    "footer_text_hover": "#e26694",
+    "footer_bottom_bg": "#171717",
+    "footer_bottom_text": "#8d8d8d",
+    "footer_newsletter_wrap_bg": "#fff",
+    "footer_newsletter_input_bg": "#fff",
+    "footer_newsletter_input_text": "#4d4d4d",
+    "footer_newsletter_input_border": "#fff",
+    "footer_newsletter_btn_bg": "#e62294",
+    "footer_newsletter_btn_text": "#fff",
+    "footer_social_style": "simple",
+    "footer_social_size": 36,
+    "footer_social_bg": "#fff",
+    "footer_social_text": "#ffffff",
+    "footer_social_bg_hover": "#e62294",
+    "footer_social_text_hover": "#fff",
+    "footer_payment_enable": false,
+    "footer_copyright_text": "© 2019 Vape and Juice I Online vape shop and best vape juices",
+    "product_item_image_swap": false,
+    "product_item_ratting_enable": true,
+    "product_item_wishlist_enable": true,
+    "product_item_compare_enable": false,
+    "product_item_quick_view_enable": false,
+    "product_label_style": "border",
+    "product_item_variant_color_enable": true,
+    "product_item_variant_color_option": "name",
+    "product_image_ratio_width": "370",
+    "product_image_ratio_height": "370",
+    "color_product_name": "#000000",
+    "color_product_name_hover": "#e62294",
+    "color_product_price": "#e62294",
+    "color_product_price_sale": "#e62294",
+    "color_product_price_old": "#7d7d7d",
+    "color_product_ratting": "#f88e4f",
+    "color_product_label_new": "rgba(0,0,0,0)",
+    "color_product_label_sale": "#f83753",
+    "color_product_label_sold_out": "#8d8d8d",
+    "product_grid_name_font_family": "$font_1",
+    "product_grid_name_font_size": 16,
+    "product_grid_name_font_weight": "700",
+    "product_grid_name_text_transform": "none",
+    "product_grid_price_font_family": "$font_1",
+    "product_grid_price_font_size": 16,
+    "product_grid_price_font_weight": "700",
+    "sidebar_collection_page_enable": false,
+    "sidebar_collection_page_position": "left",
+    "collection_product_item_per_page": 12,
+    "product_item_per_row": 4,
+    "product_item_per_row_2": 3,
+    "collection_slideshow_enable": true,
+    "collection_view_enable": true,
+    "list_collection_item_per_row": 3,
+    "button_text_1": "store info >",
+    "page_url_1": "\/pages\/vape-and-juice-barking",
+    "button_text_2": "store info >",
+    "page_url_2": "\/pages\/basildon-vape-shop",
+    "button_text_3": "store info >",
+    "page_url_3": "\/pages\/brentwood-desktop",
+    "button_text_4": "store info >",
+    "page_url_4": "\/pages\/canterbury-vape-shop",
+    "button_text_5": "store info >",
+    "page_url_5": "\/pages\/canvey-island-vape-shop",
+    "button_text_6": "store info >",
+    "page_url_6": "\/pages\/vape-and-juice-chelmsford",
+    "button_text_7": "store info >",
+    "page_url_7": "\/pages\/clacton-vape-shop",
+    "button_text_8": "store info >",
+    "page_url_8": "\/pages\/vape-and-juice-clapham-high-street",
+    "button_text_9": "store info >",
+    "page_url_9": "\/pages\/islington-vape-shop-clerkenwell",
+    "button_text_10": "store info >",
+    "page_url_10": "\/pages\/colchester-desktop",
+    "button_text_11": "store info >",
+    "page_url_11": "\/pages\/vape-and-juice-hackney",
+    "button_text_12": "store info >",
+    "page_url_12": "\/blogs\/vaping-ecig-and-eliquid-news\/vape-shop-near-me-for-electronic-cigarettes-juice-in-archway-or-highgate",
+    "button_text_13": "store info >",
+    "page_url_13": "\/pages\/ibiza-spain",
+    "button_text_14": "store info >",
+    "page_url_14": "\/pages\/leigh-desktop",
+    "button_text_15": "store info >",
+    "page_url_15": "\/pages\/margate-vape-juices",
+    "button_text_16": "store info >",
+    "page_url_16": "\/pages\/southchurch-vapechurch",
+    "button_text_17": "store info >",
+    "page_url_17": "\/pages\/southend-high-street-desktop",
+    "button_text_18": "store info >",
+    "page_url_18": "\/pages\/vape-on-the-green",
+    "button_text_19": "",
+    "page_url_19": "",
+    "button_text_20": "",
+    "page_url_20": "",
+    "sidebar_product_page_enable": false,
+    "sidebar_product_page_position": "right",
+    "pd_design_style": "bottom_thumb",
+    "product_page_photo_width": 50,
+    "pd_scroll_zoom_enable": false,
+    "pd_description_enable": true,
+    "pd_availability_enable": false,
+    "pd_sku_enable": false,
+    "pd_vendor_enable": true,
+    "pd_product_type_enable": true,
+    "pd_color_swatch_enable": false,
+    "pd_social": false,
+    "pd_social_share_code": "<!-- Go to www.addthis.com\/dashboard to customize your tools --> <script type=\"text\/javascript\" src=\"\/\/s7.addthis.com\/js\/300\/addthis_widget.js#pubid=ra-5a1e496ffd473b55\"><\/script>",
+    "pd_facebook_comment": false,
+    "pd_product_tab_enable": true,
+    "pd_product_tab_type": "list",
+    "sb_block_related_product_enable": true,
+    "sb_block_related_product_number_show": 4,
+    "sb_block_related_product_number_limit": 4,
+    "cart_vendor_enable": true,
+    "cart_note_enable": true,
+    "cart_estimate_shipping_enable": false,
+    "share_text": "<div class=\"cart__shipping_shareinfo\"><p><span>Love fast free shipping?<\/span><br>Tell your friends about our free shipping service, for a speedy shipping upgrade <a class=\"click-me\" href=\"javascript:void(0);\" onclick=\"shareInFacebook()\">click<\/a> here.<\/p><\/div>",
+    "share_image": "shopify:\/\/shop_images\/new2_928fffae-43f5-44b0-9a32-98214c3fb911.jpeg",
+    "share_image_mobile": "shopify:\/\/shop_images\/Free_shipping_mobile2_5a49453f-e7b2-4ea9-b3da-6553e914d2c3.jpg",
+    "free_shipping_code": "FREESPEEDYSHIPPING",
+    "free_shipping_sucess": "Your Free Shipping has been applied on cart for this order",
+    "google_map_enable": false,
+    "google_map_code": "<iframe src=\"https:\/\/www.google.com\/maps\/embed?pb=!1m18!1m12!1m3!1d3020.132555017359!2d-73.94057258426866!3d40.80308083997469!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c2f609884cc2eb%3A0xdc0f4747ca1ad11e!2sE+123rd+St%2C+New+York%2C+NY+10035%2C+Hoa+K%E1%BB%B3!5e0!3m2!1svi!2s!4v1457871659326\" width=\"100%\" height=\"500\" frameborder=\"0\" style=\"border:0\" allowfullscreen=\"\"><\/iframe>",
+    "contact_form_heading": "Get in touch with us",
+    "contact_form_description": "If you want to find out anything we haven't covered on our online vape shop, drop us a message in the box below. Or during business hours use the live webchat function below.\n<br><p><br>\nVape and Juice and it's affiliated brands 'Vape und Liquid', 'Vaperun.com' and 'Vapeo Y Liquidos' can be reached via this contact page also. Vape and Juice now serves the German and Spanish vaping market.<\/p>",
+    "contact_html_heading": "Vape and Juice | UK's Local Ecig Shop",
+    "contact_html": "<p>Vape and Juice can be reached online and offline with the information below or visiting one of our vape shops in person. If you are looking for stock enquiries regarding a particular brand or item, our webchat may get you the information quicker.<\/p>\n<p><strong>Address:<\/strong><br>Unit 33a Joseph Wilson Ind Est, \nWhitstable,\nKent,\nUK<\/p>\n<p><strong>Information:<\/strong><br>\nEmail: online@vapeandjuice.co.uk<br>\nPhone: (+44) 1277  634090<\/p>\n<hr>\n<p><strong>Online Opening Hours:<\/strong><br>\nMonday to Fridays: 9am - 9pm<br>\nSaturdays to Sundays: 9am - 6pm<\/p>\n<hr>\n<p><strong>Vape und Liquid Germany:<\/strong><br>Dampf | Liquid und Aroma Kaufen | Shake and Vape<br>\nWeb: www.vapeundliuquid.de<br>\nEmail: Deutsch@vapeandjuice.com<\/p><hr>\n<p><strong>Vape and Juice Wholesale:<\/strong><br>CBD | Exclusive and Major Eliquid Brands | Vape Kits<br>\nWeb: www.vapeandjuicewholesale.com<br>\nEmail: Wholesale@vapeandjuice.com<\/p>",
+    "blog_bannerImage": "shopify:\/\/shop_images\/CBD_ADVICE___CBD_SHOP_WITH_vAPE_AND_JUICE.jpg",
+    "sidebar_blog_page_enable": true,
+    "sidebar_blog_page_position": "left",
+    "blog_grid_type": "simple",
+    "blog_item_per_row": 4,
+    "blog_item_per_page": 12,
+    "gallery_item_per_row": 2,
+    "gallery_gutter_item": 30,
+    "page_404_message": "THE PAGE YOU ARE LOOKING FOR DOES NOT EXIST",
+    "page_404_link_text": "Speak to our Webchat team",
+    "page_404_link_url": "https:\/\/tawk.to\/chat\/5c6dad283341d22d9ce53dc2\/default",
+    "checkout_header_image": "",
+    "checkout_use_storefront_logo": false,
+    "checkout_logo_image": "",
+    "checkout_logo_position": "left",
+    "checkout_logo_size": "medium",
+    "checkout_body_background_image": "",
+    "checkout_body_background_color": "#ffffff",
+    "checkout_input_background_color_mode": "white",
+    "checkout_sidebar_background_image": "",
+    "checkout_sidebar_background_color": "#fafafa",
+    "checkout_heading_font": "Helvetica Neue",
+    "checkout_body_font": "Helvetica Neue",
+    "checkout_accent_color": "#1990c6",
+    "checkout_button_color": "#1990c6",
+    "checkout_error_color": "#ff6d6d",
+    "product_item_style": "style1",
+    "enable_quick_view": true,
+    "display_quickview_availability": true,
+    "display_quickview_product_type": true,
+    "display_quickview_vendor": true,
+    "display_quickview_subtotal": true,
+    "display_quickview_short_desc": true,
+    "sections": {
+      "1510630870827": {
+        "type": "tp-home-static-block-1",
+        "blocks": {
+          "1510630870827-0": {
+            "type": "text",
+            "settings": {
+              "image_icon": "shopify:\/\/shop_images\/5_3bcc1cdc-9ed2-4e1e-870b-415beb15c8af.png",
+              "text": "FREE UK SHIPPING",
+              "sub_text": "No minimum order size",
+              "url": ""
+            }
+          },
+          "1510630870827-1": {
+            "type": "text",
+            "settings": {
+              "image_icon": "shopify:\/\/shop_images\/6_15dc5b01-1309-4a2b-a91d-0ec8367b9964.png",
+              "text": "FAST SUPPORT",
+              "sub_text": "Live UK webchat",
+              "url": ""
+            }
+          },
+          "1510630870827-2": {
+            "type": "text",
+            "settings": {
+              "image_icon": "shopify:\/\/shop_images\/6_100new.png",
+              "text": "BUYER WARRANTY",
+              "sub_text": "Repair and\/or replace",
+              "url": ""
+            }
+          },
+          "1536811458583": {
+            "type": "text",
+            "settings": {
+              "image_icon": "shopify:\/\/shop_images\/8_b1f50f5e-7279-4723-9473-fc0099efd000.png",
+              "text": "<a href=\"https:\/\/www.feefo.com\/en-GB\/reviews\/vape-juice\" target=\"_blank\">TRUSTED REVIEWS<\/a>",
+              "sub_text": "Gold Star trusted Feefo",
+              "url": ""
+            }
+          }
+        },
+        "block_order": [
+          "1510630870827-0",
+          "1510630870827-1",
+          "1510630870827-2",
+          "1536811458583"
+        ],
+        "settings": {
+          "block_layout": "box",
+          "padding_top": 13,
+          "padding_bottom": 13,
+          "block_style": "line",
+          "bg_color": "#fff"
+        }
+      },
+      "tp-slideshow-simple": {
+        "type": "tp-slideshow-simple",
+        "settings": {
+          "block_layout": "fullwidth",
+          "padding_top": 0,
+          "padding_bottom": 0,
+          "speed": 5,
+          "animation": "slide",
+          "enable_center_mode": false,
+          "center_padding": 100
+        }
+      },
+      "tp-section-collection-sidebar": {
+        "type": "tp-section-collection-sidebar",
+        "blocks": {
+          "1515506864932": {
+            "type": "collection",
+            "settings": {
+              "title": "Featured Products",
+              "featured_product_collection": "new-products",
+              "featured_product_limit": 3
+            }
+          },
+          "1515506878345": {
+            "type": "banner",
+            "settings": {
+              "img_banner": "",
+              "link": "shopify:\/\/collections\/all"
+            }
+          },
+          "1515506890605": {
+            "type": "text",
+            "settings": {
+              "title": "Custom Block",
+              "text": "<p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores.<\/p>"
+            }
+          }
+        },
+        "block_order": [
+          "1515506864932",
+          "1515506878345",
+          "1515506890605"
+        ],
+        "settings": {}
+      },
+      "tp-section-header-promotion-bar": {
+        "type": "tp-section-header-promotion-bar",
+        "settings": {
+          "promotion_bar_text": "GET <b>10% cashback<\/b> for reviews",
+          "promotion_bar_button": "",
+          "promotion_bar_link": "",
+          "promotion_bar_bg_image_enable": false,
+          "promotion_bar_bg_image": "",
+          "promotion_bar_bg": "#000000",
+          "promotion_bar_color": "#ffffff"
+        }
+      },
+      "tp-section-header-top-link": {
+        "type": "tp-section-header-top-link",
+        "blocks": {
+          "1515590247768": {
+            "type": "link",
+            "settings": {
+              "title": "Sameday",
+              "link": "https:\/\/vaperun.com"
+            }
+          },
+          "1515590276582": {
+            "type": "link",
+            "settings": {
+              "title": "Register",
+              "link": "\/account\/register"
+            }
+          },
+          "1515590358064": {
+            "type": "link",
+            "settings": {
+              "title": "Login",
+              "link": "\/account"
+            }
+          },
+          "1548035499181": {
+            "type": "link",
+            "settings": {
+              "title": "Reviews",
+              "link": "https:\/\/vapeandjuice.co.uk\/community\/reviews"
+            }
+          }
+        },
+        "block_order": [
+          "1515590247768",
+          "1515590276582",
+          "1515590358064",
+          "1548035499181"
+        ],
+        "settings": {}
+      },
+      "tp-section-header-text": {
+        "type": "tp-section-header-text",
+        "settings": {
+          "html_text": "Free shipping online l Call us UK <strong>(01227) 634090<\/strong>"
+        }
+      },
+      "tp-section-footer-block": {
+        "type": "tp-section-footer-block",
+        "blocks": {
+          "1567376482749": {
+            "type": "text",
+            "settings": {
+              "title": "Vape and Juice | The Local Ecig shop online",
+              "html": "<p>Vape and Juice began in 2014 in <a href=\"https:\/\/vapeandjuice.co.uk\/pages\/southend-high-street-desktop\">Southend<\/a>, Essex as one of the early vape shop brands. We believe in traditional customer service values, which we have brought online. From free shipping vape mail regardless of order size, to webchat managed by vapers and not bots. \nWe stock the best vapes online, <a href=\"https:\/\/vapeandjuice.co.uk\/collections\/cbd-eliquid\">cbd e-liquid<\/a>, hemp oil, <a href=\"https:\/\/vapeandjuice.co.uk\/collections\/vape-kits-uk\">vaping box mods<\/a> and a range of <a href=\"https:\/\/vapeandjuice.co.uk\/collections\/starter-kits\">starter vape kits<\/a>. Whatever your e-cigarette experience level, we can meet your needs.<\/p>\n<p>\n<a href=\"https:\/\/vapeandjuice.co.uk\/collections\/sales-vape\">Vape special offers<\/a>, premium e liquid for vaping pens, <a href=\"https:\/\/vapeandjuice.co.uk\/collections\/dry-herb-vape-kits\">dry herb vape kits<\/a> and DNA mods are stocked on our online <a href=\"https:\/\/vapeandjuice.co.uk\/collections\/cbd-oils\">CBD<\/a> and vapour store, as well as offline in our e-cig shops London, Kent, Essex, Yeovil and Ibiza. In 2018 we began <a href=\"https:\/\/vaperun.com\">same-day vape delivery <\/a>with Vaperun. Buy CBD eliquid and <a href=\"https:\/\/vapeandjuice.co.uk\/collections\/starter-eliquids\">ecig ejuice<\/a> now.<\/p>",
+              "custom_image": "",
+              "footer_social_media_enable": false,
+              "column": "12"
+            }
+          },
+          "1515680965996": {
+            "type": "menu",
+            "settings": {
+              "title": "Information",
+              "menu": "footer-information",
+              "column": "2"
+            }
+          },
+          "1521884881243": {
+            "type": "menu",
+            "settings": {
+              "title": "My Account",
+              "menu": "footer",
+              "column": "2"
+            }
+          },
+          "1521884918138": {
+            "type": "menu",
+            "settings": {
+              "title": "POPULAR LINKS",
+              "menu": "fast-links",
+              "column": "2"
+            }
+          },
+          "1546690084676": {
+            "type": "menu",
+            "settings": {
+              "title": "Tutorials",
+              "menu": "tutorials",
+              "column": "2"
+            }
+          },
+          "1515680994356": {
+            "type": "newsletter",
+            "settings": {
+              "title": "Sign up to be a brand ambassador",
+              "description": "Enter your email address to show your interest in being a brand ambassador for our lines. Listed in the <a tipped.co.uk href:=\"\">UK Business Directory<\/a>",
+              "footer_social_media_enable": true,
+              "column": "4"
+            }
+          }
+        },
+        "block_order": [
+          "1567376482749",
+          "1515680965996",
+          "1521884881243",
+          "1521884918138",
+          "1546690084676",
+          "1515680994356"
+        ],
+        "settings": {}
+      },
+      "tp-section-collection-filter": {
+        "type": "tp-section-collection-filter",
+        "blocks": {
+          "1556281117825": {
+            "type": "size",
+            "settings": {
+              "title": "Filter by Size",
+              "filter_by_tags_size": "10ml, 30ml, 50ml, 100ml, 120ml, 150ml, 200ml,"
+            }
+          },
+          "1556281121809": {
+            "type": "price",
+            "settings": {
+              "title": "Filter by VG\/PG",
+              "filter_by_tags_price": "30\/70, 40\/60, 50\/50, 60\/40, 70\/30, 75\/25, 80\/20, 85\/25, 90\/10,"
+            }
+          },
+          "1556287909465": {
+            "type": "brand",
+            "settings": {
+              "title": "Nic Strength",
+              "filter_by_tags_brand": "0mg, 3mg, 6mg, 12mg, 18mg, 20mg,"
+            }
+          },
+          "1569262291271": {
+            "type": "other_1",
+            "settings": {
+              "title": "Flavour Type",
+              "filter_by_tags_other": "Absinthe, Acai, Almond, Ammaretto, Aniseed, Apple, Apple Pie, Apricot, Banana, Banoffee, Biscuit, Blackberry, Blackcurrant, Blueberry, Bourbon, Bubblegum, Butterscotch, Cake, Candy floss, Caramel, Cereal, Champagne, Cheesecake, Cherry, Chewing Gum, Chocolate, Churros, Cinnamon, Citrus, Cocoa, Coconut, Coffee, Cognac, Cola, Cookies, Cranberry, Cream, Custard, Donuts, Dragonfruit, Eucalyptus, Fizzy Pop, French Toast, Fudge, Ginger, Graham Cracker, Grape, Grapefruit, Guava, Hazelnut, Honey, Honeydew Melon, Ice\/Slush, Ice Cream, Iced Pastry, Jackfruit, Jam, Jasmine, Kiwi, Lemon, Lemonade, Lime, Limeade, Lychee, Macaron, Mandarin, Mango, Maple Syrup, Marshmallow, Melon, Menthol, Milk, Milkshake, Mint, Mixed Berries, Mojito, Nectarine, Nut, Orange, Pancake, Papaya, Passionfruit, Pastry, Peach, Peanut Butter, Pear, Pecan, Peppermint, Pineapple, Pink Lemonade, Pistachio, Plum, Pomegranate, Popcorn, Popsicle, Pornstar Martini, Praline, Raisin, Raspberry, Rhubarb, Rice pudding, Rum, RY4, Sherbet, Shortcake, Sorbet, Spearmint, Strawberry, Sugar, Sweets\/Candy, Syrup, Taffy, Tangerine, Tea, Toast, Tobacco, Toffee, Tropical Fruit, Vanilla, Waffle, Walnut, Watermelon, Whisky, Yoghurt"
+            }
+          }
+        },
+        "block_order": [
+          "1556281117825",
+          "1556281121809",
+          "1556287909465",
+          "1569262291271"
+        ],
+        "settings": {}
+      },
+      "tp-section-product-sidebar": {
+        "type": "tp-section-product-sidebar",
+        "blocks": {
+          "1516451767615": {
+            "type": "collection",
+            "settings": {
+              "title": "Featured Products",
+              "featured_product_collection": "juices",
+              "featured_product_limit": 3
+            }
+          },
+          "1555410337217": {
+            "type": "category",
+            "settings": {
+              "title": "Categories",
+              "top_categories_source": "link_list",
+              "top_categories_link_list": "main-menu"
+            }
+          },
+          "1525358788910": {
+            "type": "viewed_products",
+            "settings": {
+              "title": "Recently Viewed Products",
+              "viewed_product_limit": 3
+            }
+          }
+        },
+        "block_order": [
+          "1516451767615",
+          "1555410337217",
+          "1525358788910"
+        ],
+        "settings": {}
+      },
+      "tp-section-product-tabs": {
+        "type": "tp-section-product-tabs",
+        "blocks": {
+          "1516455490557": {
+            "type": "description",
+            "settings": {
+              "title": "Description"
+            }
+          },
+          "1516455614819": {
+            "type": "html",
+            "settings": {
+              "title": "Shipping",
+              "code": "<b>UK Shipping<\/b><br><br>\n<ul>\n<li>We offer a <b>free<\/b> UK Standard Royal Mail Shipping Service that is carried under 2nd Class.<br>\n\nThis is advised as 2-5 working days after day of order.<\/li>\n<br>\n\n<li>Royal Mail 1st Class - 1-2 working days<\/li>\n<br>\n\n<li>Royal Mail Signed for - 1-2 working days requires signature at residence.<\/li>\n<br>\n\n<li>Express Next Day - If order placed before 4pm Mon - Fri, will be received by customer next working day<\/li>\n<br><br>\nWant SAMEDAY Vape Delivery? Check out our sister site:\nVaperun.com<p>\n<br><\/p>\n<p>\n\n<b>International<\/b><br><\/p>\n<br>\n<p><\/p>\n<ul>\n<li>Standard Shipping EU - 7-10 Working days<\/li>\n<br>\n\n<li>Express International EU - 5-7 Working days<\/li>\n<br>\n\n<li>Signed for International (All World) - 5-7 Working days\n<\/li>\n<br>\n<\/ul>\nPlease note that only orders that are placed before 4pm will be processed for next day delivery if it is chosen upon checkout. Orders placed after 4pm will be processed the following morning.<br><p><\/p>\n\nVape Juices and Kits shipped to Australia, Germany, USA, New Zealand, Tunisia, Hungary, Spain, Sweden, Denmark, Norway, Finland, South Africa and many many more countries besides.<\/ul>"
+            }
+          },
+          "1516455598484": {
+            "type": "addition",
+            "settings": {
+              "title": "RETURNS POLICY",
+              "page_content": ""
+            }
+          },
+          "1516455505973": {
+            "type": "review",
+            "settings": {
+              "title": "Reviews"
+            }
+          },
+          "1516455556766": {
+            "type": "tags",
+            "settings": {
+              "title": "Tags"
+            }
+          }
+        },
+        "block_order": [
+          "1516455490557",
+          "1516455614819",
+          "1516455598484",
+          "1516455505973",
+          "1516455556766"
+        ],
+        "settings": {}
+      },
+      "tp-section-blog-sidebar": {
+        "type": "tp-section-blog-sidebar",
+        "blocks": {
+          "1516500902494": {
+            "type": "tags",
+            "settings": {
+              "title": "Blog Tags"
+            }
+          }
+        },
+        "block_order": [
+          "1516500902494"
+        ],
+        "settings": {
+          "cat_title": "Categories",
+          "blog_category": "blog-menu"
+        }
+      },
+      "tp-section-gallery-list": {
+        "type": "tp-section-gallery-list",
+        "blocks": {
+          "1519980147752": {
+            "type": "image_2_tint",
+            "settings": {
+              "image": "",
+              "choose_product_1": "",
+              "left_1": 30,
+              "top_1": 50,
+              "choose_product_2": "",
+              "left_2": 62,
+              "top_2": 50
+            }
+          },
+          "1519980181083": {
+            "type": "image_tint",
+            "settings": {
+              "image": "",
+              "choose_product": "",
+              "left": 50,
+              "top": 30
+            }
+          },
+          "1519980102386": {
+            "type": "image_tint",
+            "settings": {
+              "image": "",
+              "choose_product": "",
+              "left": 45,
+              "top": 25
+            }
+          },
+          "1519728879354": {
+            "type": "image_tint",
+            "settings": {
+              "image": "",
+              "choose_product": "",
+              "left": 30,
+              "top": 30
+            }
+          },
+          "1519980050944": {
+            "type": "image",
+            "settings": {
+              "image": ""
+            }
+          },
+          "1519980192597": {
+            "type": "image_tint",
+            "settings": {
+              "image": "",
+              "choose_product": "",
+              "left": 50,
+              "top": 50
+            }
+          },
+          "1519980086460": {
+            "type": "image",
+            "settings": {
+              "image": ""
+            }
+          },
+          "1519980155475": {
+            "type": "image_tint",
+            "settings": {
+              "image": "",
+              "choose_product": "",
+              "left": 60,
+              "top": 40
+            }
+          },
+          "1519980136648": {
+            "type": "image_tint",
+            "settings": {
+              "image": "",
+              "choose_product": "",
+              "left": 30,
+              "top": 30
+            }
+          },
+          "1517038500480": {
+            "type": "image",
+            "settings": {
+              "image": ""
+            }
+          },
+          "1519980171708": {
+            "type": "image",
+            "settings": {
+              "image": ""
+            }
+          },
+          "1517026178107": {
+            "type": "image",
+            "settings": {
+              "image": ""
+            }
+          },
+          "1517038494681": {
+            "type": "image",
+            "settings": {
+              "image": ""
+            }
+          },
+          "1519980074667": {
+            "type": "image",
+            "settings": {
+              "image": ""
+            }
+          }
+        },
+        "block_order": [
+          "1519980147752",
+          "1519980181083",
+          "1519980102386",
+          "1519728879354",
+          "1519980050944",
+          "1519980192597",
+          "1519980086460",
+          "1519980155475",
+          "1519980136648",
+          "1517038500480",
+          "1519980171708",
+          "1517026178107",
+          "1517038494681",
+          "1519980074667"
+        ],
+        "settings": {}
+      },
+      "tp-section-navigation": {
+        "type": "tp-section-navigation",
+        "blocks": {
+          "1546690725608": {
+            "type": "menu_item_no_children",
+            "settings": {
+              "title": "Beginners",
+              "link": "shopify:\/\/pages\/best-vape-starter-kit",
+              "label_text": "",
+              "label_color": ""
+            }
+          },
+          "1516718299329": {
+            "type": "mega_products",
+            "settings": {
+              "title": "Eliquids",
+              "link": "shopify:\/\/collections\/new-ejuices",
+              "sub_menu": "eliquid",
+              "banner": "",
+              "banner_url": "shopify:\/\/collections\/jack-the-dripper",
+              "product_list_heading": "New Arrivals",
+              "choose_collection": "new-ejuices",
+              "limit_products": 3,
+              "label_text": "",
+              "label_color": "#ffffff"
+            }
+          },
+          "1537282228004": {
+            "type": "mega_products",
+            "settings": {
+              "title": "Kits",
+              "link": "shopify:\/\/collections\/whole-kits",
+              "sub_menu": "vape-kits",
+              "banner": "",
+              "banner_url": "shopify:\/\/collections\/vapemodsuk",
+              "product_list_heading": "Recommended",
+              "choose_collection": "recommended-vape-kits",
+              "limit_products": 3,
+              "label_text": "",
+              "label_color": ""
+            }
+          },
+          "1540727572474": {
+            "type": "submenu_dropdown",
+            "settings": {
+              "title": "CBD",
+              "link": "shopify:\/\/collections\/cbd-e-liquid",
+              "sub_menu": "cbd",
+              "label_text": "",
+              "label_color": ""
+            }
+          },
+          "1567281689670": {
+            "type": "mega_multilist",
+            "settings": {
+              "title": "Tanks",
+              "link": "shopify:\/\/collections\/all-tanks",
+              "sub_menu": "tanks",
+              "label_text": "",
+              "label_color": ""
+            }
+          },
+          "1567281812723": {
+            "type": "mega_multilist",
+            "settings": {
+              "title": "Coils",
+              "link": "shopify:\/\/collections\/coils",
+              "sub_menu": "coils",
+              "label_text": "",
+              "label_color": ""
+            }
+          },
+          "1563376881636": {
+            "type": "submenu_dropdown",
+            "settings": {
+              "title": "SALES",
+              "link": "",
+              "sub_menu": "sales",
+              "label_text": "HOT",
+              "label_color": "#f32323"
+            }
+          },
+          "1556141100159": {
+            "type": "submenu_dropdown",
+            "settings": {
+              "title": "Mech Mods",
+              "link": "shopify:\/\/collections\/mech-mods",
+              "sub_menu": "mech-mods",
+              "label_text": "",
+              "label_color": ""
+            }
+          },
+          "1567282338076": {
+            "type": "mega_multilist",
+            "settings": {
+              "title": "Batteries",
+              "link": "shopify:\/\/collections\/vape-batteries",
+              "sub_menu": "batteries",
+              "label_text": "",
+              "label_color": ""
+            }
+          },
+          "1567282406785": {
+            "type": "mega_multilist",
+            "settings": {
+              "title": "Accessories",
+              "link": "shopify:\/\/collections\/vape-accessories",
+              "sub_menu": "accessories",
+              "label_text": "",
+              "label_color": ""
+            }
+          },
+          "1539174438397": {
+            "type": "submenu_dropdown",
+            "settings": {
+              "title": "Stores",
+              "link": "shopify:\/\/pages\/store-locator-mobile",
+              "sub_menu": "store-locator",
+              "label_text": "",
+              "label_color": ""
+            }
+          }
+        },
+        "block_order": [
+          "1546690725608",
+          "1516718299329",
+          "1537282228004",
+          "1540727572474",
+          "1567281689670",
+          "1567281812723",
+          "1563376881636",
+          "1556141100159",
+          "1567282338076",
+          "1567282406785",
+          "1539174438397"
+        ],
+        "settings": {}
+      },
+      "1517638253975": {
+        "type": "tp-home-banner-1",
+        "blocks": {
+          "1521252037736": {
+            "type": "image_overlay_text",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/Starter_Kit_Tile.jpg",
+              "link": "shopify:\/\/collections\/starter-kits",
+              "text": "VAPE STARTER KITS",
+              "text_font_size": 10,
+              "text_font_family": "$font_2",
+              "text_font_weight": "600",
+              "text_color": "rgba(0,0,0,0)",
+              "text_2": "",
+              "text_2_font_size": 30,
+              "text_2_font_family": "font_2",
+              "text_2_font_weight": "600",
+              "text_2_color": "#fff",
+              "overlay_text": 0.2
+            }
+          },
+          "1517716858272": {
+            "type": "image_overlay_text",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/Eliquid_Tile.jpg",
+              "link": "shopify:\/\/collections\/high-vg",
+              "text": "BEST CLOUD VAPE ELIQUID",
+              "text_font_size": 10,
+              "text_font_family": "$font_2",
+              "text_font_weight": "300",
+              "text_color": "rgba(0,0,0,0)",
+              "text_2": "",
+              "text_2_font_size": 30,
+              "text_2_font_family": "font_2",
+              "text_2_font_weight": "600",
+              "text_2_color": "#fff",
+              "overlay_text": 0.1
+            }
+          },
+          "1521252088922": {
+            "type": "image_overlay_text",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/Mods_Tile.jpg",
+              "link": "shopify:\/\/collections\/vapemodsuk",
+              "text": "BEST SELLING VAPE KITS",
+              "text_font_size": 20,
+              "text_font_family": "$font_2",
+              "text_font_weight": "600",
+              "text_color": "rgba(0,0,0,0)",
+              "text_2": "",
+              "text_2_font_size": 30,
+              "text_2_font_family": "font_2",
+              "text_2_font_weight": "600",
+              "text_2_color": "#fff",
+              "overlay_text": 0.1
+            }
+          }
+        },
+        "block_order": [
+          "1521252037736",
+          "1517716858272",
+          "1521252088922"
+        ],
+        "settings": {
+          "block_layout": "box",
+          "padding_top": 40,
+          "padding_bottom": 0,
+          "gutter": 30,
+          "banner_hover_effect": "line",
+          "background_color": "transparent"
+        }
+      },
+      "1517834925335": {
+        "type": "tp-slideshow-simple",
+        "blocks": {
+          "1573039697429": {
+            "type": "image",
+            "settings": {
+              "slideshow_image": "shopify:\/\/shop_images\/hashtags_vape_sale_cyber_monday_black_friday_bfcm.jpg",
+              "slideshow_link": "\/collections\/sales-vape"
+            }
+          },
+          "1517913578670": {
+            "type": "image_text",
+            "settings": {
+              "slideshow_image": "shopify:\/\/shop_images\/starter_eliquids_which_are_ejuice_for_new_vapers_in_ecigs_kits.jpg",
+              "content_align": "left",
+              "content_1": "BEST VAPE STARTER KITS 2019",
+              "content_1_font_size": 20,
+              "content_1_font_family": "font_family_2",
+              "content_1_font_weight": "700",
+              "content_1_font_style": "normal",
+              "content_1_color": "#fff",
+              "content_2": "NEW TO VAPING?",
+              "content_2_font_size": 74,
+              "content_2_font_family": "font_family_2",
+              "content_2_font_weight": "600",
+              "content_2_font_style": "normal",
+              "content_2_color": "#fff",
+              "button": "Shop Now",
+              "button_link": "shopify:\/\/pages\/best-vape-starter-kit"
+            }
+          }
+        },
+        "block_order": [
+          "1573039697429",
+          "1517913578670"
+        ],
+        "settings": {
+          "block_layout": "fullwidth",
+          "padding_top": 0,
+          "padding_bottom": 7,
+          "speed": 2,
+          "animation": "slide",
+          "enable_center_mode": false,
+          "center_padding": 100
+        }
+      },
+      "1517837594707": {
+        "type": "tp-home-product-tab-1",
+        "disabled": true,
+        "blocks": {
+          "1517837594707-0": {
+            "type": "tab",
+            "settings": {
+              "title": "New arrivals",
+              "choose_collection": "new-ejuices"
+            }
+          }
+        },
+        "block_order": [
+          "1517837594707-0"
+        ],
+        "settings": {
+          "block_layout": "box",
+          "padding_top": 30,
+          "padding_bottom": 30,
+          "product_item_per_row": 4,
+          "limit_number": 4,
+          "bg_color": "#fff"
+        }
+      },
+      "tp-section-password-page": {
+        "type": "tp-section-password-page",
+        "settings": {
+          "logo": "",
+          "description": "WE ARE COMING VERY SOON",
+          "date": "2018\/12\/12 18:30:00",
+          "form_label": "ENTER STORE USING PASSWORD:",
+          "form_button": "Submit",
+          "footer_text": "This shop will be powered by Shopify",
+          "enable_bg_image": true,
+          "bg_image": "",
+          "bg_color": "#e4e4e4",
+          "text_color": "#ffffff"
+        }
+      },
+      "tp-section-faq-list": {
+        "type": "tp-section-faq-list",
+        "blocks": {
+          "1519985009079": {
+            "type": "filter1",
+            "settings": {
+              "question": "What are the payment methods available?",
+              "answer": "At the moment, we only accept <strong>Credit\/Debit<\/strong> cards and <strong>Paypal<\/strong> payments."
+            }
+          },
+          "1519985047126": {
+            "type": "filter2",
+            "settings": {
+              "question": "How do you ship my orders?",
+              "answer": "All your orders are sent via Singapore Post Limited (SingPost)."
+            }
+          },
+          "1519985053748": {
+            "type": "filter3",
+            "settings": {
+              "question": "How many free samples can I redeem?",
+              "answer": "Due to the limited quantity, each member's account is only entitled to 1 unique free sample. You can check out up to 4 free samples in each checkout."
+            }
+          },
+          "1519985057198": {
+            "type": "filter2",
+            "settings": {
+              "question": "How can I change my shipping address?",
+              "answer": "By default, the last used shipping address will be saved into to your Sample Store account. When you are checking out your order, the default shipping address will be displayed and you have the option to amend it if you need to."
+            }
+          },
+          "1520045037134": {
+            "type": "filter1",
+            "settings": {
+              "question": "How do I make payments using Paypal? How does it work?",
+              "answer": "Paypal is the easiest way to make payments online. While checking out your order, you will be redirected to the Paypal website. Be sure to fill in correct details for fast &amp; hassle-free payment processing. After a successful Paypal payment, a payment advice will be automatically generated to Samplestore.com system for your order.\n\nIt's fast, easy &amp; secure."
+            }
+          },
+          "1520045209782": {
+            "type": "filter1",
+            "settings": {
+              "question": "How can I track my orders &amp; payment?",
+              "answer": "After logging into your account, the status of your checkout history can be found under Order History. For orders via registered postage, a tracking number (article tracking number) will be given to you after the receipt given from Singapore Post Limited (SingPost)."
+            }
+          },
+          "1520045338307": {
+            "type": "filter2",
+            "settings": {
+              "question": "How long will it take for my order to arrive after I make payment?",
+              "answer": "Members who ship their orders within Singapore should expect to receive their orders within five (5) to ten (10) working days upon payment verification depending on the volume of orders received.\n\nIf you experience delays in receiving your order, contact us immediately and we will help to confirm the status of your order."
+            }
+          },
+          "1520045395578": {
+            "type": "filter3",
+            "settings": {
+              "question": "How can I use my remaining Account Credits?",
+              "answer": "We are in the process of removing the option to pay for your orders by ‘Account Credits’. If you have remaining credits in your account, it will be used to pay for your next checkout. If there are insufficient credits, the system will direct you automatically to pay the balance via Paypal."
+            }
+          },
+          "1520045445866": {
+            "type": "filter1",
+            "settings": {
+              "question": "How do I cancel my orders before I make a payment?",
+              "answer": "After logging into your account, go to your Shopping Cart. Here, you will be able to make payment or cancel your order. Note: We cannot give refunds once payment is verified."
+            }
+          }
+        },
+        "block_order": [
+          "1519985009079",
+          "1519985047126",
+          "1519985053748",
+          "1519985057198",
+          "1520045037134",
+          "1520045209782",
+          "1520045338307",
+          "1520045395578",
+          "1520045445866"
+        ],
+        "settings": {
+          "filter1": "Order & Payment",
+          "filter2": "Shipping & Return",
+          "filter3": "Others"
+        }
+      },
+      "tp-vape-finder": {
+        "type": "tp-vape-finder",
+        "blocks": {
+          "1539868900928": {
+            "type": "product_list",
+            "settings": {
+              "yes": true,
+              "no": true,
+              "price": true,
+              "quality": true,
+              "battery": true,
+              "cloud": false,
+              "budget": "25-50",
+              "choose_product": "aspire-x30-rover-30w-mod-kit",
+              "choose_product_id": "8690037961"
+            }
+          },
+          "1539871325716": {
+            "type": "product_list",
+            "settings": {
+              "yes": true,
+              "no": true,
+              "price": true,
+              "quality": true,
+              "battery": true,
+              "cloud": false,
+              "budget": "25-50",
+              "choose_product": "aspire-nautilus-aio-starter-kit",
+              "choose_product_id": "1491135955057"
+            }
+          },
+          "1539946518508": {
+            "type": "product_list",
+            "settings": {
+              "yes": true,
+              "no": true,
+              "price": true,
+              "quality": true,
+              "battery": true,
+              "cloud": false,
+              "budget": "25-50",
+              "choose_product": "innokin-endura-t20s-kit-buy-online",
+              "choose_product_id": "584246067228"
+            }
+          },
+          "1539951527232": {
+            "type": "product_list",
+            "settings": {
+              "yes": true,
+              "no": true,
+              "price": true,
+              "quality": false,
+              "battery": true,
+              "cloud": false,
+              "budget": "25-50",
+              "choose_product": "aspire-pockex",
+              "choose_product_id": "8584659785"
+            }
+          },
+          "1542381945397": {
+            "type": "product_list",
+            "settings": {
+              "yes": true,
+              "no": true,
+              "price": false,
+              "quality": true,
+              "battery": true,
+              "cloud": false,
+              "budget": "50-75",
+              "choose_product": "aspire-zelos-2-kit",
+              "choose_product_id": "2404098703440"
+            }
+          },
+          "1542381988192": {
+            "type": "product_list",
+            "settings": {
+              "yes": true,
+              "no": true,
+              "price": true,
+              "quality": true,
+              "battery": true,
+              "cloud": false,
+              "budget": "50-75",
+              "choose_product": "innokin-kroma-zenith-kit",
+              "choose_product_id": "1802694164593"
+            }
+          },
+          "1542382012825": {
+            "type": "product_list",
+            "settings": {
+              "yes": true,
+              "no": true,
+              "price": true,
+              "quality": true,
+              "battery": true,
+              "cloud": false,
+              "budget": "75plus",
+              "choose_product": "couples-vape-kit",
+              "choose_product_id": "1819475574897"
+            }
+          },
+          "1542382032851": {
+            "type": "product_list",
+            "settings": {
+              "yes": true,
+              "no": true,
+              "price": true,
+              "quality": true,
+              "battery": true,
+              "cloud": false,
+              "budget": "25-50",
+              "choose_product": "vape-pen-starter-kit",
+              "choose_product_id": "1819549991025"
+            }
+          },
+          "1542382059582": {
+            "type": "product_list",
+            "settings": {
+              "yes": true,
+              "no": true,
+              "price": true,
+              "quality": true,
+              "battery": false,
+              "cloud": true,
+              "budget": "25-50",
+              "choose_product": "smok-stick-prince-kit",
+              "choose_product_id": "672757547036"
+            }
+          },
+          "1542382094060": {
+            "type": "product_list",
+            "settings": {
+              "yes": true,
+              "no": true,
+              "price": true,
+              "quality": true,
+              "battery": false,
+              "cloud": true,
+              "budget": "25-50",
+              "choose_product": "vaporesso-target-mini-kit",
+              "choose_product_id": "8764742089"
+            }
+          },
+          "1542382118134": {
+            "type": "product_list",
+            "settings": {
+              "yes": true,
+              "no": true,
+              "price": true,
+              "quality": true,
+              "battery": false,
+              "cloud": true,
+              "budget": "25-50",
+              "choose_product": "coolfire-mini-kit",
+              "choose_product_id": "8735371465"
+            }
+          },
+          "1542382134351": {
+            "type": "product_list",
+            "settings": {
+              "yes": true,
+              "no": true,
+              "price": true,
+              "quality": true,
+              "battery": false,
+              "cloud": true,
+              "budget": "25-50",
+              "choose_product": "smok-stick-v8-2ml-kit",
+              "choose_product_id": "8745435465"
+            }
+          },
+          "1542382218255": {
+            "type": "product_list",
+            "settings": {
+              "yes": true,
+              "no": true,
+              "price": true,
+              "quality": true,
+              "battery": false,
+              "cloud": true,
+              "budget": "50-75",
+              "choose_product": "aspire-puxos-kit",
+              "choose_product_id": "1436684845169"
+            }
+          },
+          "1542382242877": {
+            "type": "product_list",
+            "settings": {
+              "yes": true,
+              "no": true,
+              "price": true,
+              "quality": true,
+              "battery": false,
+              "cloud": true,
+              "budget": "50-75",
+              "choose_product": "innokin-oceanus-isub-110w-kit",
+              "choose_product_id": "10171006089"
+            }
+          },
+          "1542382271281": {
+            "type": "product_list",
+            "settings": {
+              "yes": true,
+              "no": true,
+              "price": true,
+              "quality": true,
+              "battery": false,
+              "cloud": true,
+              "budget": "50-75",
+              "choose_product": "revenger-x-kit",
+              "choose_product_id": "1361931042923"
+            }
+          },
+          "1542382290880": {
+            "type": "product_list",
+            "settings": {
+              "yes": true,
+              "no": true,
+              "price": true,
+              "quality": true,
+              "battery": false,
+              "cloud": true,
+              "budget": "50-75",
+              "choose_product": "smok-x-priv-kit",
+              "choose_product_id": "672628539420"
+            }
+          },
+          "1542382359452": {
+            "type": "product_list",
+            "settings": {
+              "yes": true,
+              "no": true,
+              "price": true,
+              "quality": true,
+              "battery": false,
+              "cloud": true,
+              "budget": "50-75",
+              "choose_product": "smok-majesty-kit-buy-online",
+              "choose_product_id": "473653182492"
+            }
+          },
+          "1542382383199": {
+            "type": "product_list",
+            "settings": {
+              "yes": true,
+              "no": true,
+              "price": true,
+              "quality": true,
+              "battery": false,
+              "cloud": true,
+              "budget": "75plus",
+              "choose_product": "smok-mag-kit-buy-online-1",
+              "choose_product_id": "644439015452"
+            }
+          },
+          "1542382399189": {
+            "type": "product_list",
+            "settings": {
+              "yes": true,
+              "no": true,
+              "price": true,
+              "quality": true,
+              "battery": false,
+              "cloud": true,
+              "budget": "75plus",
+              "choose_product": "the-vape-box-mod-cloud-kit",
+              "choose_product_id": "1825366474865"
+            }
+          },
+          "1542382507979": {
+            "type": "product_list",
+            "settings": {
+              "yes": true,
+              "no": true,
+              "price": true,
+              "quality": true,
+              "battery": false,
+              "cloud": true,
+              "budget": "75plus",
+              "choose_product": "smok-majesty-kit-resin-buy-online",
+              "choose_product_id": "478002184220"
+            }
+          },
+          "1542382543112": {
+            "type": "product_list",
+            "settings": {
+              "yes": true,
+              "no": true,
+              "price": true,
+              "quality": true,
+              "battery": false,
+              "cloud": true,
+              "budget": "50-75",
+              "choose_product": "smok-species-kit",
+              "choose_product_id": "1810925912177"
+            }
+          },
+          "1569620868444": {
+            "type": "product_list",
+            "settings": {
+              "yes": true,
+              "no": false,
+              "price": true,
+              "quality": true,
+              "battery": false,
+              "cloud": true,
+              "budget": "25-50",
+              "choose_product": "smok-rpm-40-kit",
+              "choose_product_id": "3742651285584"
+            }
+          }
+        },
+        "block_order": [
+          "1539868900928",
+          "1539871325716",
+          "1539946518508",
+          "1539951527232",
+          "1542381945397",
+          "1542381988192",
+          "1542382012825",
+          "1542382032851",
+          "1542382059582",
+          "1542382094060",
+          "1542382118134",
+          "1542382134351",
+          "1542382218255",
+          "1542382242877",
+          "1542382271281",
+          "1542382290880",
+          "1542382359452",
+          "1542382383199",
+          "1542382399189",
+          "1542382507979",
+          "1542382543112",
+          "1569620868444"
+        ],
+        "settings": {
+          "block_layout": "box"
+        }
+      },
+      "1551388891916": {
+        "type": "tp-home-recently-blog",
+        "disabled": true,
+        "settings": {
+          "block_layout": "extrawidth",
+          "padding_top": 16,
+          "padding_bottom": 33,
+          "heading": "Latest News",
+          "choose_blog": "main-blog",
+          "blog_style": "style-2",
+          "home_blog_number_per_row": 4,
+          "home_blog_number": 4,
+          "gutter": 30,
+          "blog_date_enable": false,
+          "blog_description_enable": false,
+          "blog_button_enable": true,
+          "home_blog_bg_color": "#fff"
+        }
+      },
+      "1567120039631": {
+        "type": "tp-home-custom-html",
+        "disabled": true,
+        "blocks": {
+          "1567120039631-0": {
+            "type": "html",
+            "settings": {
+              "html": "<div id=\"stamped-reviews-widget\" data-widget-type=\"carousel\" data-auto-play=\"true\" data-auto-play-speed=\"5\" data-min-rating=\"4\" data-product-image=\"false\" data-feed-type=\"feed\" data-style-color-star=\"#dff20c\" data-style=\"bubble\"><\/div>"
+            }
+          }
+        },
+        "block_order": [
+          "1567120039631-0"
+        ],
+        "settings": {
+          "block_layout": "box",
+          "padding_top": 0,
+          "padding_bottom": 0,
+          "bg_color": "#fff",
+          "heading": "Our Customers"
+        }
+      },
+      "1567373009672": {
+        "type": "tp-home-banner-1",
+        "blocks": {
+          "1567373009672-0": {
+            "type": "image",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/Our_Remedy_Tile_1.jpg",
+              "link": "https:\/\/thecbddispensary.co\/products\/our-remedy-cbd"
+            }
+          },
+          "1567373009672-1": {
+            "type": "image",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/CBD_Tile.jpg",
+              "link": "shopify:\/\/collections\/cbd-eliquid"
+            }
+          },
+          "1567373009672-2": {
+            "type": "image",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/Coils_Tanks_Tile.jpg",
+              "link": "shopify:\/\/collections\/coils"
+            }
+          }
+        },
+        "block_order": [
+          "1567373009672-0",
+          "1567373009672-1",
+          "1567373009672-2"
+        ],
+        "settings": {
+          "block_layout": "box",
+          "padding_top": 20,
+          "padding_bottom": 34,
+          "gutter": 30,
+          "banner_hover_effect": "line",
+          "background_color": "transparent"
+        }
+      },
+      "1568360214417": {
+        "type": "tp-home-text-and-image",
+        "blocks": {
+          "1568360214417-0": {
+            "type": "image_left",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/how_to_refill_a_jule_pod_-_buy_juul_pods.jpg",
+              "image_width": 25,
+              "heading": "<h3><b>Buy Non Juul pods compatible with Juul Kits for CBD Online<\/b><\/h3>",
+              "content": "Buy Juul compatible pods from the OVNS range, which makes CBD juuling possible too with this unofficial\/totally not endorsed hack. Open to something better than a Juul Kit? We stock the best pod vape kits. These Non Juul Pods are not endorsed by Juul and partner companies. When we criticise Juul, we do it in our own opinion as we have no affiliation to them.",
+              "button": "Shop Now",
+              "url": "shopify:\/\/products\/refillable-juul-pods"
+            }
+          },
+          "1568361717999": {
+            "type": "html",
+            "settings": {
+              "html": "<!--\n<h3 align=\"center\"><b>About Vape and Juice<\/b><\/h3>\nVape and Juice is an online ecig juice vaper shop for vape kits, e liquid, coils and CBD eliquids. We began life in 2014 as a bricks and mortar electronic cigarette store in Southend, UK. In that time we have grown to 30 vape shops with an ecigarette website that sells vapes worldwide. So if you are looking for Shake and Vapes in Dampfer central, Germany, Dubai vapes, Starter Ecigs or simply a VGOD Cubano for your Myle vape kit in Poland, we got you.\n<br><p><\/p>\nVape Juice is our business, and we remain a family run brand to this day. In 2018 we became the first retail chain in the UK to offer a <a href=\"https:\/\/pressat.co.uk\/releases\/vape-shop-offer-recycle-reward-scheme-8ff1d1d12d9ec5684e3212e2c886972a\/\">plastic return scheme<\/a>, incentivising vapers to bring their e-liquid bottles in for loyalty points they can use in-store - even if they bought those bottles elsewhere. Check out our company recycling news here. We are a vape business with an ethical head. We don't need to call ourselves 'Eco' we just are. <b>Our motto: \"We help - you vape\"<\/b> so click the webchat and we can answer any questions you have. From How to Start Vaping, Whats the best vape juice or vape box mod, how do I add a nic shot and where can I buy CBD juul pods online. We focus hugely on answering these questions as we think helping answer the FAQs avoids you wasting money on the wrong items. You want the best vape starter kit, the best tank for clouds and the longest life battery vape mod. We want to make that possible for you.\n-->",
+              "css": ""
+            }
+          }
+        },
+        "block_order": [
+          "1568360214417-0",
+          "1568361717999"
+        ],
+        "settings": {
+          "block_layout": "box",
+          "padding_top": 40,
+          "padding_bottom": 40
+        }
+      },
+      "1569578402082": {
+        "type": "tp-home-about-vape",
+        "blocks": {
+          "1569578402082-0": {
+            "type": "collection-list",
+            "settings": {
+              "heading": "Collection Title",
+              "image": "",
+              "url": ""
+            }
+          }
+        },
+        "block_order": [
+          "1569578402082-0"
+        ],
+        "settings": {}
+      },
+      "1569578445691": {
+        "type": "tp-home-custom-html",
+        "blocks": {
+          "1569578445691-0": {
+            "type": "html",
+            "settings": {
+              "html": "<h3 align=\"center\"><b>About Vape and Juice<\/b><\/h3>"
+            }
+          }
+        },
+        "block_order": [
+          "1569578445691-0"
+        ],
+        "settings": {
+          "block_layout": "box",
+          "padding_top": 0,
+          "padding_bottom": 0,
+          "bg_color": "#fff",
+          "heading": ""
+        }
+      }
+    },
+    "content_for_index": [
+      "1510630870827",
+      "1517834925335",
+      "1517638253975",
+      "1567373009672",
+      "1517837594707",
+      "1567120039631",
+      "1551388891916",
+      "1568360214417",
+      "1569578445691",
+      "1569578402082"
+    ]
+  }
+}

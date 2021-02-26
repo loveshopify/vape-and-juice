@@ -1,0 +1,261 @@
+<style type="text/css">
+  .tp-collection-list-1.section-{{ section.id }}{
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    background: {{ section.settings.bg_color }};
+    {% if section.settings.enable_bg_image and section.settings.bg_image != blank %}
+    background-image: url({{ section.settings.bg_image | img_url: '1920x' }});
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    {% endif %}
+  }
+  {% if section.settings.block_layout == "fullwidth" %}
+  @media (min-width: 1300px) {
+    .tp-collection-list-1.section-{{ section.id }} .container {width: 100%; padding-left: 50px; padding-right: 50px;} 
+  }
+  {% endif %} 
+  {% if section.settings.block_layout == 'extrawidth' %}
+    @media (min-width: 1300px) {
+      .tp-collection-list-1-wrap {padding-left: 50px; padding-right: 50px;}
+      .tp-collection-list-1.section-{{section.id}} .container {width: 100%; padding-left: {{ section.settings.gutter }}px; padding-right: {{ section.settings.gutter }}px;}
+    }
+  {% endif %}
+  @media (min-width: 768px) {
+    .tp-collection-list-1.section-{{ section.id }} .tp-product-grid {margin: {{ section.settings.gutter | divided_by: -2 }}px;}
+    .tp-collection-list-1.section-{{ section.id }} .tp-product-grid .grid-item {padding: {{ section.settings.gutter | divided_by: 2 }}px;}
+    .tp-collection-list-1.section-{{ section.id }} .slick-prev {left: {{ section.settings.gutter | divided_by: 2 | minus: 20 }}px;}
+    .tp-collection-list-1.section-{{ section.id }} .slick-next {right: {{ section.settings.gutter | divided_by: 2 | minus: 20 }}px;}
+  }
+  .tp-collection-list-1.section-{{ section.id }} .tp-block-heading h3 {color: {{ section.settings.heading_color }};}
+</style>
+
+{% stylesheet %}
+.tp-collection-list-1 .tp-product-grid .grid-item>a {display: block; position: relative;}
+.tp-collection-list-1 .tp-product-grid .grid-item img {width:100%;}
+.tp-collection-list-1 .tp-product-grid .grid-item .grid-item-inner {padding-bottom:0; border-radius:0; border:0;}
+.tp-collection-list-1 .tp-product-grid .grid-item .grid-item-inner .mask {position:absolute; top:0; right:0; bottom:0; left:0; -moz-box-shadow: 0 1px 2px 0px rgba(0, 0, 0, 0.15); -webkit-box-shadow: 0 1px 2px 0px rgba(0, 0, 0, 0.15); box-shadow: 0 1px 2px 0px rgba(0, 0, 0, 0.15); -moz-transition: all 0.4s ease 0s; -o-transition: all 0.4s ease 0s; -webkit-transition: all 0.4s ease 0s;  transition: all 0.4s ease 0s;}
+.tp-collection-list-1 .cat-title {position: absolute; bottom: 15px; left: 50%; line-height: 20px; max-width: calc(100% - 20px); padding: 15px 20px; text-transform:uppercase; text-align: center; font-size: 16px; font-weight: 700; background-color: rgba(255,255,255,0.8); color: #000; display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; transition: all 300ms; -webkit-transition: all 300ms; transform: translateX(-50%); -webkit-transform: translateX(-50%); box-shadow: 0 0 5px rgba(0,0,0,0.1); -webkit-box-shadow: 0 0 5px rgba(0,0,0,0.1);}
+.tp-collection-list-1 .tp-product-grid .grid-item>a:hover .cat-title {background-color: rgba(255,255,255,1);}
+.tp-collection-list-1 .tp-block-heading h3:after {border-color: inherit;}
+.tp-collection-list-1 .slick-dots li:not(.slick-active) button {border-color: rgba(255,255,255,0.3);}
+{% endstylesheet %} 
+
+<section class="tp-collection-list-1 section-{{ section.id }}">
+  <div class="container">
+    {% if section.settings.heading != blank %}
+      <div class="tp-block-heading">
+        <h3><a href="/collections/all">{{ section.settings.heading }}</a></h3>
+      </div>
+    {% endif %}
+    
+    {% if section.blocks.size > 0 %}
+      <div class="tp-product-grid">
+        {% for block in section.blocks limit: section.settings.limit_collection_item %}
+          <div class="grid-item">
+            <a href="{{ block.settings.url }}">
+              {% if block.settings.image %}
+                <img data-lazy="{{ block.settings.image | img_url: 'master' }}" alt="{{ block.settings.image.alt }}" />
+              {% else %}
+                {% include 'sample', hd_height: 'height-400', hd_text: 'Please upload an image'  %}
+              {% endif %}
+              <span class="cat-title">{{ block.settings.heading }}</span>
+            </a>
+          </div>
+        {% endfor %}
+      </div>
+      <script>
+        $(document).ready(function() {
+          $(".tp-collection-list-1.section-{{ section.id }} .tp-product-grid").slick({
+            arrows: true,
+            infinite: false,
+            slidesToShow: {{ section.settings.collection_item_per_row }},
+            lazyLoad: 'ondemand',
+            slidesToScroll: 1,
+            responsive: [
+              {
+                breakpoint: 1300,
+                settings: {
+                  slidesToShow: 4
+                }
+              },
+              {
+                breakpoint: 1200,
+                settings: {
+                  slidesToShow: 3
+                }
+              },
+              {
+                breakpoint: 992,
+                settings: {
+                  arrows: false,
+                  dots: true,
+                  slidesToShow: 2,
+                  slidesToScroll: 2
+                }
+              },
+              {
+                breakpoint: 480,
+                settings: {
+                  arrows: false,
+                  dots: true,
+                  slidesToShow: 1,
+                  slidesToScroll: 1
+                }
+              }
+            ]
+          });
+        });
+      </script>
+    {% else %}
+      <div class="tp-message">Please select a block</div>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Collection List 1",
+  "class": "index-section tp-collection-list-1-wrap",
+  "max_blocks": 20,
+  "settings": [
+    {
+      "type": "select",
+      "id": "block_layout",
+      "options": [
+        { "value": "box", "label": "Box 1170px"},
+        { "value": "fullwidth", "label": "Full Width"},
+        { "value": "extrawidth", "label": "Extra Width" }
+      ],
+      "label": "Layout",
+      "default": "box"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "gutter",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "label": "Gutter Item",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "collection_item_per_row",
+      "min": 0,
+      "max": 10,
+      "step": 1,
+      "label": "Collection Item Per Row",
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "limit_collection_item",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "label": "Limit Collection Items",
+      "default": 8
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Categories"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#fff"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading Color",
+      "default": "#000"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_bg_image",
+      "label": "Enable Background Image?"
+    },
+    {
+      "type": "image_picker",
+      "id": "bg_image",
+      "label": "Background Image"
+    }
+  ],
+   "blocks" : [
+    {
+      "type" : "collection-list",
+      "name" : "Collection",
+      "settings" : [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default" : "Collection Title"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "url",
+          "id": "url",
+          "label": "URL"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collection List 1",
+      "category": "Collection",
+      "blocks": [
+        {
+          "type": "collection-list"
+        },
+        {
+          "type": "collection-list"
+        },
+        {
+          "type": "collection-list"
+        },
+        {
+          "type": "collection-list"
+        },
+        {
+          "type": "collection-list"
+        },
+        {
+          "type": "collection-list"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

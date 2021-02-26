@@ -1,0 +1,88 @@
+{% comment %}
+	GEMPAGE BUILDER (https://apps.shopify.com/gempage)
+
+	You SHOULD NOT modify source code in this page because
+	It is automatically generated from GEMPAGE BUILDER
+	Try to edit page with the live editor.
+{% endcomment %}
+{% if template contains 'article' and blog.metafields.blogfeeder.use_canonical == 'yes' %}{% assign canonical_url = article.metafields.blogfeeder.canonical %}{% endif %}
+<!doctype html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if IE 9 ]><html class="ie9 no-js"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+  {% include 'shop-sheriff-amp' %}
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  {% comment %}========== Favicon ======== {% endcomment %}
+  {% if settings.favicon_enable %}
+  <link rel="shortcut icon" href="{{ 'favicon.png' | asset_url }}" type="image/png" />
+  {% endif %}
+
+  {% comment %}========== Title and description ======== {% endcomment %}
+  <title>
+  {{ page_title }}{% if current_tags %}{% assign meta_tags = current_tags | join: ', ' %} &ndash; {{ 'general.meta.tags' | t: tags: meta_tags }}{% endif %}{% if current_page != 1 %} &ndash; {{ 'general.meta.page' | t: page: current_page }}{% endif %}{% unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless %}
+  </title>
+
+  {% if page_description %}
+  <meta name="description" content="{{ page_description | escape }}">
+  {% endif %}
+
+  {% comment %}========== Helpers ======== {% endcomment %}
+  {% include 'social-meta-tags' %}
+  <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
+  <meta name="theme-color" content="{{ settings.color_primary }}">
+  <link rel="canonical" href="{{ canonical_url }}">
+
+  {% comment %}========== CSS ======== {% endcomment %}
+  {{ 'bootstrap.min.css' | asset_url | stylesheet_tag }}
+  {{ 'theme.scss.css' | asset_url | stylesheet_tag }}
+  
+
+  {% comment %}========== JS ======== {% endcomment %}
+  {{ 'jquery.min.js' | asset_url | script_tag }}
+
+  <script src="{{ 'jquery-cookie.min.js' | asset_url }}" async></script>
+  <script src="{{ 'modernizr.min.js' | asset_url }}" async></script>
+
+  <script src="{{ 'selectize.min.js' | asset_url }}" async></script>
+  <script src="{{ 'jquery.elevateZoom-3.0.8.min.js' | asset_url }}" async></script>
+
+
+  <script src="{{ 'isotope.pkgd.min.js' | asset_url }}" async></script>
+  <script src="{{ 'imagesloaded.pkgd.min.js' | asset_url }}" async></script>
+  <script src="{{ 'jquery.appear.js' | asset_url }}" async></script>
+
+  {% comment %}
+    If you store has customer accounts disabled, you can remove the following JS file
+  {% endcomment %}
+  {% if template contains 'customers' %}
+  <script src="{{ 'shopify_common.js' | shopify_asset_url }}" async></script>
+  {% endif %}
+
+  {% comment %}========== Google Fonts ======== {% endcomment %}
+  <script src="{{ 'webfont.js' | asset_url }}" async></script>
+  {% include 'tp-google-font' %}
+
+  {% comment %}======== Header hook for plugins ======= {% endcomment %}
+  {{ content_for_header }}
+
+<!--Gem_Page_Header_Script-->
+{% include 'gem-app-header-scripts' %}
+<!--End_Gem_Page_Header_Script-->
+
+  {% include 'shogun-head' %}
+</head>
+
+
+<body>
+<div class="gem-container">
+	{{ content_for_layout }}
+</div><!-- end .gem-container -->
+<!--Gem_Page_Footer_Script-->
+{% include 'gem-app-footer-scripts' %}
+<!--End_Gem_Page_Footer_Script-->
+</body>
+</html>

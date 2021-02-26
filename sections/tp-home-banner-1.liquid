@@ -1,0 +1,598 @@
+<style type="text/css">
+  .tp-home-banner-1.section-{{ section.id }} {
+    background-color: {{ section.settings.background_color }}; 
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px; 
+  }
+  {% if section.settings.block_layout == "fullwidth" %}
+  @media (min-width: 992px) {
+    .tp-home-banner-1.section-{{ section.id }} .container {width: 100%; padding-left: 0; padding-right: 0; overflow: hidden;}
+  }
+  {% endif %}
+  {% if section.settings.block_layout == 'extrawidth' %}
+    @media (min-width: 1300px) {
+      .tp-home-banner-1.section-{{section.id}} {padding-left: 50px; padding-right: 50px;}
+      .tp-home-banner-1.section-{{section.id}} .container {width: 100%; padding-left: 0; padding-right: 0;}
+    }
+  {% endif %}
+  .tp-home-banner-1.section-{{ section.id }} .tp-banner-item-container {
+    margin-left: {{ section.settings.gutter | divided_by: -2 }}px;
+    margin-right: {{ section.settings.gutter | divided_by: -2 }}px;
+  }
+  .tp-home-banner-1.section-{{ section.id }} .tp-banner-item {
+    padding-left: {{ section.settings.gutter | divided_by: 2 }}px;
+    padding-right: {{ section.settings.gutter | divided_by: 2 }}px;
+  }
+  @media (max-width: 767px) {
+    .tp-home-banner-1.section-{{ section.id }} .tp-banner-item + .tp-banner-item {
+      margin-top: {{ section.settings.gutter }}px;
+    }
+  }
+</style>
+
+{% stylesheet %}
+.tp-home-banner-1 .tp-banner-item { text-align: center; }
+.tp-home-banner-1 .tp-banner-item>a,
+.tp-home-banner-1 .tp-banner-item img{ display: block; width: 100%; position: relative; z-index: 0;}
+.tp-home-banner-1 .tp-banner-item.has-text .sample-text {opacity: 0.5; z-index: 0;}
+.tp-home-banner-1 .tp-banner-item .tp-banner-text {position: absolute; top: 0; left: 0; width: 100%; height: 100%; text-align: center; z-index: 2;}
+.tp-home-banner-1 .tp-banner-item .tp-banner-text-1,
+.tp-home-banner-1 .tp-banner-item .tp-banner-text-2 {display: block; line-height: 1;}
+.tp-home-banner-1 .tp-banner-item .tp-banner-text-1+.tp-banner-text-2 {padding-top: 10px;}
+.tp-home-banner-1 .tp-banner-item .tp-banner-text:before {content: ""; height: 100%; display: inline-block; vertical-align: middle; width: 0;}
+.tp-home-banner-1 .tp-banner-item .tp-banner-text .inner {display: inline-block; max-width: 98%; vertical-align: middle; padding: 25px;}
+@media (min-width: 768px) {
+  .tp-home-banner-1 .tp-banner-item-wrap {display: table; width: 100%; table-layout: fixed;}
+  .tp-home-banner-1 .tp-banner-item {display: table-cell; vertical-align: middle;}
+}
+{% endstylesheet %}
+
+<section class="tp-home-banner-1 section-{{ section.id }}">
+  <div class="container">
+    <div class="tp-banner-item-container">
+      <div class="tp-banner-item-wrap">
+        {% for block in section.blocks %}
+          {% assign productIndex = forloop.index | times: 0.5 %}
+          {% assign delayTime = settings.delay_time_ra | times : productIndex %}
+          {% case block.type %}
+            {% when 'image_text' %}
+            <div class="tp-banner-item has-text block-{{ block.id }} wow fadeIn" data-wow-delay="{{ delayTime }}ms">
+              <a href="{{ block.settings.link }}" title="{{ block.settings.image.alt }}" class="effect-{{ section.settings.banner_hover_effect }}">
+                {% if block.settings.image != blank %}
+                <img src="{{ block.settings.image | img_url: 'master' }}" alt="{{ block.settings.image.alt }}" width="auto" height="auto">
+                {% else %}
+                  {% include 'sample', hd_height: 'height-250', hd_text: 'Please upload an image'  %}
+                {% endif %}
+                <span class="tp-banner-text">
+                  <span class="inner">
+                    {% if block.settings.text != blank %}
+                    <span class="tp-banner-text-1 {{ section.settings.text_font_family }}" style="font-size: {{ block.settings.text_font_size }}px; font-weight: {{ block.settings.text_font_weight }}; color: {{ block.settings.text_color }};">
+                      {{ block.settings.text }}
+                    </span>
+                    {% endif %}
+                    {% if block.settings.text_2 != blank %}
+                    <span class="tp-banner-text-2 {{ section.settings.text_2_font_family }}" style="font-size: {{ block.settings.text_2_font_size }}px; font-weight: {{ block.settings.text_2_font_weight }}; color: {{ block.settings.text_2_color }};">
+                      {{ block.settings.text_2 }}
+                    </span>
+                    {% endif %}
+                  </span>
+                </span>
+              </a>
+            </div>
+            {% when 'image_overlay_text' %}
+            <div class="tp-banner-item has-text block-{{ block.id }} wow fadeIn" data-wow-delay="{{ delayTime }}ms">
+              <a href="{{ block.settings.link }}" title="{{ block.settings.image.alt }}" class="effect-{{ section.settings.banner_hover_effect }}">
+                {% if block.settings.image != blank %}
+                <img src="{{ block.settings.image | img_url: 'master' }}" alt="{{ block.settings.image.alt }}">
+                {% else %}
+                  {% include 'sample', hd_height: 'height-250', hd_text: 'Please upload an image'  %}
+                {% endif %}
+                <span class="tp-banner-text overlay" style="background-color: rgba(0,0,0,{{ block.settings.overlay_text }});">
+                  <span class="inner">
+                    {% if block.settings.text != blank %}
+                    <span class="tp-banner-text-1 {{ section.settings.text_font_family }}" style="font-size: {{ block.settings.text_font_size }}px; font-weight: {{ block.settings.text_font_weight }}; color: {{ block.settings.text_color }};">
+                      {{ block.settings.text }}
+                    </span>
+                    {% endif %}
+                    {% if block.settings.text_2 != blank %}
+                    <span class="tp-banner-text-2 {{ section.settings.text_2_font_family }}" style="font-size: {{ block.settings.text_2_font_size }}px; font-weight: {{ block.settings.text_2_font_weight }}; color: {{ block.settings.text_2_color }};">
+                      {{ block.settings.text_2 }}
+                    </span>
+                    {% endif %}
+                  </span>
+                </span>
+              </a>
+            </div>
+            {% else %}
+            <div class="tp-banner-item block-{{ block.id }} wow fadeIn" data-wow-delay="{{ delayTime }}ms">
+              <a href="{{ block.settings.link }}" title="{{ block.settings.image.alt }}" class="effect-{{ section.settings.banner_hover_effect }}">
+                {% if block.settings.image != blank %}
+                <img src="{{ block.settings.image | img_url: 'master' }}" alt="{{ block.settings.image.alt }}">
+                {% else %}
+                  {% include 'sample', hd_height: 'height-250', hd_text: 'Please upload an image'  %}
+                {% endif %}
+              </a>
+            </div>
+          {% endcase %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Banner 1",
+  "class": "index-section",
+  "max_blocks": 4,
+  "settings": [
+    {
+      "type": "select",
+      "id": "block_layout",
+      "options": [
+        { "value": "box", "label": "Box 1170px" },
+        { "value": "fullwidth", "label": "Full Width" },
+        { "value": "extrawidth", "label": "Extra Width" }
+      ],
+      "label": "Layout",
+      "default": "box"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 40
+    },
+    {
+        "type": "range",
+        "id": "gutter",
+        "min": 0,
+        "max": 50,
+        "step": 1,
+        "unit": "px",
+        "label": "Gutter Image",
+        "default": 30
+    },
+    {
+      "type": "select",
+      "id": "banner_hover_effect",
+      "label": "Banner Hover Effect",
+      "options": [
+        { "value": "opacity", "label": "Opacity" },
+        { "value": "zoomout", "label": "Zoom" },
+        { "value": "box", "label": "Box" },
+        { "value": "shine", "label": "Shine" },
+        { "value": "circle", "label": "Circle" },
+        { "value": "line", "label": "Line" },
+        { "value": "border", "label": "Border" }
+      ],
+      "default": "box"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "transparent"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Image",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "URL"
+        }
+      ]
+    },
+    {
+      "type": "image_text",
+      "name": "Image & Text",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "URL"
+        },
+        {
+          "type": "header",
+          "content": "Text 1"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Text 1",
+          "default": "Banner Text 1"
+        },
+        {
+          "type": "range",
+          "id": "text_font_size",
+          "min": 10,
+          "max": 60,
+          "step": 1,
+          "unit": "px",
+          "label": "Text 1 - Font Size",
+          "default": 20
+        },
+        {
+          "type": "select",
+          "id": "text_font_family",
+          "label": "Text 1 - Font Family",
+          "options": [
+            {
+              "value": "font_1",
+              "label": "Fonts 1"
+            },
+            {
+              "value": "font_2",
+              "label": "Fonts 2"
+            },
+            {
+              "value": "font_3",
+              "label": "Fonts 3"
+            }
+          ],
+          "default": "font_2"
+        },
+        {
+          "type": "select",
+          "id": "text_font_weight",
+          "label": "Text 1 -  Font Weight",
+          "options": [
+            {
+              "value": "300",
+              "label": "Thin"
+            },
+            {
+              "value": "400",
+              "label": "Normal"
+            },
+            {
+              "value": "500",
+              "label": "Medium"
+            },
+            {
+              "value": "600",
+              "label": "Semi Bold"
+            },
+            {
+              "value": "700",
+              "label": "Bold"
+            },
+            {
+              "value": "800",
+              "label": "Extra Bold"
+            },
+            {
+              "value": "900",
+              "label": "Black"
+            }
+          ],
+          "default": "600"
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "label": "Text 1 - Color ",
+          "default": "#fff"
+        },
+        {
+          "type": "header",
+          "content": "Text 2"
+        },
+        {
+          "type": "textarea",
+          "id": "text_2",
+          "label": "Text 2",
+          "default": "Text 2"
+        },
+        {
+          "type": "range",
+          "id": "text_2_font_size",
+          "min": 10,
+          "max": 60,
+          "step": 1,
+          "unit": "px",
+          "label": "Text 2 - Font Size",
+          "default": 30
+        },
+        {
+          "type": "select",
+          "id": "text_2_font_family",
+          "label": "Text 2 - Font Family",
+          "options": [
+            {
+              "value": "font_1",
+              "label": "Fonts 1"
+            },
+            {
+              "value": "font_2",
+              "label": "Fonts 2"
+            },
+            {
+              "value": "font_3",
+              "label": "Fonts 3"
+            }
+          ],
+          "default": "font_2"
+        },
+        {
+          "type": "select",
+          "id": "text_2_font_weight",
+          "label": "Text 2 -  Font Weight",
+          "options": [
+            {
+              "value": "300",
+              "label": "Thin"
+            },
+            {
+              "value": "400",
+              "label": "Normal"
+            },
+            {
+              "value": "500",
+              "label": "Medium"
+            },
+            {
+              "value": "600",
+              "label": "Semi Bold"
+            },
+            {
+              "value": "700",
+              "label": "Bold"
+            },
+            {
+              "value": "800",
+              "label": "Extra Bold"
+            },
+            {
+              "value": "900",
+              "label": "Black"
+            }
+          ],
+          "default": "600"
+        },
+        {
+          "type": "color",
+          "id": "text_2_color",
+          "label": "Text 2 - Color ",
+          "default": "#fff"
+        }
+      ]
+    },
+    {
+      "type": "image_overlay_text",
+      "name": "Image & Overlay Text",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "URL"
+        },
+        {
+          "type": "header",
+          "content": "Text 1"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Text 1",
+          "default": "Banner Text 1"
+        },
+        {
+          "type": "range",
+          "id": "text_font_size",
+          "min": 10,
+          "max": 60,
+          "step": 1,
+          "unit": "px",
+          "label": "Text 1 - Font Size",
+          "default": 20
+        },
+        {
+          "type": "select",
+          "id": "text_font_family",
+          "label": "Text 1 - Font Family",
+          "options": [
+            {
+              "value": "font_1",
+              "label": "Fonts 1"
+            },
+            {
+              "value": "font_2",
+              "label": "Fonts 2"
+            },
+            {
+              "value": "font_3",
+              "label": "Fonts 3"
+            }
+          ],
+          "default": "font_2"
+        },
+        {
+          "type": "select",
+          "id": "text_font_weight",
+          "label": "Text 1 -  Font Weight",
+          "options": [
+            {
+              "value": "300",
+              "label": "Thin"
+            },
+            {
+              "value": "400",
+              "label": "Normal"
+            },
+            {
+              "value": "500",
+              "label": "Medium"
+            },
+            {
+              "value": "600",
+              "label": "Semi Bold"
+            },
+            {
+              "value": "700",
+              "label": "Bold"
+            },
+            {
+              "value": "800",
+              "label": "Extra Bold"
+            },
+            {
+              "value": "900",
+              "label": "Black"
+            }
+          ],
+          "default": "600"
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "label": "Text 1 - Color ",
+          "default": "#fff"
+        },
+        {
+          "type": "header",
+          "content": "Text 2"
+        },
+        {
+          "type": "textarea",
+          "id": "text_2",
+          "label": "Text 2"
+        },
+        {
+          "type": "range",
+          "id": "text_2_font_size",
+          "min": 10,
+          "max": 60,
+          "step": 1,
+          "unit": "px",
+          "label": "Text 2 - Font Size",
+          "default": 30
+        },
+        {
+          "type": "select",
+          "id": "text_2_font_family",
+          "label": "Text 2 - Font Family",
+          "options": [
+            {
+              "value": "font_1",
+              "label": "Fonts 1"
+            },
+            {
+              "value": "font_2",
+              "label": "Fonts 2"
+            },
+            {
+              "value": "font_3",
+              "label": "Fonts 3"
+            }
+          ],
+          "default": "font_2"
+        },
+        {
+          "type": "select",
+          "id": "text_2_font_weight",
+          "label": "Text 2 -  Font Weight",
+          "options": [
+            {
+              "value": "300",
+              "label": "Thin"
+            },
+            {
+              "value": "400",
+              "label": "Normal"
+            },
+            {
+              "value": "500",
+              "label": "Medium"
+            },
+            {
+              "value": "600",
+              "label": "Semi Bold"
+            },
+            {
+              "value": "700",
+              "label": "Bold"
+            },
+            {
+              "value": "800",
+              "label": "Extra Bold"
+            },
+            {
+              "value": "900",
+              "label": "Black"
+            }
+          ],
+          "default": "600"
+        },
+        {
+          "type": "color",
+          "id": "text_2_color",
+          "label": "Text 2 - Color ",
+          "default": "#fff"
+        },
+        {
+          "type": "header",
+          "content": "Overlay"
+        },
+        {
+          "type": "range",
+          "id": "overlay_text",
+          "min": 0,
+          "max": 1,
+          "step": 0.1,
+          "label": "Overlay Opacity",
+          "default": 0.2
+        }
+      ]
+    }
+  ],
+  "presets": [{
+     "name": "Banner 1",
+     "category": "Banner",
+     "blocks": [
+         {
+           "type": "image"
+         },
+         {
+           "type": "image"
+         },
+         {
+            "type": "image"
+          }
+       ]
+   }]
+  }
+{% endschema %}

@@ -1,0 +1,210 @@
+<style type="text/css">
+  .tp-home-static-block-1.section-{{ section.id }} {
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    padding-top: {{ section.settings.padding_top }}px;
+    background-color: {{ section.settings.bg_color }};
+  }
+  {% if section.settings.block_style == 'line' %}
+  .tp-home-static-block-1.style-line .sb-item-wrap .sb-item {
+    border-color: {{ settings.color_borders }};
+  }
+  {% else %}
+    .tp-home-static-block-1.style-border .sb-item-wrap .sb-item-inner {
+      border-color: {{ settings.color_borders }};
+    }
+  {% endif %}
+  {% if section.settings.block_layout == 'extrawidth' %}
+    @media (min-width: 1300px) {
+      .tp-small-product-list.section-{{section.id}} .container { width: 100%; padding-left: 50px; padding-right: 50px;}
+    }
+  {% endif %}
+</style>
+
+{% stylesheet %}
+.tp-home-static-block-1 ul {margin: 0; list-style: none; font-size:13px;}
+.tp-home-static-block-1 .sb-item .large-text {display: block; margin-bottom: 2px;} 
+.tp-home-static-block-1.style-border .inner {margin-left: -15px; margin-right: -15px;} 
+.tp-home-static-block-1.style-border .sb-item {padding-left: 15px; padding-right: 15px;}
+.tp-home-static-block-1 .sb-item .sb-icon {width:20px;}
+.tp-home-static-block-1 .sb-item span.sub-text {display:none;}
+.tp-home-static-block-1.style-border .sb-item-inner {border: 1px solid #e4e4e4; padding: 24px 10px; min-height: 110px; text-align: center;}
+.tp-home-static-block-1 .sb-item .sb-icon{opacity:0;}
+
+//Sprite related changes
+.tp-home-static-block-1.style-line .sb-item-inner {display: inline-flex;}
+.tp-home-static-block-1.style-line .sb-item .sb-item-block {display: inline-block; position: relative; width: 20px; height: 20px; margin-right: 10px; background: url(https://cdn.shopify.com/s/files/1/0290/5629/files/sprite-header_134x134_crop_center@2x.png?v=1567586789); background-size: cover;}
+.tp-home-static-block-1.style-line .sb-item:nth-child(2) .sb-item-block {background-position-x: -19px;width: 19px;}
+.tp-home-static-block-1.style-line .sb-item:nth-child(3) .sb-item-block{background-position: 47px 2px;}
+.tp-home-static-block-1.style-line .sb-item:nth-child(4) .sb-item-block{background-position: 24px;}
+
+@media (min-width: 768px) {
+  .tp-home-static-block-1 .sb-item-wrap {display: table; width: 100%; table-layout: fixed;}
+  .tp-home-static-block-1 .sb-item-wrap .sb-item {display: table-cell; vertical-align: middle; text-align: center;}
+  .tp-home-static-block-1.style-line .sb-item {border-left: 1px solid #e4e4e4; padding: 0 10px;}
+  .tp-home-static-block-1.style-line .sb-item:first-child {border-left: 0 none;text-align: left;padding-left: 0px;}
+}
+@media (min-width: 768px) and (max-width: 1199px) {
+  .tp-home-static-block-1 .sb-item .sb-icon {margin-bottom: 10px;}
+}
+@media (max-width: 767px), (min-width: 1200px) {
+  .tp-home-static-block-1 .sb-item .sb-icon {display: inline-block; max-width: 60px; margin-right: 20px; vertical-align: middle;}
+  .tp-home-static-block-1 .sb-item .sb-text {display: inline-block; max-width: calc(100% - 20px); vertical-align: middle; text-align: left;}
+}
+@media (max-width: 767px) {
+  .tp-home-static-block-1 .sb-item {margin-bottom: 5px;float:left; width: 50%;} 
+  .tp-home-static-block-1 ul{font-size:10px;margin: 0 auto; width: 76%;}
+  .shopify-section.index-section>section.tp-home-static-block-1.section-1510630870827{padding-bottom: 13px !important; padding-top: 13px !important;}
+  .tp-home-static-block-1 .sb-item .sb-icon{margin-right: 10px !important;width: 20px;}
+  
+}
+{% endstylesheet %}
+
+<section class="tp-home-static-block-1 style-{{ section.settings.block_style }} section-{{ section.id }}">
+  <div class="container">
+    <div class="inner">
+      {% if section.blocks.size > 0 %}
+        <ul class="sb-item-wrap">
+          {% for block in section.blocks %}
+            {% assign productIndex = forloop.index | times: 0.5 %}
+            {% assign delayTime = settings.delay_time_ra | times : productIndex %}
+            <li class="sb-item wow fadeIn" data-wow-delay="{{ delayTime }}ms">
+              <a href="{{ block.settings.url }}" class="sb-item--box">
+              <div class="sb-item-inner">
+                <div class="sb-item-block">
+					<!-- <img class="sb-icon" src="https://cdn.shopify.com/s/files/1/0290/5629/files/sprite-header_134x134_crop_center@2x.png?v=1567586789" alt="{{ block.settings.image_icon.alt }}" /> -->
+                </div>
+                <div class="sb-text">
+                  {% if block.settings.text != blank %}
+                    <strong class="large-text">{{ block.settings.text }}</strong>
+                  {% endif %}
+                  {% if block.settings.sub_text != blank %}
+                    <span class="sub-text">{{ block.settings.sub_text }}</span>
+                  {% endif %}
+                </div>
+              </div>
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <div class="tp-message">Please Add Static Block.</div>
+      {% endif %}
+  </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Text & Icon",
+  "class": "index-section",
+  "max_blocks": 4,
+  "settings": [
+    {
+      "type": "select",
+      "id": "block_layout",
+      "options": [
+        {
+          "value": "box",
+          "label": "Box 1170px"
+        },
+        {
+          "value": "extrawidth",
+          "label": "Extra Width"
+        }
+      ],
+      "label": "Block Layout",
+      "default": "box"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 40
+    },
+    {
+      "type": "select",
+      "id": "block_style",
+      "options": [
+        {
+          "value": "line",
+          "label": "Line"
+        },
+        {
+          "value": "border",
+          "label": "Border"
+        }
+      ],
+      "label": "Choose Style",
+      "default": "line"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#fff"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "text",
+      "name": "Block",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image_icon",
+          "label": "Icon"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Heading",
+          "default": "Lorem Ipsum"
+        },
+        {
+          "type": "text",
+          "id": "sub_text",
+          "label": "Description",
+          "default": "Lorem Ipsum Sit Amet"
+        },
+		{
+          "type": "text",
+          "id": "url",
+          "label": "Url",
+          "default": "#"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Text & Icon",
+      "category": "Text Block",
+      "blocks": [
+        {
+          "type": "text"
+        },
+        {
+          "type": "text"
+        },
+        {
+          "type": "text"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,69 @@
+<div class="tp-social-media">
+  <ul class="inline-list social-icons">
+    {% if settings.social_facebook_link != blank %}
+    <li>
+      <a class="icon-fallback-text" href="{{ settings.social_facebook_link }}" title="{{ shop.name }} on Facebook">
+        <span class="icon icon-facebook" aria-hidden="true"></span>
+        <span class="fallback-text">Facebook</span>
+      </a>
+    </li>
+    {% endif %}
+    {% if settings.social_twitter_link != blank %}
+    <li>
+      <a class="icon-fallback-text" href="{{ settings.social_twitter_link }}" title="{{ shop.name }} on Twitter">
+        <span class="icon icon-twitter" aria-hidden="true"></span>
+        <span class="fallback-text">Twitter</span>
+      </a>
+    </li>
+    {% endif %}
+    {% if settings.social_pinterest_link != blank %}
+    <li>
+      <a class="icon-fallback-text" href="{{ settings.social_pinterest_link }}" title="{{ shop.name }} on Pinterest">
+        <span class="icon icon-pinterest" aria-hidden="true"></span>
+        <span class="fallback-text">Pinterest</span>
+      </a>
+    </li>
+    {% endif %}
+    {% if settings.social_googleplus_link != blank %}
+    <li>
+      <a class="icon-fallback-text" href="{{ settings.social_googleplus_link }}" title="{{ shop.name }} on Googleplus">
+        <span class="icon icon-googleplus" aria-hidden="true"></span>
+        <span class="fallback-text">Google Plus</span>
+      </a>
+    </li>
+    {% endif %}
+    {% if settings.social_rss_link != blank %}
+    <li>
+      <a class="icon-fallback-text" href="{{ settings.social_rss_link }}" title="{{ shop.name }} on Rss">
+        <span class="icon icon-rss" aria-hidden="true"></span>
+        <span class="fallback-text">Rss</span>
+      </a>
+    </li>
+    {% endif %}
+    {% if settings.social_youtube_link != blank %}
+    <li>
+      <a class="icon-fallback-text" href="{{ settings.social_youtube_link }}" title="{{ shop.name }} on youtube">
+        <span class="icon icon-youtube" aria-hidden="true"></span>
+        <span class="fallback-text">Youtube</span>
+      </a>
+    </li>
+    {% endif %}
+
+    {% if settings.social_instagram_link != blank %}
+    <li>
+      <a class="icon-fallback-text" href="{{ settings.social_instagram_link }}" title="{{ shop.name }} on instagram">
+        <span class="icon icon-instagram" aria-hidden="true"></span>
+        <span class="fallback-text">Instagram</span>
+      </a>
+    </li>
+    {% endif %}
+    {% if settings.social_linkedin_link != blank %}
+    <li>
+      <a class="icon-fallback-text" href="{{ settings.social_linkedin_link }}" title="{{ shop.name }} on linkedin">
+        <span class="icon icon-linkedin" aria-hidden="true"></span>
+        <span class="fallback-text">Linkedin</span>
+      </a>
+    </li>
+    {% endif %}
+  </ul>
+</div>

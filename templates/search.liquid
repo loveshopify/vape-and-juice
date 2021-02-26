@@ -1,0 +1,102 @@
+<!-- /templates/search.liquid -->
+{% comment %}
+
+To return only products or pages in results:
+- http://docs.shopify.com/manual/configuration/store-customization/return-only-product-in-storefront-search-results
+- Or manually add type=product or type=page to the search URL as a parameter
+
+{% endcomment %}
+
+{% comment %}
+Set grid_results to true and set search results as a grid instead of a list.
+This works well when your search is only for products.
+{% endcomment %}
+{% assign grid_results = false %}
+
+{% comment %}
+Check to enforce respond.js
+{% endcomment %}
+{% assign respond_js_secret_key = shop.domain | md5 %}
+{% unless search.terms == respond_js_secret_key %}
+
+  {% comment %}
+  Avoid accessing search.results before the opening paginate tag.
+  If you do, the pagination of results will be broken.
+  {% endcomment %}
+  {% paginate search.results by settings.collection_product_item_per_page %}
+
+  <div class="grid-item">
+
+    {% if search.performed %}
+      {% if search.results_count == 0 %}
+        <h3>{{ 'general.search.no_results_html' | t: terms: search.terms }}</h3>
+      {% else %}
+        <h3>{{ 'general.search.results_for_html' | t: terms: search.terms }}</h3>
+      {% endif %}
+    {% else %}
+      <h3>{{ 'general.search.title' | t }}</h3>
+    {% endif %}
+
+    
+    {{ search.results_count }}
+
+    {% if search.performed %}
+      {% if search.results_count > 0 %}
+      <div class="tp-search-page">
+
+
+        <div class="tp-product-grid">
+          {% for item in search.results %}
+
+            {% if item.object_type == 'article' %}
+              {% assign article = item %}
+              <div class="article col-sm-6 col-md-4 wow fadeIn" data-wow-delay="{{delayTime}}ms">
+                <div class="tp-block">
+                  {% if article.image %}
+                  <a class="article-featured-image" href="{{ article.url }}">
+                    {{ article | img_url: 'master' | img_tag: article.title }}
+                  </a>
+                  {% endif %}
+                  <header>
+                    <h3 class="tp-blog-name"><a href="{{ article.url }}">{{ article.title }}</a></h3>
+                    {% capture date %}<time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: format: 'month_day_year' }}</time>{% endcapture %}
+                    <div class="tp-date"> <span class="article__date">{{ article.published_at | time_tag: format: 'month_day_year' }}</span><span class="tp-author">{{ article.author }}</span></div>
+                  </header>
+
+                  {% comment %}
+                  Add a surrounding div with class 'rte' to anything that will come from the rich text editor.
+                  Since this is just a listing page, you can either use the excerpt or truncate the full article.
+                  {% endcomment %}
+                  <div class="rte">
+                    {% if article.excerpt.size > 0 %}
+                    {{ article.excerpt }}
+                    {% else %}
+                    <p>{{ article.content | strip_html | truncatewords: 32 }}</p>
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+            {% else %}
+              {% assign product = item %}
+              {% include 'product-grid-item' %}
+            {% endif %}
+            
+          {% endfor %}
+        </div>
+
+        {% if paginate.pages > 1 %}
+          {%  include 'pagination' %}
+        {% endif %}
+      </div>
+      {% endif %}
+    {% endif %}
+
+  </div>
+
+  {% endpaginate %}
+
+{% else %}
+  {% include 'respond' %}
+  {% layout none %}
+{% endunless %}
+

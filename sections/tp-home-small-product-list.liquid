@@ -1,0 +1,140 @@
+<style type="text/css">
+  .tp-small-product-list.section-{{section.id}} {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    background-color: {{ section.settings.background_color }};
+  }
+  {% if section.settings.block_layout == 'extrawidth' %}
+    @media (min-width: 1300px) {
+      .tp-small-product-list.section-{{section.id}} .container { width: 100%; padding-left: 50px; padding-right: 50px;}
+    }
+  {% endif %}
+</style>
+
+<section class="tp-small-product-list section-{{section.id}}">
+  <div class="container">
+    <div class="row">
+      {% for block in section.blocks %}
+          <div class="col-sm-4">
+            {% if block.settings.heading != blank %}
+            <div class="tp-block-heading">
+              <h3><a href="collections/{{ block.settings.choose_collection | handleize }}">{{ block.settings.heading }}</a></h3>
+            </div>
+            {% endif %}
+            {% if block.settings.choose_collection != blank and collections[block.settings.choose_collection].handle != blank %}
+            <div class="small-product-list">
+                {% for product in collections[block.settings.choose_collection].products limit: section.settings.limit %}
+                  {% include 'product-grid-item-layout-sidebar' %}
+                {% endfor %}
+            </div>
+            {% else %}
+              <div class="tp-message">Please select a collection at Themes --> Customize Theme --> Sections --> Small Product List 1 --> Blocks --> Choose Collection!</div>
+            {% endif %}
+          </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% stylesheet %} 
+.tp-small-product-list .tp-block-heading {text-align: left;} 
+.tp-small-product-list .grid-sidebar .grid-image {width: 140px;}
+@media (min-width: 768px) and (max-width: 991px) {
+  .tp-small-product-list .grid-sidebar .grid-image {width: 110px;}
+  .tp-small-product-list .grid-sidebar .tp-product-item-price s {display: block; margin-left: 0;}
+}
+@media (max-width: 767px) {
+  .tp-small-product-list .row>div+div {padding-top: 20px;} 
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Small Product List 1",
+  "class": "index-section",
+  "max_blocks": 3,
+  "settings": [
+    {
+      "type": "select",
+      "id": "block_layout",
+      "options": [
+          { "value": "box", "label": "Box 1170"},
+          { "value": "extrawidth", "label": "Extra Width"}
+      ],
+      "label": "Block Layout",
+      "default": "box"
+    },
+    {
+        "type": "range",
+        "id": "padding_top",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "label": "Padding Top",
+        "default": 40
+    },
+    {
+        "type": "range",
+        "id": "padding_bottom",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "label": "Padding Bottom",
+        "default": 40
+    },
+    {
+        "type": "range",
+        "id": "limit",
+        "min": 0,
+        "max": 10,
+        "step": 1,
+        "label": "Lilit product to show",
+        "default": 3
+    },
+    {
+        "type": "color",
+        "id": "background_color",
+        "label": "Background Color",
+        "default": "#fff"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product_list",
+      "name": "Blocks",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Heading"
+        },
+        {
+          "type": "collection",
+          "id": "choose_collection",
+          "label": "Choose Collection"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Small Product List 1",
+      "category": "Product List",
+      "blocks": [
+        {
+          "type": "product_list"
+        },
+        {
+          "type": "product_list"
+        },
+        {
+          "type": "product_list"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,75 @@
+{{ 'bootstrap.min.js' | asset_url | script_tag }}
+{{ 'fastclick.min.js' | asset_url | script_tag }}
+{{ 'timber.js' | asset_url | script_tag }}
+{{ 'handlebars.min.js' | asset_url | script_tag }}
+{{ 'jquery.fancybox.min.js' | asset_url | script_tag }}
+{{ 'slick.min.js' | asset_url | script_tag }}
+{{ 'typeahead.bundle.js' | asset_url | script_tag }}
+{{ 'jquery.fakecrop.js' | asset_url | script_tag }}
+{{ 'callbacks.js' | asset_url | script_tag }}
+{{ 'jquery-ias.js' | asset_url | script_tag }}
+{{ 'trigger.js' | asset_url | script_tag }}
+{{ 'spinner.js' | asset_url | script_tag }}
+{{ 'noneleft.js' | asset_url | script_tag }}
+{{ 'api.jquery.js' | shopify_asset_url | script_tag }}
+{{ 'toastr.min.js' | asset_url | script_tag }}
+{{ 'jquery.countdown.min.js' | asset_url | script_tag }}
+{{ 'function.js' | asset_url | script_tag }}
+{{ 'theme.js' | asset_url | script_tag }}
+
+
+{% include 'ajax-cart-template' %}
+{{ 'ajax-cart.js' | asset_url | script_tag }}
+<script>
+  	ajaxCart.init();
+</script>
+
+
+{% if settings.header_currency_enable %}
+{% include 'tp-new-currency' %}
+{% endif %}
+
+
+{% if settings.enable_reveal_animations %}
+{{ 'wow.min.js' | asset_url | script_tag }}
+<script>
+  new WOW().init({
+    offset: 50,
+    mobile: {{ settings.enable_reveal_animations_mobile }}
+  });
+</script>
+{% endif %}
+
+
+<script>
+ $(document).ready(function () { 
+
+    if($('.filter_sizes').data('fsize') == null) 
+    {
+      $('.tp-filter-size_sg').addClass("hide");
+
+    }
+   
+    if($('.filter_colors').data('fcolor') == null) 
+    {
+      $('.tp-filter-color_sg').addClass("hide");
+
+    }
+   
+     if($('.filter_prices').data('fprice') == null) 
+    {
+      $('.tp-filter-price_sg').addClass("hide");
+
+    }
+     if($('.filter_brands').data('fbrand') == null) 
+    {
+      $('.tp-filter-brand_sg').addClass("hide");
+
+    }
+      if($('.filter_others').data('fothers') == null) 
+    {
+      $('.tp-filter-other_sg').addClass("hide");
+
+    }
+});
+</script>

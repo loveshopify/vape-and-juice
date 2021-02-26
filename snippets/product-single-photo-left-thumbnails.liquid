@@ -1,0 +1,82 @@
+<div class="tp-product-photo-wrapper tp-product-single-left-thumbnails">
+  <div class="tp-product-photo">
+    
+    {% include 'product-single-photo-main' %}
+
+    {% include 'product-single-photo-thumbnails' %}
+
+    {% include 'product-single-photo-bottom' %}
+
+  </div>
+</div>
+
+
+<script>
+
+  $(window).load(function(){
+
+    zoomImage();
+    createSlider();
+
+    $('.open-fancybox').click(function() {
+      var item = $('.fancybox');
+      $.fancybox.open(item);
+    });
+
+    if($(window).width() < 992) {
+      $(".zoomContainer").remove();
+      $("#ProductPhotoImg").removeData('elevateZoom');
+    };
+
+  });
+
+
+  function zoomImage() {
+    $("#ProductPhotoImg").elevateZoom({
+      gallery:'ProductThumbs', 
+      cursor: 'pointer',
+      responsive: true, 
+      galleryActiveClass: "active", 
+      imageCrossfade: true, 
+      loadingIcon: '{{ 'spinner.gif ' | asset_url }}',
+      onImageSwapComplete: function() {
+          $(".zoomWrapper>div").remove();
+      },
+      scrollZoom: {{ settings.pd_scroll_zoom_enable }}
+    });
+  };
+
+  function createSlider() {
+    if ($(".product-single-thumbnails").length > 0) {
+      $('.product-single-thumbnails').not('.slick-initialized').slick({
+          slidesToShow: 3,
+          slidesToScroll: 1,
+          infinite: false,
+          responsive: [
+            {
+              breakpoint: 1920,
+              settings: {
+                vertical: true,
+                slidesToShow: 3
+              }
+            },
+            {
+              breakpoint: 992,
+              settings: {
+                vertical: false,
+                slidesToShow: 4
+              }
+            },
+            {
+              breakpoint: 480,
+              settings: {
+                vertical: false,
+                slidesToShow: 3
+              }
+            }
+          ]
+      });
+    }
+  };
+
+</script>

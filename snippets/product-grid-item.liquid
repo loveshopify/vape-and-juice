@@ -1,0 +1,56 @@
+{% comment %}
+This snippet is used to showcase each product during the loop,
+'for product in collection.products' in collection.liquid.
+{% endcomment %}
+
+{% comment %}
+Check if the product is on sale and set a variable to be used below.
+{% endcomment %}
+{% assign on_sale = false %}
+{% if product.compare_at_price > product.price %}
+{% assign on_sale = true %}
+{% endif %}
+
+{% comment %}
+Check if the product is sold out and set a variable to be used below.
+{% endcomment %}
+{% assign sold_out = true %}
+{% if product.available %}
+{% assign sold_out = false %}
+{% endif %}
+
+{% assign productIndex = forloop.index | times: 0.5 %}
+{% assign delayTime = settings.delay_time_ra | times : productIndex %}
+
+<div class="grid-item wow fadeIn" data-wow-delay="{{ delayTime }}ms">
+  <div class="grid-item-inner">
+
+  {% comment %}
+  Link to your product with the 'within: collection' filter for the link to be aware of the collection.
+  This allows you to create collection-based navigation on the product page.
+
+  Results of using 'within: collection':
+  - Instead of a URL with /products/product-handle
+  you would get /collections/collection-handle/products/product-handle
+
+  For more info on navigation within a collection
+  - http://docs.shopify.com/support/your-store/collections/how-to-navigate-within-a-collection
+
+  {% endcomment %}
+    
+
+    <div class="grid-item-image">
+      {% include 'product-grid-item-img' %}
+      {% include 'product-grid-item-action' %}
+      {% include 'product-grid-item-label' %}
+      {% include 'product-grid-item-countdown' %}
+    </div>
+    {% include 'flair-product-badges', with flair_badge_max: 3, flair_css_class: 'flair-inline' %}
+    <div class="tp-item-des">
+      {% include 'product-grid-item-name' %}
+      {% include 'product-grid-item-price' %}
+      {% include 'product-grid-item-ratting' %}
+      {% include 'product-grid-item-variant-color' %}
+    </div>
+  </div>
+{% include 'preorder-now-collection-item' %}</div>

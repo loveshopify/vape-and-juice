@@ -1,0 +1,140 @@
+<div class="tp-page-heading"><h1>{{ page.title }}</h1></div>
+
+<div class="tp-compare-page">
+
+  <table cellspacing="0" cellpadding="0" class="ComparisonTable cart-table">
+    <tfoot>
+      <tr class="compare-remove">
+        <th>
+            <a href="#" title="">&nbsp;</a>
+        </th>
+      </tr>
+    </tfoot>
+
+    <tbody>
+      <tr class="compare-title">
+        <th>{{ 'general.compare_item.title' | t }}</th>
+      </tr>
+      <tr class="compare-image">
+        <th>{{ 'general.compare_item.image' | t }}</th>
+      </tr>
+      <tr class="compare-price">
+        <th>{{ 'general.compare_item.price' | t }}</th>
+      </tr>
+      <tr class="compare-brand">
+        <th>{{ 'general.compare_item.brand' | t }}</th>
+      </tr>
+      <tr class="compare-availability">
+        <th>{{ 'general.compare_item.availability' | t }}</th>
+      </tr>
+      <tr class="compare-rating">
+        <th>{{ 'general.compare_item.rating' | t }}</th>
+      </tr>
+      <tr class="compare-summary">
+        <th>{{ 'general.compare_item.summary' | t }}</th>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
+
+<script type="text/javascript">
+  window.money_format = '{{ shop.money_with_currency_format }}';
+  jQuery(window).load(function(){
+    if(jQuery.cookie('tp-compare-product-id')){
+      nt_compare_array = jQuery.cookie('tp-compare-product-id');
+      nt_compare_array = JSON.parse(nt_compare_array);
+      for(i = 0; i < nt_compare_array.length; i++) {
+        product_id = nt_compare_array[i];
+        Shopify.getProduct(product_id, function(product) {
+          featured_image = Shopify.resizeImage(product.featured_image, 'grande');
+
+          strRemove = '';
+          strImage = '';
+          strTitle = '';
+          strPrice = '';
+          strBrand = '';
+          strAvailability = '';
+          strRatting = '';
+          strSummary = '';
+
+          if (product.description.length > 0) {
+            console.log("abc");
+            var description = product.description.replace(/(<([^>]+)>)/ig, "");
+            description = description.replace(/\[countdown\](.*)\[\/countdown\]/g, "");
+            description = description.split(" ").splice(0, 20).join(" ") + "...";
+            strSummary += '<td>';
+            strSummary += '<div class="product-summary">'+description+'</div>';
+            strSummary += '</td>';
+
+            }
+
+          strRemove += '<th>';
+          strRemove += '<a href="#" class="remove-compare" data-handle="'+product.handle+'">{{ "general.compare_item.remove" | t}}</a>';
+          strRemove += '</th>';
+
+          strImage += '<td>';
+          strImage += '<a href="'+product.url+'" class="product-image">';
+          strImage += '<img src="'+featured_image+'" alt="'+product.title+'" />';
+          strImage += '</a>';
+          strImage += '</td>';
+
+          strTitle += '<td>';
+          strTitle += '<a href="'+product.url+'" class="product-title">'+product.title+'</a>';
+          strTitle += '</td>';
+
+          strPrice += '<td>';
+          strPrice += '<div class="product-price">'+Shopify.formatMoney(product.price, "{{ shop.money_format }}")+'</div>';
+
+          strPrice += '</td>';
+
+          strBrand += '<td>';
+          strBrand += '<div class="product-vendor">'+product.vendor+'</div>';
+          strBrand += '</td>';
+
+          strAvailability += '<td>';
+          strAvailability += '<div class="product-availability">'+product.available+'</div>';
+          strAvailability += '</td>';
+
+          strRatting += '<td>';
+          strRatting += '<span class="shopify-product-reviews-badge" data-id="'+product.id+'"></span></div>';
+          strRatting += '</td>';
+
+
+
+          jQuery('.ComparisonTable .compare-remove ').append(strRemove);
+          jQuery('.ComparisonTable .compare-image ').append(strImage);
+          jQuery('.ComparisonTable .compare-title ').append(strTitle);
+          jQuery('.ComparisonTable .compare-price ').append(strPrice);
+          jQuery('.ComparisonTable .compare-brand ').append(strBrand);
+          jQuery('.ComparisonTable .compare-availability ').append(strAvailability);
+          jQuery('.ComparisonTable .compare-rating ').append(strRatting);
+          jQuery('.ComparisonTable .compare-summary ').append(strSummary);
+          initRemoveProductCompare();
+          cookieCurrency = Currency.cookie.read();
+          shopCurrency = '{{ shop.currency }}';
+          Currency.convertAll(shopCurrency, cookieCurrency);
+        })
+      }
+    } else {
+      jQuery('.tp-compare-page').html("<p>"+'{{ "general.compare.message_no_item" | t}}'+"</p>");
+    }
+  });
+
+  function initRemoveProductCompare() {
+    $('.remove-compare').click(function(e){
+      e.preventDefault();
+      product_id = $(this).data('handle');
+      if(jQuery.cookie('tp-compare-product-id')) {
+        nt_compare_array = jQuery.cookie('tp-compare-product-id')
+        nt_compare_array = JSON.parse(nt_compare_array);
+        index = nt_compare_array.indexOf(product_id);
+        if(index > -1){
+          nt_compare_array.splice(index, 1);
+          jQuery.cookie('tp-compare-product-id', JSON.stringify(nt_compare_array), {expires:1, path:'/'});
+          location.reload();
+        }
+      }
+    })
+  };
+</script>

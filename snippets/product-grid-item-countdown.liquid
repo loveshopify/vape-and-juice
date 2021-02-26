@@ -1,0 +1,10 @@
+{% assign field = product.metafields.countdown %}
+{% assign key = 'countdownkey' %}
+
+{% if field[key] != blank %}
+<div class="tp-countdown">
+  <div class="countdown-inner">
+    <div id="tp-clock-{{ product.id }}" data="{{ field[key] }}" class="countdown-clock"></div>
+  </div>
+</div>
+{% endif %}

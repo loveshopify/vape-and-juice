@@ -1,0 +1,32 @@
+<!-- /snippets/product-grid-item-layout-sidebar.liquid -->
+{% comment %}
+
+  This snippet is used to showcase each product during the loop,
+  'for product in collection.products' in collection.liquid.
+
+{% endcomment %}
+
+{% comment %}
+  Check if the product is on sale and set a variable to be used below.
+{% endcomment %}
+{% assign on_sale = false %}
+{% if product.compare_at_price > product.price %}
+  {% assign on_sale = true %}
+{% endif %}
+
+{% comment %}
+  Check if the product is sold out and set a variable to be used below.
+{% endcomment %}
+{% assign sold_out = true %}
+{% if product.available %}
+  {% assign sold_out = false %}
+{% endif %}
+
+<div class="grid-sidebar">
+  {% include 'product-grid-item-img-small' %}
+  <div class="tp-item-des">
+    {% include 'product-grid-item-name' %}
+    {% include 'product-grid-item-price' %}
+    {% include 'product-grid-item-ratting' %}
+  </div>
+</div>

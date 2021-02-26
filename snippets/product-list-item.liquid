@@ -1,0 +1,24 @@
+<div class="grid-item">
+          {% comment %}
+            Link to your product with the 'within: collection' filter for the link to be aware of the collection.
+            This allows you to create collection-based navigation on the product page.
+
+            Results of using 'within: collection':
+            - Instead of a URL with /products/product-handle
+              you would get /collections/collection-handle/products/product-handle
+
+            For more info on navigation within a collection
+              - http://docs.shopify.com/support/your-store/collections/how-to-navigate-within-a-collection
+          {% endcomment %}
+          <div class="grid-item-image">
+            {% include 'product-grid-item-img' %}
+          </div>
+          <div class="tp-item-des">
+            {% include 'product-grid-item-name' %}
+            {% include 'product-grid-item-des' %}  
+            {% include 'product-grid-item-price' %}
+            {% include 'product-grid-item-variant-color' %}
+            {% include 'product-grid-item-ratting' %}
+            {% include 'product-grid-item-action' %}
+          </div>
+        {% include 'preorder-now-collection-item' %}</div>

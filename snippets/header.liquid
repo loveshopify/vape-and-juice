@@ -1,0 +1,32 @@
+{% if template contains 'index' %}
+<!-- Add this code to Organization page: -->
+<div  style="display: none;">
+	<meta  content="Vape and Juice, is an E-Cigarette, Vape Juice, CBD and vape kit retailer. Focusing on a range of top products to suit all budgets to making Vaping easier.">
+	<link  href="{{ shop.url }}" rel="author"/>
+	<a  href="{{ shop.url }}" style="display: none;">
+		<span  style="display:none;"><strong>Vape and Juice</strong></span>
+	</a>
+	<div style="display: none;">
+		<span  style="display:none;">Unit 33a Joseph Wilson Industrial Estate</span>
+		<div>
+			<span  style="display:none;">Whitstable</span>,
+			<span style="display:none;">Kent</span>
+		</div>
+		<span style="display:none;">CT5 3PS</span>
+		<span style="display:none;">United Kingdom</span>
+	</div>
+</div>
+{% endif %}
+<div class="site-header-wrap">
+	{% include settings.header_option %} 
+
+	{% unless template contains 'index' or template contains 'product' or page.handle  == 'best-vape-starter-kit' %}
+	{% include 'breadcrumb' %}
+	{% endunless %}
+  
+  {% if page.handle  == 'best-vape-starter-kit' %}
+
+<img src="https://cdn.shopify.com/s/files/1/0290/5629/files/what_is_the_best_vape_for_me_to_use.jpg?15918331849455585676" alt="Best vape starter kit" style="width:100%;">
+   
+    {% endif %}
+</div>

@@ -1,0 +1,46 @@
+
+
+<div class="tp-product-content wow fadeIn" data-wow-delay="{{ settings.delay_time_ra }}ms">
+
+  <div class="inner" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+
+    <meta itemprop="priceCurrency" content="{{ shop.currency }}">
+    <link itemprop="availability" href="http://schema.org/{% if product.available %}InStock{% else %}OutOfStock{% endif %}">
+
+    <form action="/cart/add" method="post" enctype="multipart/form-data" id="AddToCartForm" class="form-vertical">
+
+      <h1 itemprop="name">{{ product.title }}</h1>
+      
+     
+
+      {% include 'product-single-description' %}
+
+      {% include 'product-single-price' %}
+      
+ <span class="stamped-product-reviews-badge stamped-main-badge" data-id="{{ product.id }}" data-product-sku="{{ product.handle }}" style="display: inline-block;" onclick="$('.nav-tabs li:nth-child(4) a').click()">{{ product.metafields.stamped.badge }}</span>
+
+      {% include 'product-single-countdown' %}
+
+      
+      <div class="tp-option-action">
+        
+        {% include 'product-single-option' %}
+
+        {% include 'product-single-action' %}
+      </div>
+      
+      
+
+    </form>
+    
+
+    {% include 'product-single-addthis' %}
+    
+  
+    {% include 'product-single-next-prev' %}
+    
+      
+  </div>
+  
+
+</div>

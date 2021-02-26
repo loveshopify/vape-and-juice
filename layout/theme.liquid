@@ -1,0 +1,137 @@
+{% if template contains 'article' and blog.metafields.blogfeeder.use_canonical == 'yes' %}{% assign canonical_url = article.metafields.blogfeeder.canonical %}{% endif %}
+<!doctype html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if IE 9 ]><html class="ie9 no-js"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+  {% include 'shop-sheriff-amp' %}
+  <meta property="og:image" content="https://cdn.shopify.com/s/files/1/0290/5629/files/new2.jpeg?57419" />
+ 
+{% include 'ninjacoderz_sitemap_noindex' %}
+  <meta name="yandex-verification" content="23e1bb9a9f4b201a" />
+
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="msvalidate.01" content="0DF384B8E34713DE1FC2571A0297ED7B" />
+
+  {% comment %}========== Favicon ======== {% endcomment %}
+  {% if settings.favicon_enable %}
+  <link rel="shortcut icon" href="{{ 'favicon.png' | asset_url }}" type="image/png" />
+  {% endif %}
+
+  {% comment %}========== Title and description ======== {% endcomment %}
+  {% include 'SEOManager' %}
+
+  {% comment %}========== Helpers ======== {% endcomment %}
+  {% include 'social-meta-tags' %}
+  <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
+  <meta name="theme-color" content="{{ settings.color_primary }}">
+  <link rel="canonical" href="{{ canonical_url }}">
+
+  {% comment %}========== CSS ======== {% endcomment %}
+  {{ 'bootstrap.min.css' | asset_url | stylesheet_tag }}
+  {{ 'theme.scss.css' | asset_url | stylesheet_tag }}
+  {{ 'variant-color.scss.css' | asset_url | stylesheet_tag }}
+  
+
+  {% comment %}========== JS ======== {% endcomment %}
+{{ 'jquery.min.js' | asset_url | script_tag }}
+
+  <script src="{{ 'applicationss.js' | asset_url }}" async></script>
+  
+
+  {% comment %}
+    If you store has customer accounts disabled, you can remove the following JS file
+  {% endcomment %}
+  {% if template contains 'customers' %}
+  <script src="{{ 'shopify_common.js' | shopify_asset_url }}" async></script>
+  {% endif %}
+
+  {% comment %}========== Google Fonts ======== {% endcomment %}
+  <script src="{{ 'webfont.js' | asset_url }}" async></script>
+  {% include 'tp-google-font' %}
+
+  {% comment %}======== Header hook for plugins ======= {% endcomment %}
+  
+  {% include 'meteor-menu', load: 'head' %}
+	{{ content_for_header }}
+{%- include 'bold-product' with product, hide_action: 'header' -%}
+{%- include 'bold-common' -%}
+
+<!--Gem_Page_Header_Script-->
+{% include 'gem-app-header-scripts' %}
+<!--End_Gem_Page_Header_Script-->
+
+  <script>
+    window.money_format = "{{shop.money_format}}"; 
+  </script>
+ 
+
+{% include 'pagefly-header' %}
+  {% include 'shogun-head' %}  
+  <meta name="ahrefs-site-verification" content="916596a900f263263c046cf9cc9fdb3a631e2fce38bfa87b6cc9669cf89ded3e">
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      <!--StartCartCartCustomCode-->
+                      
+                      <!-- Abandoned Cart Information -->
+                      <div id="care-cart-customer-information" style="display:none">
+                        {"id":"{{customer.id}}", "email":"{{ customer.email }}","default_address":{{ customer.default_address | json }},"first_name":"{{ customer.first_name }}","last_name":"{{ customer.last_name }}","name":"{{ customer.name }}" }
+                      </div>
+                      <!-- Abandoned Cart Information -->
+                      
+                      <!--  ShopInformation -->
+                      <div id="care-cart-shop-information" style="display:none">
+                        {"domain":"{{shop.permanent_domain}}" }
+                      </div>
+                      <!--  ShopInformation -->
+                      
+                      <!--EndCareCartCustomCode-->
+                      </head>
+<body id="{{ page_title | handle }}" class="{% if customer %}customer-logged-in {% endif %}template-{{ template | replace: '.', ' ' | truncatewords: 1, '' | handle }}" >
+  <div id="PageContainer" class="page-container {% if settings.site_layout == 'extrawidth' %}extra-width{% endif %}">
+
+    {% comment %}============= Loader Icon ============== {% endcomment %}
+    
+
+    {% comment %}============= Header =================== {% endcomment %}
+    {% include 'header' %}
+ {% comment %}============= Main Content ============= {% endcomment %}
+    <main class="main-content {% unless template contains 'index' or template contains 'contact' %}container{% endunless %}">
+      {{ content_for_layout }}
+     
+    </main>
+     
+
+    {% comment %}============= Footer =================== {% endcomment %}
+    {% include 'footer' %}
+
+
+    {% comment %}============= Back to Top ============== {% endcomment %}
+    <div id="back-top">
+  		<a href="javascript:void(0)">Back to Top</a>
+  	</div>
+  </div> 
+  {% comment %}============= Javacrip Included ==========={% endcomment %}
+  {% include 'footer-js' %}
+  <!--Gem_Page_Footer_Script-->
+{% include 'gem-app-footer-scripts' %}
+<!--End_Gem_Page_Footer_Script-->  
+  {% include 'meteor-menu', load: 'footer' %}
+  <script src="//tags.affiliatefuture.com/6863.js" async></script>
+
+{% comment %}{% include "sloyalty-statusbar" %}{% endcomment %}
+ <script async type="text/javascript" data-api-key="pubkey-6OQJ1ZSp90VRTZ4Ay09XU4lej4MOIO" id="stamped-script-widget" src="https://cdn-stamped-io.azureedge.net/files/widget.min.js"></script>
+  
+</body>
+</html>
+
+{% include 'fbrb' %}

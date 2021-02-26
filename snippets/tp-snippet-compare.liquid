@@ -1,0 +1,5 @@
+{% if settings.product_item_compare_enable %}
+<div class="tp-compare-wrap">
+	<a class="tp-compare compare-{{ product.id }}" data-handle="{{ product.handle }}" data-id="{{ product.id }}" data-name="{{product.title}}" data-toggle="tooltip" title="{{ "general.compare.add_compare" | t }}"><span>{{ "general.compare.add_compare" | t }}</span></a>
+</div>
+{% endif %}

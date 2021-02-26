@@ -1,0 +1,24 @@
+<footer class="site-footer footer-layout-2">
+  <div class="site-footer-main">
+    <div class="container">
+      {% section 'tp-section-footer-block' %}
+    </div>
+  </div>
+
+  <div class="site-footer-bottom">
+    <div class="container">
+      <div class="row">
+        {% if settings.footer_copyright_text != blank %}
+        <div class="site-footer-copyright col-md-6 wow fadeIn" data-wow-delay="{{ settings.delay_time_ra | plus: 200 }}ms">
+          <span>{{ settings.footer_copyright_text }}</span>
+        </div>
+        {% endif %}
+        {% if settings.footer_payment_enable %}
+        <div class="site-footer-payemnt col-md-6 wow fadeIn" data-wow-delay="{{ settings.delay_time_ra | plus: 250 }}ms">
+          <img src="{{ 'payment-method.png' | asset_url }}" alt="Payment" width="auto" height="auto"/>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</footer>

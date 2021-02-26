@@ -1,0 +1,218 @@
+{% comment %}
+  ---
+  Documentation: https://meteor.heliumdev.com/help
+  Version: 3.4.0
+  The following snippet serves multiple utility functions for the Meteor Menu
+  application by Helium.
+  YOU SHOULD NOT BE EDITING THIS FILE.
+  ANY CHANGES WILL BE OVERWRITTEN UPON SAVE!
+  ---
+{% endcomment %}
+
+{% if meteor_links %}
+  {% comment %}
+    ---
+    Used for recursively fetching sub-links for link lists
+    ---
+  {% endcomment %}
+  {% capture meteor_output %}
+    {% for link in meteor_links %}
+      {% assign meteor_sub_links = link.links %}
+
+      {% assign meteor_next_level = meteor_level | plus: 1 %}
+
+      {% capture meteor_next_links %}
+        {% if meteor_next_level <= 3 %}
+          {% include 'meteor-menu', meteor_links: meteor_sub_links, meteor_level: meteor_next_level %}
+        {% endif %}
+      {% endcapture %}
+
+      {% if link.object.image %}
+        {% assign link_image = link.object.image %}
+      {% elsif link.object.featured_image %}
+        {% assign link_image = link.object.featured_image %}
+      {% else %}
+        {% assign link_image = nil %}
+      {% endif %}
+
+      {
+        "title": {{ link.title | json }},
+        "url": {{ link.url | json }},
+        "object_id": {{ link.object.id | json }},
+        {% if link_image %}
+          "images": {
+            "small": {{ link_image | img_url: '400x400' | json }},
+            "medium": {{ link_image | img_url: '800x800' | json }},
+            "large": {{ link_image | img_url: '1200x1200' | json }},
+            "alt": {{ link_image.alt | json }}
+          },
+        {% endif %}
+        "nest_level": {{ meteor_level }},
+        "links": [{{ meteor_next_links }}]
+      }{% unless forloop.last %},{% endunless %}
+    {% endfor %}
+  {% endcapture %}
+
+  {{ meteor_output | strip_newlines | strip }}
+{% elsif load == 'head' %}
+  {% comment %}
+    ---
+    Load scripts and styles in the HEAD tag
+    ---
+  {% endcomment %}
+  <script>
+    window.MeteorMenu = window.MeteorMenu || {};
+  </script>
+  <script type="text/javascript" src="https://cdn-meteor.heliumdev.com/embed/3.4.0/meteor.js?api_key=072cc483b2d9406af4c89af91f2b5fe833f24fa821ec48a2c1c5d62646d03a76" async></script>
+  <link rel="stylesheet" media="async" href="https://cdn-meteor.heliumdev.com/embed/3.4.0/meteor.css?api_key=072cc483b2d9406af4c89af91f2b5fe833f24fa821ec48a2c1c5d62646d03a76" />
+{% elsif load == 'footer' %}
+  {% comment %}
+    ---
+    Load linklist data in the footer
+    ---
+  {% endcomment %}
+  <link rel="stylesheet" href="https://cdn-meteor.heliumdev.com/embed/3.4.0/meteor.css?api_key=072cc483b2d9406af4c89af91f2b5fe833f24fa821ec48a2c1c5d62646d03a76" />
+  <script>
+    {% capture data %}
+      {
+        "settings": {"app_proxy":"apps/meteor","z_index":"9999","mobile_breakpoint":"","disable_at_width":"800","vertical_offset":"","mobile_vertical_offset":"","css":"","queries":"","max_generations":"4"},
+        "theme": {
+          "name": null,
+          "version": null
+        },
+        "linklists": {
+          "main-menu": {
+            "links": [
+              {% include 'meteor-menu', meteor_links: linklists["main-menu"].links, meteor_level: 1 %}
+            ]
+          },
+          "store-locator": {
+            "links": [
+              {% include 'meteor-menu', meteor_links: linklists["store-locator"].links, meteor_level: 1 %}
+            ]
+          },
+          "tanks": {
+            "links": [
+              {% include 'meteor-menu', meteor_links: linklists["tanks"].links, meteor_level: 1 %}
+            ]
+          },
+          "juices": {
+            "links": [
+              {% include 'meteor-menu', meteor_links: linklists["juices"].links, meteor_level: 1 %}
+            ]
+          },
+          "vape-kits": {
+            "links": [
+              {% include 'meteor-menu', meteor_links: linklists["vape-kits"].links, meteor_level: 1 %}
+            ]
+          },
+          "batteries": {
+            "links": [
+              {% include 'meteor-menu', meteor_links: linklists["batteries"].links, meteor_level: 1 %}
+            ]
+          },
+          "accessories": {
+            "links": [
+              {% include 'meteor-menu', meteor_links: linklists["accessories"].links, meteor_level: 1 %}
+            ]
+          },
+          "coils": {
+            "links": [
+              {% include 'meteor-menu', meteor_links: linklists["coils"].links, meteor_level: 1 %}
+            ]
+          }
+        },
+        "menus":
+        [
+          {
+            "id": 2526,
+            "title": "STORE LOCATOR",
+            "list_handle": "main-menu",
+            "object_path": "/pages/store-locator",
+            "sub_list_handle": "store-locator",
+            "template": "solar",
+            "object_id": "231095625",
+            "settings": {"size":"normal","action":"hover","animation":"none","font_size":"normal","color_text":"30,30,30,1","color_hover":"123,68,235,1","color_background":"255,255,255,1","color_hover_text":"255,255,255,1","color_mobile_text":"240,240,240,1","stack_mobile_links":"false","color_mobile_background":"30,30,30,1"},
+            "handle": null,
+            "manual_attach": false
+          },
+          {
+            "id": 2506,
+            "title": "TANKS",
+            "list_handle": "main-menu",
+            "object_path": "/pages/search-results-page?q=tanks+and+accessories",
+            "sub_list_handle": "tanks",
+            "template": "tidal",
+            "object_id": "",
+            "settings": {"size":"normal","action":"hover","animation":"none","font_size":"small","color_text":"30,30,30,1","color_hover":"80,184,60,1","clickable_titles":"yes","color_background":"255,255,255,1","sub_column_width":"full","top_column_width":"narrow","color_mobile_text":"240,240,240,1","color_mobile_background":"30,30,30,1"},
+            "handle": null,
+            "manual_attach": false
+          },
+          {
+            "id": 2503,
+            "title": "JUICES",
+            "list_handle": "main-menu",
+            "object_path": "/pages/search-results-page?q=juices",
+            "sub_list_handle": "juices",
+            "template": "tidal",
+            "object_id": "",
+            "settings": {"size":"wide","action":"hover","animation":"none","font_size":"small","color_text":"30,30,30,1","color_hover":"80,184,60,1","clickable_titles":"yes","color_background":"255,255,255,1","sub_column_width":"narrow","top_column_width":"split","color_mobile_text":"240,240,240,1","color_mobile_background":"30,30,30,1"},
+            "handle": null,
+            "manual_attach": false
+          },
+          {
+            "id": 2504,
+            "title": "DEVICES",
+            "list_handle": "main-menu",
+            "object_path": "/pages/search-results-page?q=devices",
+            "sub_list_handle": "vape-kits",
+            "template": "tidal",
+            "object_id": "",
+            "settings": {"size":"normal","action":"hover","animation":"none","font_size":"small","color_text":"30,30,30,1","color_hover":"80,184,60,1","clickable_titles":"yes","color_background":"255,255,255,1","sub_column_width":"full","top_column_width":"narrow","color_mobile_text":"240,240,240,1","color_mobile_background":"30,30,30,1"},
+            "handle": null,
+            "manual_attach": false
+          },
+          {
+            "id": 2507,
+            "title": "BATTERIES",
+            "list_handle": "main-menu",
+            "object_path": "/",
+            "sub_list_handle": "batteries",
+            "template": "tidal",
+            "object_id": "",
+            "settings": {"size":"normal","action":"hover","animation":"none","font_size":"small","color_text":"30,30,30,1","color_hover":"80,184,60,1","clickable_titles":"yes","color_background":"255,255,255,1","sub_column_width":"full","top_column_width":"narrow","color_mobile_text":"240,240,240,1","color_mobile_background":"30,30,30,1"},
+            "handle": null,
+            "manual_attach": false
+          },
+          {
+            "id": 2510,
+            "title": "ACCESSORIES",
+            "list_handle": "main-menu",
+            "object_path": "/search-results-page?q=accessories",
+            "sub_list_handle": "accessories",
+            "template": "tidal",
+            "object_id": "",
+            "settings": {"size":"normal","action":"hover","animation":"none","font_size":"small","color_text":"30,30,30,1","color_hover":"80,184,60,1","clickable_titles":"yes","color_background":"255,255,255,1","sub_column_width":"full","top_column_width":"narrow","color_mobile_text":"240,240,240,1","color_mobile_background":"30,30,30,1"},
+            "handle": null,
+            "manual_attach": false
+          },
+          {
+            "id": 2505,
+            "title": "COILS",
+            "list_handle": "main-menu",
+            "object_path": "/pages/search-results-page?q=coils",
+            "sub_list_handle": "coils",
+            "template": "tidal",
+            "object_id": "",
+            "settings": {"size":"normal","action":"hover","animation":"none","font_size":"small","color_text":"30,30,30,1","color_hover":"80,184,60,1","clickable_titles":"yes","color_background":"255,255,255,1","sub_column_width":"full","top_column_width":"split","color_mobile_text":"240,240,240,1","color_mobile_background":"30,30,30,1"},
+            "handle": null,
+            "manual_attach": false
+          }
+        ]
+      }
+    {% endcapture %}
+
+    MeteorMenu.data = {{ data | strip_newlines }};
+    if (MeteorMenu.dataReady) { MeteorMenu.dataReady(); }
+  </script>
+{% endif %}

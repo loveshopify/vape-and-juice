@@ -1,0 +1,107 @@
+<section class="alert header-promotion-bar alert-dismissable">
+    <div class="container">
+        <div class="inner">
+            <span>{{ section.settings.promotion_bar_text }}</span>
+            <a class="button" href="{{ section.settings.promotion_bar_link }}">{{ section.settings.promotion_bar_button }}</a>
+            <a href="#" class="close" data-dismiss="alert" aria-label="close"></a>
+        </div>
+    </div>
+    <style type="text/css">
+    	.header-promotion-bar {
+			font-size: {{ settings.base_font_size | minus: 2 }}px;
+			background-color: {{ section.settings.promotion_bar_bg }};
+			{% if settings.promotion_bar_bg_image_enable and section.settings.promotion_bar_bg_image != blank %}
+			background-image: url({{ section.settings.promotion_bar_bg_image | img_url: 'master' }});
+			background-repeat: no-repeat;
+			background-position: center;
+			background-size: cover;
+			{% endif %}
+			color: {{ section.settings.promotion_bar_color }};
+    	}
+    </style>
+</section>
+
+{% schema %}
+{
+	"name": "Header Promotion Bar",
+    "class": "index-section",
+    "settings": [
+    	{
+	        "type": "textarea",
+	        "id": "promotion_bar_text",
+	        "label": "Promotion Text",
+	        "default": "Hello weekend season sale up tp 80% off!"
+	      },
+	      {
+	        "type": "text",
+	        "id": "promotion_bar_button",
+	        "label": "Promotion Button",
+	        "default": "Shop Now"
+	      },
+	      {
+	        "type": "url",
+	        "id": "promotion_bar_link",
+	        "label": "Promotion Link"
+	      },
+	      {
+	        "type": "checkbox",
+	        "id": "promotion_bar_bg_image_enable",
+	        "label": "Enable Background Image?",
+	        "default": false
+	      },
+	      {
+	        "type": "image_picker",
+	        "id": "promotion_bar_bg_image",
+	        "label": "Upload an image"
+	      },
+	      {
+	        "type": "color",
+	        "id": "promotion_bar_bg",
+	        "label": "Background Color",
+	        "default": "#f7f7f7"
+	      },
+	      {
+	        "type": "color",
+	        "id": "promotion_bar_color",
+	        "label": "Text Color",
+	        "default": "#000"
+	      }
+    ]
+}
+{% endschema %}
+
+
+{% stylesheet %}
+/* ======= PROMOTION BAR ======== */
+.header-promotion-bar {
+  margin-bottom: 0; padding: 15px 20px; position: relative; 
+  text-align: center; line-height: 1.4; text-transform: uppercase; border-radius: 0; -moz-border-radius: 0; -webkit-border-radius: 0; 
+}
+.header-promotion-bar .header-promotion-bar-inner {
+  position: relative;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+.header-promotion-bar a {
+    color: inherit;
+}
+.header-promotion-bar a:hover {
+  text-decoration: none;
+}
+.header-promotion-bar .button {
+  display: inline-block; border-bottom: 1px solid #303030; margin-left: 2px;
+}
+.header-promotion-bar .button:hover {
+  border-bottom-color: transparent !important;
+}
+.header-promotion-bar .close {
+  position: absolute; top: 50%; right: 10px; margin-top: -15px; padding: 5px; color: inherit; text-shadow: none; opacity: 0.8;
+}
+.header-promotion-bar .close:before {
+  content: "\0041"; font: 14px/20px FontIconPeaces;
+}
+.header-promotion-bar .close:hover {
+  opacity: 1;
+}
+.site-header.sticky .header-promotion-bar {display: none;}
+{% endstylesheet %}

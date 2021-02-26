@@ -1,0 +1,29 @@
+{% if template == 'index' %}
+<h1 class="site-header-logo" itemscope itemtype="http://schema.org/Organization">
+{% else %}
+<div class="site-header-logo" itemscope itemtype="http://schema.org/Organization">
+{% endif %}
+
+  {% if settings.logo_use_image %}
+    <a href="/" itemprop="url" class="site-header-logo-link">
+      <img src="{{ 'logo.png' | asset_url }}" alt="{{ shop.name }}" itemprop="logo" width="auto" height="auto"/>
+    </a>
+    {% if settings.header_sticky_enable %}
+     <a href="/" itemprop="url" class="site-header-logo-link logo-sticky">
+      <img src="{{ 'logo_sticky.png' | asset_url }}" alt="{{ shop.name }}" itemprop="logo" width="auto" height="auto"/>
+    </a>
+    {% endif %}
+    {% if settings.header_fixed_enable %}
+     <a href="/" itemprop="url" class="site-header-logo-link logo-fixed">
+      <img src="{{ 'logo_fixed.png' | asset_url }}" alt="{{ shop.name }}" itemprop="logo" width="auto" height="auto"/>
+    </a>
+    {% endif %}
+  {% else %}
+    <a href="/" itemprop="url">{{ shop.name }}</a>
+  {% endif %}
+
+{% if template == 'index' %}
+</h1>
+{% else %}
+</div>
+{% endif %}

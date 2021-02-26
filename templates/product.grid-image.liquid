@@ -1,0 +1,40 @@
+{% include 'breadcrumb' %}
+
+<div itemscope itemtype="http://schema.org/Product" class="product-single-wrap">
+
+  <meta itemprop="url" content="{{ shop.url }}{{ product.url }}">
+  <meta itemprop="image" content="{{ product.featured_image.src | img_url: 'grande' }}">
+
+  {% comment %}
+    Get first variant, or deep linked one
+  {% endcomment %}
+  {% assign current_variant = product.selected_or_first_available_variant %}
+  
+  <div class="row">
+
+    
+    <div class="col-sm-12">
+
+      <div class="product-single">
+
+        {% include 'product-single-photo-grid-image' %}
+          
+        {% include 'product-single-content' %} 
+
+      </div>
+
+      {% section 'tp-section-product-tabs' %}
+      
+      {% include 'product-single-facebook' %}
+      
+      {% include 'product-single-related' %} 
+
+      
+    </div>
+
+  </div>
+
+</div>
+
+{% include 'product-single-js' %} 
+

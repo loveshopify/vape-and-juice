@@ -1,0 +1,38 @@
+<header class="site-header header-layout-5 {% if settings.header_sticky_enable %}header-sticky-enable{% endif %} {% if settings.header_fixed_enable %}fixed{% endif %}">
+
+  {% if settings.promotion_bar_enable %}
+  {% section 'tp-section-header-promotion-bar' %}
+  {% endif %}
+
+  {% comment %} ===== Header Main ===== {% endcomment %}
+  <div class="header">
+    <div class="container">
+      <div class="row">
+        <div class="row-table">
+          <div class="col-xs-3 hidden-md hidden-lg site-header-toolbox">
+            <span class="mobile-navi-toggle">{{ 'layout.navigation.menu' | t }}</span>
+          </div>
+          <div class="col-xs-6 col-md-2 site-header-logo-wrap">
+            {% include 'header-logo' %}
+          </div>
+          <div class="col-md-8 site-header-nav-wrapper">
+            <nav class="site-nav-wrapper">
+              {% include 'header-mobile-toolbox' %}
+              {% section 'tp-section-navigation' %}
+            </nav>
+          </div>
+          <div class="col-xs-3 col-md-2 site-header-toolbox">
+            <div class="search-aside-wrap">
+              <span class="icon-search"></span>
+              <div class="search-aside">
+                <span class="icon-close"></span>
+                {% include 'search-bar' %}
+              </div>
+            </div>
+            {% include 'header-cart' %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>

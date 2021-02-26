@@ -1,0 +1,8 @@
+{% if settings.header_currency_enable %}
+<div class="currencies-top">
+  <div class="currency">
+  	<span class="visible-phone" data-toggle="dropdown"><span>{{ 'general.currencies.currencies' | t }}</span></span>
+  	{% include 'tp-new-currency-picker' %}
+  </div>
+</div>
+{% endif %}

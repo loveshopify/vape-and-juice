@@ -1,0 +1,108 @@
+{% if settings.product_item_variant_color_option == 'name' %}
+$colors: ( 
+	'alice-blue'     	#F0F8FF,
+	'antique-white'   	#FAEBD7,
+	'aqua' 				#00FFFF,
+	'aquamarine' 		#7FFFD4,
+	'azure' 			#F0FFFF,
+	'beige' 			#F5F5DC,
+	'bisque' 			#FFE4C4,
+  	'black'        		#111111,
+  	'blue' 				#4b67eb,
+  	'blue-violet' 		#8A2BE2,
+  	'brown' 			#A52A2A,
+  	'burly-wood' 		#DEB887,
+  	'cadet-blue' 		#5F9EA0,
+  	'chartreuse' 		#7FFF00,
+  	'chocolate' 		#D2691E,
+  	'coral' 			#FF7F50,
+  	'cornsilk' 			#FFF8DC,
+  	'crimson' 			#DC143C,
+  	'cyan' 				#00FFFF,
+  	'dark-blue' 		#00008B,
+  	'dark-cyan' 		#008B8B,
+  	'dark-gray' 		#A9A9A9,
+  	'dark-grey' 		#A9A9A9,
+  	'dark-green' 		#006400,
+  	'dark-khaki' 		#BDB76B,
+  	'dark-magenta' 		#8B008B,
+  	'dark-orange' 		#FF8C00,
+  	'dim-gray'			#696969,
+  	'gold' 				#FFD700,
+  	'golden-rod'		#DAA520,
+  	'gray' 				#808080,
+  	'grey' 				#808080,
+  	'green'        		#57c764,
+  	'indigo' 			#4B0082,
+  	'ivory' 			#FFFFF0,
+  	'khaki' 			#F0E68C,
+  	'lavender' 			#E6E6FA,
+  	'light-blue' 		#ADD8E6,
+  	'light-coral' 		#F08080,
+  	'light-cyan' 		#E0FFFF,
+  	'light-gray' 		#D3D3D3,
+  	'light-green' 		#90EE90,
+  	'light-pink' 		#FFB6C1,
+  	'light-yellow' 		#FFFFE0,
+  	'lime' 				#00FF00,
+  	'lime-green' 		#32CD32,
+  	'linen' 			#FAF0E6,
+  	'magenta' 			#FF00FF,
+  	'maroon' 			#800000,
+  	'moccasin' 			#FFE4B5,
+  	'navy' 				#000080,
+  	'old-lace' 			#FDF5E6,
+  	'olive' 			#808000,
+  	'orange'       		#f07d02,
+  	'orange-red' 		#FF4500,
+  	'orchid' 			#DA70D6,
+  	'pink' 				#FFC0CB,
+  	'plum' 				#DDA0DD,
+  	'purple'       		#af42ed,
+  	'red'          		#d22632,
+  	'royal-blue' 		#4169E1,
+  	'salmon' 			#FA8072,
+  	'silver' 			#C0C0C0,
+  	'sky-blue' 			#87CEEB,
+  	'snow' 				#FFFAFA,
+  	'steel-blue' 		#4682B4,
+  	'tomato' 			#FF6347,
+  	'violet' 			#EE82EE,
+  	'white'        		#FFFFFF,
+  	'yellow' 			#EAD84E
+);
+
+@each $color in $colors {
+  $colorName: nth($color, 1);
+  $bgColor:   nth($color, 2);
+  
+  .swatch .swatch-element.color .bg-#{$colorName},
+  .tp-filter-color ul li .bg-#{$colorName},
+  .item-color-swatch li .bg-#{$colorName} {  
+    background-color: $bgColor !important;
+  }
+}
+
+{% else %}
+
+$patterns: ( 
+  'red-green'      'red-green.png', 
+  'yellow-black'   'yellow-black.png',
+  'blue-orange'    'blue-orange.png'
+);
+
+$url_prefix: '{{ '*' | file_url | split: '*' | first }}';
+$url_suffix: '{{ '*' | file_url | split: '*' | last }}';
+
+@each $pattern in $patterns {
+  $patternName:   nth($pattern, 1);
+  $patternImage:  nth($pattern, 2);
+
+  .swatch .swatch-element.color .bg-#{$patternName},
+  .tp-filter-color ul li .bg-#{$patternName},
+  .item-color-swatch li .bg-#{$patternName} {  
+    background-image: url($url_prefix + $patternImage + $url_suffix) !important;
+  }
+}
+
+{% endif %}

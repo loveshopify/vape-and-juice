@@ -1,0 +1,3 @@
+<a href="{{ product.url | within: collection }}" class="grid-image">
+  <img src="{{ product.featured_image.src | img_url: 'medium' }}" alt="{{ product.featured_image.alt | escape }}" />
+</a>

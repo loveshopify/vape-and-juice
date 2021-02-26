@@ -1,0 +1,40 @@
+<div class="tp-sidebar-aside">
+  <div class="tp-button-sidebar-toggle hidden-xs">Show Results</div>
+
+  {% section 'tp-section-collection-filter' %}
+
+  <script>
+    $(window).load(function() {
+      
+      $('.tp-button-sidebar-toggle').click(function() {
+//         $(this).parent('.tp-sidebar-aside').find('.tp-sidebar-toggle').toggleClass('slide-left');
+//         $(this).parent('.tp-sidebar-aside').find('.tp-sidebar-toggle').find('span.tp-button-close').remove();
+        $('#filter-toolbar-modal').modal('toggle');
+        $('.tp-button-sidebar-toggle.visible-xs').css('visibility', 'hidden');
+        $('.tp-button-sidebar-toggle.hidden-xs').css('visibility', 'hidden');
+        $('.refine-results-btn').css('visibility', 'visible');
+//         $('#tawkchat-container').show();
+      });
+      $('.refine-results-btn').click(function() {
+        	$('#filter-toolbar-modal').modal('show');
+        	$('.refine-results-btn').css('visibility', 'hidden');
+        	$('.tp-button-sidebar-toggle.visible-xs').css('visibility', 'visible');
+        	$('.tp-button-sidebar-toggle.hidden-xs').css('visibility', 'visible');
+//         	$('#tawkchat-container').css('display', 'none !important');
+      });
+    });  
+	$(function() {
+//         $('.refine-results-btn').on('click', function( e ) {
+//             if($("#filter-toolbar-modal").modal('show')){
+//               $('#tawkchat-container').hide();
+//             }
+//             e.preventDefault();
+//         });
+//         $('.close').on('click', function(e){
+// 			$('#tawkchat-container').show();
+//           	e.preventDefault();
+//         });
+    });
+  </script> 
+    
+</div>

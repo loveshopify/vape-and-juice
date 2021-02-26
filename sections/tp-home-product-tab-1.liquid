@@ -1,0 +1,195 @@
+<style type="text/css">
+  .tp-home-product-tab-1.section-{{ section.id }} {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    background-color: {{ section.settings.bg_color }}
+  }
+  @media (min-width: 992px) {
+    .tp-home-product-tab-1.section-{{ section.id }} .tp-product-grid .grid-item:nth-child({{ settings.product_item_per_row }}n+1) {
+      clear: none;
+    }
+    .tp-home-product-tab-1.section-{{ section.id }} .tp-product-grid .grid-item:nth-child({{ section.settings.product_item_per_row }}n+1) {
+      clear: left;
+    }
+    .tp-home-product-tab-1.section-{{ section.id }} .tp-product-grid .grid-item {
+      width: {{ 100 | divided_by: section.settings.product_item_per_row }}%;
+    }
+  }
+  {% if section.settings.block_layout == 'extrawidth' %}
+  @media (min-width: 1300px) {
+    .tp-home-product-tab-1.section-{{ section.id }} .container { width:100%; padding-left: 50px; padding-right: 50px;}
+  }
+  {% endif %}
+</style>
+
+{% stylesheet %}
+.tp-home-product-tab-1 .tab-content>.tab-pane:not(:first-child) .grid-item {visibility: visible !important;}
+@media (min-width: 768px) and (max-width: 991px) {
+  .tp-home-product-tab-1 .tp-product-grid .grid-item {
+    width: 33.333%;
+  }
+  .tp-home-product-tab-1 .tp-product-grid .grid-item:nth-child(3n+1) {
+    clear: left;
+  }
+  .tp-home-product-tab-1 .tp-product-grid.limit-4-items .grid-item:nth-child(4),
+  .tp-home-product-tab-1 .tp-product-grid.limit-5-items .grid-item:nth-child(4),
+  .tp-home-product-tab-1 .tp-product-grid.limit-5-items .grid-item:nth-child(5),
+  .tp-home-product-tab-1 .tp-product-grid.limit-7-items .grid-item:nth-child(7),
+  .tp-home-product-tab-1 .tp-product-grid.limit-8-items .grid-item:nth-child(7),
+  .tp-home-product-tab-1 .tp-product-grid.limit-8-items .grid-item:nth-child(8),
+  .tp-home-product-tab-1 .tp-product-grid.limit-10-items .grid-item:nth-child(10),
+  .tp-home-product-tab-1 .tp-product-grid.limit-11-items .grid-item:nth-child(10),
+  .tp-home-product-tab-1 .tp-product-grid.limit-11-items .grid-item:nth-child(11) {display: none;} 
+}
+@media (max-width: 767px) {
+  .tp-home-product-tab-1 .tp-product-grid .grid-item {
+    width: 50%;
+  }
+  .tp-home-product-tab-1 .tp-product-grid .grid-item:nth-child(2n+1) {
+    clear: left;
+  }
+}
+{% endstylesheet %}
+
+<section class="tp-home-product-tab-1 tp-home-tab section-{{ section.id }}">
+  <div class="container">
+    <div class="inner">
+      <ul class="nav nav-tabs">
+        {% for block in section.blocks %}
+          {% capture title %}{{ block.settings.title }}{% endcapture %}
+          {% if title != blank %}
+            <li {% if forloop.index == 1 %}class="active"{% endif %} ><a href="#tab-{{ block.id }}" data-toggle="tab">{{ title }}</a></li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+
+      <div class="tab-content">
+        {% for block in section.blocks %}
+          {% capture title %}{{ block.settings.title }}{% endcapture %}
+          {% capture item_collection %}{{ block.settings.choose_collection |  handleize }}{% endcapture %}
+          <div class="tab-pane{% if forloop.index == 1 %} active{% endif %}" id="tab-{{ block.id }}">
+            {% if item_collection != blank and collections[item_collection].handle != blank %}
+            <div class="tp-product-grid limit-{{ section.settings.limit_number }}-items">
+              {% for product in collections[item_collection].products limit: section.settings.limit_number %}
+                {% include 'product-grid-item' %}
+              {% endfor %}
+            </div>
+            {% else %}
+              <div class="tp-message">
+                <p>Please select a collection at <strong>Sections --> PRODUCT TAB 1 --> TAB --> Choose Collection!</strong></p>
+              </div>
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+
+
+{% schema %}
+{
+  "name": "Product Tab 1",
+  "class": "index-section",
+  "max_blocks": 10,
+  "settings": [
+    {
+      "type": "select",
+      "id": "block_layout",
+      "label": "Block Layout",
+      "options": [
+        {
+          "value": "extrawidth",
+          "label": "Extra Width"
+        },
+        {
+          "value": "box",
+          "label": "Box 1170"
+        }
+      ],
+      "default":   "box"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "product_item_per_row",
+      "min": 0,
+      "max": 6,
+      "step": 1,
+      "label": "Product Item to show",
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "limit_number",
+      "min": 0,
+      "max": 12,
+      "step": 1,
+      "label": "Limit Product Item",
+      "default": 8
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background color",
+      "default": "#fff"
+    }
+  ],
+  "blocks" : [
+    {
+      "type" : "tab",
+      "name" : "TAB",
+      "settings" : [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Tab Title",
+          "default" :  "Tab Title"
+        },
+        {
+          "type": "collection",
+          "id": "choose_collection",
+          "label": "Choose Collection"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Tab 1",
+      "category": "PRODUCT TAB",
+      "blocks": [
+        {
+          "type": "tab"
+        },
+        {
+          "type": "tab"
+        },
+        {
+          "type": "tab"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+

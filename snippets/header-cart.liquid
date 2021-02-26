@@ -1,0 +1,128 @@
+{% comment %}
+Show number of items in the cart and total cost in the /cart link
+
+Ajax Cart Notes:
+- #cartCount updates the total number of items in the cart
+- #cartCost updates the total cost of the cart
+- Documentation:  http://shopify.com/timber#ajax-cart
+{% endcomment %}
+{{ 'fbshare.scss.css' | asset_url | split:'?' | first | stylesheet_tag }}
+<div class="site-header-cart">
+	<a href="/cart" class="site-header-cart-toggle js-drawer-open-right" aria-expanded="false">
+      <span class="icon icon-cart" aria-hidden="true"></span>
+      <span class="tp-top-cart-title">{{ 'layout.cart.title' | t }}</span>
+
+      <span class="tp-cart-item"><span class="tp-cart-quote-first">(</span><span id="CartCount">{{ cart.item_count }}</span>
+        <span class="tp-cart-name">{{ 'layout.cart.items_count' | t: count: cart.item_count | strip }}</span><span id="CartCost">{{ cart.total_price | money }}</span><span class="tp-cart-quote-end">)</span></span>
+    </a>
+  	<div class="tp-dropdown-cart">
+		{% if cart.item_count == 0%}
+		<div class="tp-no-item">
+
+		<p>{{ 'cart.general.empty' | t }}</p>
+		<p class="text-continue"><a href="/collections/all" title="{{ 'cart.general.continue_shopping' | t }}" class="btn">{{ 'cart.general.continue_shopping' | t }}</a></p>
+		</div>
+		{% else %}
+		<div class="tp-has-items">
+		<ul class="list-item-cart">
+		  {% for item in cart.items %}
+		  <li>
+		    <a href="" class="btn-remove-cart"><i class="i-label"></i></a>
+		    <a class="product-image" href="{{ item.url }}"><img src="{{ item.image | product_img_url: 'small' }}" alt="{{item.image}}" /></a>
+		    <div class="product-detail">
+		      <a class="tp-product-item-name" href="{{ item.url }}"><span>{{ item.product.title }}</span></a>
+		      <span class="product-variant">{{ item.attributes }}</span>
+		      <span class="quantity">{{item.quantity}} X <span class="tp-product-item-price">{{item.price | money}}</span></span>
+		    </div>
+		  </li>
+		  {% endfor %}
+		</ul>
+        {% if settings.share_image %}
+           <input type="hidden" name="fb_image" id="fb_image_share" value="{{ settings.share_image |img_url:'original'}}">
+        {% endif %}
+        {% if settings.share_image_mobile %}
+            <input type="hidden" name="fb_image_mobile" id="fb_image_share_mobile" value="{{ settings.share_image_mobile |img_url:'original'}}">
+        {% endif %}
+		<p class="total">
+			<strong>{{ 'cart.general.subtotal' | t }}:</strong>
+			<span class="amount">{{cart.total_price | money}}</span>
+		</p>
+         <div class="minicart-share-text">
+                    {% if settings.share_text %}
+                      {{ settings.share_text }}
+                    {% endif %}
+        </div>
+		<p class="buttons">
+				<a href="/cart" class="btn">{{ 'cart.general.view_cart' | t }}</a>
+
+				<a href="/checkout" class="btn-checkout">{{ 'cart.general.checkout' | t }}</a>
+		</p>
+		</div>
+		{% endif %}
+	</div>
+</div>
+<script>
+    
+   jQuery(document).ready(function() {
+      //alert('eftr');
+      var msg= sessionStorage.getItem("Msg");
+      
+      if(msg){
+       jQuery('.show-msg').show();
+      }
+      sessionStorage.removeItem("Msg");
+    });
+ 
+  
+  shareInFacebook = function() {
+    
+    var coupon_code = '{{ settings.free_shipping_code }}';
+    var base_url = window.location.origin;
+    
+     if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+          var url = document.getElementById('fb_image_share_mobile').value;
+       
+     } else{
+     
+     	  var url = document.getElementById('fb_image_share').value;
+     }
+       
+    FB.ui({
+      method: 'share',
+      name: 'Facebook Dialogs',
+      href: 'https:'+url ,
+      picture: 'https:'+url ,
+      link: base_url
+    }, function(response){
+       console.log(response);
+      if (response) {
+          //alert(response.post_id);
+        window.location.href = base_url+'/discount/'+coupon_code+'?redirect=/cart';
+        sessionStorage.setItem("Msg","success");
+       
+       } else {
+         
+       }
+
+    });
+    //return false;
+  };
+  
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId: '690508974645732',
+      cookie: true, // This is important, it's not enabled by default
+      version: 'v2.2'
+    });
+    
+  };
+
+  (function(d, s, id){
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) {return;}
+    js = d.createElement(s); js.id = id;
+    js.src = "https://connect.facebook.net/en_US/sdk.js";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+  
+</script>

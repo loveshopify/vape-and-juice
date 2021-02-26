@@ -1,0 +1,59 @@
+<div class="tp-nav-vertical">
+  <div class="dropdown">
+    <button class="tp-toggle-label" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <span class="icon"></span>
+      {{ settings.nav_vertical_heading }}
+    </button>
+    <div class="dropdown-menu">
+      <ul>
+        {% assign nav_vertical_linklist = settings.nav_vertical_linklist | handleize %}
+        {% for link in linklists[nav_vertical_linklist].links %}
+        {% if settings.display_mega_menu %}
+        {% assign is_megamenu = false %}
+        {% for i in (1..7) %}
+        {% capture mega_menu_item %}mega_menu_item_{{ i }}{% endcapture %}
+        {% if settings[mega_menu_item] != blank %}
+        {% assign mega_menu_item_text = settings[mega_menu_item] | handleize %}
+        {% assign cat = link.title | handleize %}
+        {% if mega_menu_item_text contains cat %}
+        {% assign is_megamenu = true %}
+        {% assign indexOf = i %}
+        {% endif %}
+        {% endif %}
+        {% endfor %}
+        {% endif %}
+        {% capture icon %}nv-icon-{{forloop.index}}.png{% endcapture %}
+        {% if settings.display_all_icon_menu %}
+        {% capture check_icon %}display_icon_menu_{{forloop.index}}{% endcapture %}
+        {% endif %}
+        {% capture check_label %}show_label_mega_menu_{{indexOf}}{% endcapture %}
+
+        {% capture style_dropdown_mega_menu %}style_dropdown_mega_menu_{{ indexOf }}{% endcapture %}
+
+        <li class="{% if linklists[link.handle] != empty %} dropdown{% if is_megamenu %} mega-menu{% endif %}{% endif %}">
+          <a href="{{ link.url }}" class="{% if link.active %}current{% endif %} {% if settings[check_label] == 'sale' %} color-sale{% endif %}">
+            {% if settings[check_icon] %}<img src="{{ icon | asset_url }}" alt="icon item" />{% endif %}
+            {{ link.title }}
+            {% if is_megamenu %}
+            {% if settings[check_label] != 'none' %}
+            <span class="label-menu lb-{{ settings[check_label] }}">{{ settings[check_label] }}</span>
+            {% endif %}
+            {% endif %}
+          </a>
+          {% if linklists[link.handle] != empty %}
+          <i class="fa fa-angle-right"></i>
+          {% assign link_child = link.handle %}
+          {% if is_megamenu %}
+          <div class="site-nav-dropdown {% if settings[style_dropdown_mega_menu] == "style_1" %}mega-menu-style-1{% elsif settings[style_dropdown_mega_menu] == "style_2" %}mega-menu-style-2{% elsif settings[style_dropdown_mega_menu] == "style_3" %}mega-menu-style-3{% elsif settings[style_dropdown_mega_menu] == "style_4" %}mega-menu-style-4{% else %}mega-menu-style-5{% endif %}">
+            <div class="site-nav-dropdown-inner">{% include 'tp-mega-menu' with link_child %}</div>
+          </div>
+          {% else %}
+          {% include 'tp-dropdown-menu' with link_child %}
+          {% endif %}
+          {% endif %}
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</div>

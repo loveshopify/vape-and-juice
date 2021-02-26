@@ -1,0 +1,78 @@
+{% comment %}
+  For more information on collection tags:
+    - http://docs.shopify.com/themes/liquid-variables/collection
+{% endcomment %}
+
+{% paginate collection.products by settings.collection_product_item_per_page  %}
+
+<div class="row">
+  {% if settings.sidebar_collection_page_enable %} 
+  <div class="col-md-9 tp-collection-content {% if settings.sidebar_collection_page_position == "left" %}pull-right{% endif %}">
+  {% else %}
+  <div class="col-md-12 tp-collection-content">  
+  {% endif %}
+    {% include 'collection-header' %}
+    <section class="tp-product-grid">
+
+      {% comment %}
+        Loop through our products in the current collection.
+        See the snippet 'product-grid-item' for the layout.
+      {% endcomment %}
+      {% for product in collection.products %}
+  
+
+        {% include 'product-grid-item' %}
+
+      {% else %}
+
+        {% if collection.handle == 'all' and current_tags == '' %}
+
+          {% comment %}
+            Add default products to help with onboarding for collections/all only
+          {% endcomment %}
+          {% unless emptyState %}
+            {{ 'theme-onboarding.css' | global_asset_url | stylesheet_tag }}
+            {% assign emptyState = true %}
+          {% endunless %}
+          {% include 'onboarding-empty-collection' %}
+
+        {% else %}
+
+          {% comment %}
+            If collection exists but is empty, display message
+          {% endcomment %}
+          <div class="col-sm-12">
+            <p class="tp-message">{{ 'collections.general.no_matches' | t }}</p>
+          </div>
+{% include 'flair-product-badges', with flair_badge_max: 3, flair_css_class: 'flair-inline' %}
+        {% endif %}
+
+      {% endfor %}
+
+    </section>
+    
+    {% if paginate.pages > 1 %}
+      <div class="tp-pagination-bottom">{% include 'pagination' %}</div>
+    {% endif %}
+    
+  	{% if collection.description != blank %}
+      <div class="rte rte-header">
+        {{ collection.description }}
+      </div>
+    {% endif %}
+
+  </div>
+  
+  {% if settings.sidebar_collection_page_enable %} 
+    <div class="col-md-3">
+      {% section 'tp-section-collection-filter' %}  
+      {% section 'tp-section-collection-sidebar' %} 
+    </div>
+  {% endif %}
+ 
+</div>
+
+{% endpaginate %}
+
+{% include 'tp-snippets-infinite-scroll' %}
+<!--  <div id="shopfront-collection-page"><span id="sft-subtotal-cart">{{ cart.total_price | money }}</span></div> -->

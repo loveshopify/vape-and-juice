@@ -1,0 +1,188 @@
+{% if section.blocks.size > 0 %}
+<div class="tp-gallery-page">
+	<ul class="tp-gallery-list">    
+        {% for block in section.blocks %}
+        	{% assign time = settings.delay_time_ra | times: forloop.index | divided_by: 2 %}
+        	{% case block.type %}
+        		{% when 'image_tint' %}
+        		<li class="tp-gallery-item wow fadeIn" data-wow-delay="{{ time }}ms">
+        			<figure>
+	        			{% if block.settings.image != blank %}
+	        			<a class="fancybox" data-fancybox="group" href="{{ block.settings.image | img_url: 'master' }}">
+	        				<img src="{{ block.settings.image | img_url: 'master' }}" alt="{{ block.settings.image.alt }}" />
+	        			</a>
+	        			{% else %}
+	        				{% include 'sample', hd_height: 'height-250', hd_text: 'Please upload gallery image'  %}
+	        			{% endif %}
+	        			<a class="tint" href="{{ all_products[block.settings.choose_product].url }}" style="left: {{ block.settings.left }}%; top: {{ block.settings.top }}%;">{{ all_products[block.settings.choose_product].title }}</a>
+	        		</figure>
+        		</li>
+        		{% when 'image_2_tint' %}
+        		<li class="tp-gallery-item wow fadeIn" data-wow-delay="{{ time }}ms">
+        			<figure>
+	        			{% if block.settings.image != blank %}
+	        			<a class="fancybox" data-fancybox="group" href="{{ block.settings.image | img_url: 'master' }}">
+	        				<img src="{{ block.settings.image | img_url: 'master' }}" alt="{{ block.settings.image.alt }}" />
+	        			</a>
+	        			{% else %}
+	        				{% include 'sample', hd_height: 'height-250', hd_text: 'Please upload gallery image'  %}
+	        			{% endif %}
+	        			<a class="tint" href="{{ all_products[block.settings.choose_product_1].url }}" style="left: {{ block.settings.left_1 }}%; top: {{ block.settings.top_1 }}%;">{{ all_products[block.settings.choose_product_1].title }}</a>
+	        			<a class="tint" href="{{ all_products[block.settings.choose_product_2].url }}" style="left: {{ block.settings.left_2 }}%; top: {{ block.settings.top_2 }}%;">{{ all_products[block.settings.choose_product_2].title }}</a>
+	        		</figure>
+        		</li>
+        		{% else %}
+        		<li class="tp-gallery-item wow fadeIn" data-wow-delay="{{ time }}ms">
+        			<figure>
+        				{% if block.settings.image != blank %}
+	        			<a class="fancybox" data-fancybox="group" href="{{ block.settings.image | img_url: 'master' }}">
+	        				<img src="{{ block.settings.image | img_url: 'master' }}" alt="{{ block.settings.image.alt }}" />
+	        			</a>
+	        			{% else %}
+	        				{% include 'sample', hd_height: 'height-250', hd_text: 'Please upload gallery image'  %}
+	        			{% endif %}
+	        		</figure>
+        		</li>
+        	{% endcase %}
+        {% endfor %}
+    </ul>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+      var $grid = $('.tp-gallery-list').imagesLoaded( function() {
+        // init Isotope after all images have loaded
+        $grid.isotope({
+          percentPosition: true,
+          itemSelector: '.tp-gallery-list > li',
+          masonry: {}
+        });
+      });
+    })
+</script>
+{% endif %}
+
+
+{% schema %}
+{
+	"name": "Gallery List",
+	"blocks" : [
+	  {
+	  	"type": "image",
+	  	"name": "Image",
+	  	"settings": [
+	  		{
+              "type": "image_picker",
+              "id": "image",
+              "label": "Gallery Image"
+          	}
+	  	]
+	  },
+	  {
+	  	"type": "image_tint",
+	  	"name": "Image & 1 Tint",
+	  	"settings": [
+	  		{
+              "type": "image_picker",
+              "id": "image",
+              "label": "Gallery Image"
+          	},
+          	{
+              "type": "product",
+              "id": "choose_product",
+              "label": "Choose Product"
+          	},
+          	{
+		        "type": "range",
+		        "id": "left",
+		        "min": 0,
+		        "max": 100,
+		        "step": 1,
+		        "unit": "%",
+		        "label": "Left Position",
+		        "default": 30
+		    },
+		    {
+		        "type": "range",
+		        "id": "top",
+		        "min": 0,
+		        "max": 100,
+		        "step": 1,
+		        "unit": "%",
+		        "label": "Top Position",
+		        "default": 30
+		    }
+	  	]
+	  },
+	  {
+	  	"type": "image_2_tint",
+	  	"name": "Image & 2 Tint", 
+	  	"settings": [
+	  		{
+              "type": "image_picker",
+              "id": "image",
+              "label": "Gallery Image"
+          	},
+          	{
+          		"type": "header",
+          		"content": "Product 1 _________"
+          	},
+          	{
+              "type": "product",
+              "id": "choose_product_1",
+              "label": "Choose Product 1"
+          	},
+          	{
+		        "type": "range",
+		        "id": "left_1",
+		        "min": 0,
+		        "max": 100,
+		        "step": 1,
+		        "unit": "%",
+		        "label": "Left Position",
+		        "default": 30
+		    },
+		    {
+		        "type": "range",
+		        "id": "top_1",
+		        "min": 0,
+		        "max": 100,
+		        "step": 1,
+		        "unit": "%",
+		        "label": "Top Position",
+		        "default": 30
+		    },
+		    {
+          		"type": "header",
+          		"content": "Product 2 _________"
+          	},
+          	{
+              "type": "product",
+              "id": "choose_product_2",
+              "label": "Choose Product 2"
+          	},
+          	{
+		        "type": "range",
+		        "id": "left_2",
+		        "min": 0,
+		        "max": 100,
+		        "step": 1,
+		        "unit": "%",
+		        "label": "Left Position",
+		        "default": 60
+		    },
+		    {
+		        "type": "range",
+		        "id": "top_2",
+		        "min": 0,
+		        "max": 100,
+		        "step": 1,
+		        "unit": "%",
+		        "label": "Top Position",
+		        "default": 50
+		    }
+	  	]
+	  }
+	]
+}
+{% endschema %}

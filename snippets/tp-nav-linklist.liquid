@@ -1,0 +1,29 @@
+{% for l in linklists[link_child].links %}
+<div class="column column-{{ forloop.index }}">
+
+  <!-- Menu level 2 -->
+  {% if linklists[l.handle] == empty %}
+  <a href="{{ l.url }}">
+    {{ l.title }}
+  </a>
+  {% else %}
+  <h5 class="tp-mega-heading">
+    <a href="{{ l.url }}">
+      {{ l.title }}
+    </a>
+    <span class="icon-plus visible-xs visible-sm"></span>
+  </h5>
+  <ul class="site-nav-dropdown">
+    {% for child_l in linklists[l.handle].links %}
+    <!-- Menu level 3 -->
+    <li>
+      <a href="{{ child_l.url }}" {% if child_l.active %}class="current"{% endif %}>
+        {{ child_l.title }}
+      </a>
+    </li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+
+</div>
+{% endfor %}  

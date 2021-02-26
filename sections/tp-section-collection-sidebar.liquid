@@ -1,0 +1,173 @@
+{% if section.blocks.size > 0 %}
+<div class="tp-sidebar tp-sidebar-toggle tp-sidebar-collection">
+	{% for block in section.blocks %}
+		{% assign time = settings.delay_time_ra | times: forloop.index | divided_by: 2 %}
+		{% case block.type %}
+	    	{% when 'collection' %}
+		    <div class="tp-sidebar-block tp-block-featured-product wow fadeIn" data-wow-delay="{{ time }}ms">
+			  	{% if block.settings.title != blank %}
+			  		<div class="tp-sidebar-heading">
+			  			<h3>
+			  				<span>{{ block.settings.title }}</span>
+			  				<i class="fa fa-angle-down"></i>
+			  			</h3>
+			  		</div>
+			  	{% endif %}
+			  	<div class="tp-sidebar-content">
+			  		{% if block.settings.featured_product_collection != blank %}
+			    		{% for product in collections[block.settings.featured_product_collection].products limit: block.settings.featured_product_limit %}
+
+			    			{% include 'product-grid-item-layout-sidebar' %}
+			    		{% endfor %}
+			    	{% else %}
+				  	<div class="tp-message-empty">Please choose a collection</div>
+				  	{% endif %}
+			  	</div>
+			</div>
+	    	{% when 'banner' %}
+		    <div class="tp-sidebar-block tp-block-banner wow fadeIn" data-wow-delay="{{ time }}ms">
+		    	{% if block.settings.img_banner == blank %}
+			    {% include 'sample', hd_height: 'height-300', hd_text: 'Please upload an image'  %}
+		    	{% else %}
+		    	<a href="{{ block.settings.link }}"><img src="{{ block.settings.img_banner | img_url: 'master' }}" alt="{{ block.settings.img_banner.alt }}" /></a>
+		    	{% endif %}
+			</div>
+	    	{% when 'html' %}
+		    <div class="tp-sidebar-block tp-block-html wow fadeIn" data-wow-delay="{{ time }}ms">
+		    	{% if block.settings.title != blank %}
+			  	<div class="tp-sidebar-heading">
+				    <h3>
+				    	<span>{{ block.settings.title }}</span>
+				    	<i class="fa fa-angle-down"></i>
+				    </h3>
+			  	</div>
+			  	{% endif %}
+			  	{% if block.settings.code != blank %}
+			  	<div class="tp-sidebar-content">
+			    	{{ block.settings.code }}
+			  	</div>
+			  	{% endif %}
+			  	{% if block.settings.css != blank %}
+			  	<style type="text/css">
+			    	{{ block.settings.css }}
+			  	</style>
+			  	{% endif %}
+			</div>
+	    	{% else %}
+		    <div class="tp-sidebar-block tp-block-text wow fadeIn" data-wow-delay="{{ time }}ms">
+		    	{% if block.settings.title != blank %}
+			  	<div class="tp-sidebar-heading">
+				    <h3>
+				    	<span>{{ block.settings.title }}</span>
+				    	<i class="fa fa-angle-down"></i>
+				    </h3>
+			  	</div>
+			  	{% endif %}
+			  	{% if block.settings.text != blank %}
+			  	<div class="tp-sidebar-content">
+			    	{{ block.settings.text }}
+			  	</div>
+			  	{% endif %}
+			</div> 
+		{% endcase %}
+	{% endfor %}
+</div>
+
+{% else %}
+<div class="tp-message-empty">
+	Please go <strong>Sections --> Collection Sidebar</strong> to add a block 
+</div>
+{% endif %}
+
+
+{% schema %} 
+{
+    "name": "Collection Sidebar",
+    "class": "section-sidebar",
+    "max_blocks": 15,
+    "blocks": [
+      {
+        "type": "collection",
+        "name": "Featured Products",
+        "settings": [
+	        {
+	          "type": "text",
+	          "id": "title",
+	          "label": "Title",
+	          "default": "Featured Products"
+	        },
+	        {
+	           "type": "collection",
+	           "id": "featured_product_collection",
+	           "label": "Collection to use"
+	        },
+	        {
+	           "type": "range",
+	           "id": "featured_product_limit",
+	           "min": 1,
+		        "max": 10,
+		        "step": 1,
+	           "label": "Number of products to show",
+	           "default": 3
+	        }
+        ]
+      },
+      {
+        "type": "banner", 
+        "name": "Banner",
+        "settings": [
+	        {
+	           "type": "image_picker",
+	           "id": "img_banner",
+	           "label":"Banner Image"
+	        },
+	        {
+	           "type": "url",
+	           "id": "link",
+	           "label": "Banner Link"
+	        }
+        ]
+      },
+      {
+        "type": "html",
+        "name": "Custom HTML",
+        "settings": [
+	        {
+	            "type": "text",
+	            "id": "title",
+	            "label": "Heading",
+	            "default": "Custom HTML"
+	        },
+	        {
+	            "type": "html",
+	            "id": "code",
+	            "label": "HTML"
+	        },
+	        {
+	            "type": "html",
+	            "id": "css",
+	            "label": "CSS"
+	        }
+        ]
+      },
+      {
+        "type": "text",
+        "name": "Text",
+        "settings": [
+            {
+	            "type": "text",
+	            "id": "title",
+	            "label": "Heading",
+	            "default": "Heading Title"
+            },
+            {
+	            "type": "richtext",
+	            "id": "text",
+	            "label": "Text",
+	            "default": "<p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores.</p>"
+            }
+        ]
+      }
+    ]
+}
+{% endschema %}

@@ -1,0 +1,71 @@
+<!-- /templates/collection.liquid -->
+{% comment %}
+
+  For more information on collection tags:
+    - http://docs.shopify.com/themes/liquid-variables/collection
+
+{% endcomment %}
+
+{% paginate collection.products by settings.collection_product_item_per_page  %}
+
+{% comment %}
+  Use .grid--rev so that the collection tags appear below the products on mobile
+{% endcomment %}
+<div class="row"> 
+    <div class="col-md-12 tp-collection-content">      
+
+    {% include 'collection-header-1column' %}
+
+    <div class="tp-product-grid">
+
+      {% comment %}
+        Loop through our products in the current collection.
+        See the snippet 'product-grid-item' for the layout.
+      {% endcomment %}
+      {% for product in collection.products %}
+
+
+        {% include 'product-grid-item' %}
+{% include 'flair-product-badges', with flair_badge_max: 3, flair_css_class: 'flair-inline' %}
+      {% else %}
+
+        {% if collection.handle == 'all' and current_tags == '' %}
+
+          {% comment %}
+            Add default products to help with onboarding for collections/all only
+          {% endcomment %}
+          {% unless emptyState %}
+            {{ 'theme-onboarding.css' | global_asset_url | stylesheet_tag }}
+            {% assign emptyState = true %}
+          {% endunless %}
+          {% include 'onboarding-empty-collection' %}
+
+        {% else %}
+
+          {% comment %}
+            If collection exists but is empty, display message
+          {% endcomment %}
+          <div class="grid-item">
+            <p>{{ 'collections.general.no_matches' | t }}</p>
+          </div>
+
+        {% endif %}
+
+      {% endfor %}
+
+    </div>
+
+    {% if paginate.pages > 1 %}
+      <div class="tp-pagination-bottom">{% include 'pagination' %}</div>
+    {% endif %}
+
+  </div>
+  
+
+ 
+</div>
+
+{% endpaginate %}
+{% comment %}
+{% include 'tp-snippets-infinite-scroll' %}
+{% endcomment %}

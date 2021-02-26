@@ -1,0 +1,392 @@
+<div class="tag-container {% if blog.all_tags.size == 0 %}blog_tag_none{% endif %}">
+{% if section.blocks.size > 0 %}
+<div class="tp-sidebar tp-sidebar-toggle">
+	{% for block in section.blocks %}
+		{% assign time = settings.delay_time_ra | times: forloop.index | divided_by: 2 %}
+		{% case block.type %}
+			{% when 'category' %}
+			<div class="tp-sidebar-block tp-block-categories wow fadeIn" data-wow-delay="{{ time }}ms">
+			    {% if block.settings.title != blank %}
+			    <div class="tp-sidebar-heading">
+			      	<h3>
+			      		<span>{{ block.settings.title }}</span>
+			      		<i class="fa fa-angle-down"></i>
+			      	</h3>
+			    </div>
+			    {% endif %}
+				 
+			    <div class="tp-sidebar-content" style="display: none;">
+			      	<ul class="category-navi">
+			      		{% if block.settings.top_categories_link_list != blank and linklists[block.settings.top_categories_link_list].handle != blank %}
+					        {% for link in linklists[block.settings.top_categories_link_list].links %}
+						        {% if linklists[link.handle].links.size > 0 %}
+						        <li class="cat-item cat-item-parent">
+						          	<a href="{{ link.url }}"><span class="link-title">{{ link.title }}</span></a>
+						          	<i class="fa fa-angle-down"></i>
+						          	<ul class="category-sublink">
+							            {% for sublink_lv1 in linklists[link.handle].links %}
+							              {% if linklists[sublink_lv1.handle].links.size > 0 %}
+							                <a href="{{ sublink_lv1.url }}">
+							                  {{ sublink_lv1.title }}
+							                </a>
+							                <ul class="category-sublink-child">
+							                  {% for sublink_lv2 in linklists[sublink_lv1.handle].links %}
+							                    <li><a href="{{ sublink_lv2.url }}">{{ sublink_lv2.title }}</a></li>
+							                  {% endfor %}
+							                </ul>
+							              {% else %}
+							                <li><a href="{{ sublink_lv1.url }}">{{ sublink_lv1.title }}</a></li>
+							              {% endif %}
+							            {% endfor %}
+						           	</ul>
+						        </li>
+						        {% else %}
+						        <li class="cat-item">
+						          	<a href="{{ link.url }}">{{ link.title }}</a>
+						        </li>
+						        {% endif %}
+					        {% endfor %}
+				        {% else %}
+				        	<li class="tp-message-empty">Please choose a link list</li>
+				        {% endif %}
+			        </ul>
+			    </div>
+		    </div>  
+
+	    	{% when 'recently_list' %}
+		    <div class="tp-sidebar-block tp-block-recent-blog wow fadeIn" data-wow-delay="{{ time }}ms">
+			  	{% if block.settings.title != blank %}
+			  		<div class="tp-sidebar-heading">
+			  			<h3>
+			  				<span>{{ block.settings.title }}</span>
+			  				<i class="fa fa-angle-down"></i>
+			  			</h3>
+			  		</div>
+			  	{% endif %}
+			  	<div class="tp-sidebar-content">
+			  		<ul class="no-bullets">
+		    		{% for article in blogs[blog.handle].articles limit: block.settings.blog_item_limit %}
+		    			<li>
+		    				{% if article.image %}
+		    				<a class="sb-blog-image" href="{{ article.url }}">
+		    					{{ article | img_url: '150x' | img_tag: article.title }}
+		    				</a>
+		    				{% endif %}
+		    				<div class="sb-blog-content">
+					          <h5><a href="{{ article.url }}">{{ article.title }}</a></h5>
+					          <time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: format: 'month_day_year' }}</time>
+					        </div>
+				        </li>
+		    		{% endfor %}
+		    		</ul>
+			  	</div>
+			</div>
+			{% when 'tags' %}
+  {% if blog.all_tags.size > 0 %}
+		    <div class="tp-sidebar-block tp-block-tags wow fadeIn" data-wow-delay="{{ time }}ms">
+			{%comment%}
+			  	{% if block.settings.title != blank %}
+			  		<div class="tp-sidebar-heading">
+			  			<h3>
+			  				<span>{{ block.settings.title }}</span>
+			  				<i class="fa fa-angle-down"></i>
+			  			</h3>
+			  		</div>
+			  	{% endif %}
+			{%endcomment%}
+			  	<div class="tp-sidebar-content"> 
+					{%comment%}
+						{% if blog.all_tags.size > 0 %}
+							<ul class="no-bullets itg-dropdown">
+								{% for tag in blog.all_tags %}
+								{% if current_tags contains tag %}
+								<li>{{ tag }}</li>
+								{% else %}
+								<li>{{ tag | link_to_tag: tag }}</li>
+								{% endif %}
+								{% endfor %}
+							</ul>
+						{% endif %}
+					{%endcomment%}
+                  
+				    <select class="no-bullets itg-dropdown">
+						<option value="">{{ block.settings.title }}</option>
+				        {% for tag in blog.all_tags %}
+				        {% if current_tags contains tag %}
+				        <option value="{{ tag }}">{{ tag }}</option>
+				        {% else %}
+				        <option value="{{ tag }}">{{ tag }}</option>
+				        {% endif %}
+				        {% endfor %}
+				    </select>
+				    
+			  	</div>
+			</div>
+  {% endif %} 
+			{% when 'search' %}
+		    <div class="tp-sidebar-block tp-block-search wow fadeIn" data-wow-delay="{{ time }}ms">
+			  	{% if block.settings.title != blank %}
+			  		<div class="tp-sidebar-heading">
+			  			<h3>
+			  				<span>{{ block.settings.title }}</span>
+			  				<i class="fa fa-angle-down"></i>
+			  			</h3>
+			  		</div>
+			  	{% endif %}
+			  	<div class="tp-sidebar-content">
+			  		{% include 'search-bar-article' %}
+			  	</div>
+			</div>
+	    	{% when 'banner' %}
+		    <div class="tp-sidebar-block tp-block-banner wow fadeIn" data-wow-delay="{{ time }}ms">
+		    	{% if block.settings.img_banner == blank %}
+			    {% include 'sample', hd_height: 'height-300', hd_text: 'Please upload an image'  %}
+		    	{% else %}
+		    	<a href="{{ block.settings.link }}"><img src="{{ block.settings.img_banner | img_url: 'master' }}" alt="{{ block.settings.img_banner.alt }}" /></a>
+		    	{% endif %}
+			</div>
+	    	{% when 'html' %}
+		    <div class="tp-sidebar-block tp-block-html wow fadeIn" data-wow-delay="{{ time }}ms">
+		    	{% if block.settings.title != blank %}
+			  	<div class="tp-sidebar-heading">
+				    <h3>
+				    	<span>{{ block.settings.title }}</span>
+				    	<i class="fa fa-angle-down"></i>
+				    </h3>
+			  	</div>
+			  	{% endif %}
+			  	{% if block.settings.code != blank %}
+			  	<div class="tp-sidebar-content">
+			    	{{ block.settings.code }}
+			  	</div>
+			  	{% endif %}
+			  	{% if block.settings.css != blank %}
+			  	<style type="text/css">
+			    	{{ block.settings.css }}
+			  	</style>
+			  	{% endif %}
+			</div>
+	    	{% else %}
+		    <div class="tp-sidebar-block tp-block-text wow fadeIn" data-wow-delay="{{ time }}ms">
+		    	{% if block.settings.title != blank %}
+			  	<div class="tp-sidebar-heading">
+				    <h3>
+				    	<span>{{ block.settings.title }}</span>
+				    	<i class="fa fa-angle-down"></i>
+				    </h3>
+			  	</div>
+			  	{% endif %}
+			  	{% if block.settings.text != blank %}
+			  	<div class="tp-sidebar-content">
+			    	{{ block.settings.text }}
+			  	</div>
+			  	{% endif %}
+			</div> 
+		{% endcase %}
+	{% endfor %}
+</div>
+</div>
+{% else %}
+<div class="tp-message-empty">
+	Please go <strong>Sections --> Blog Sidebar</strong> to add a block 
+</div>
+{% endif %}
+
+ <div class="tag-container">
+   <select class="blog_tag">
+     <option>{{section.settings.cat_title}}</option>      
+      {% for link in linklists[section.settings.blog_category].links %} 
+     <option value="{{ link.url }}">{{ link.title }}</option>
+     {% endfor %} 
+   </select>
+</div>  
+
+<script> 
+
+	$(document).ready(function() { 
+		var urls = $(location).attr('href');
+		var parts = urls.split("/");
+		var last_part = parts[parts.length-1];
+		var last_parts = parts[parts.length-3];
+		var urlTitle = last_part.split('-').join(' ');
+		var urlTitles = last_parts.split('-').join(' ');
+      if( urlTitle === "main blog" ||  urlTitles === "main blog" || urlTitle === "vape advice" || urlTitles === "vape advice" ){ 
+        $('.banner-content').addClass('text-out');
+      }
+                  
+		$('select.no-bullets.itg-dropdown').on("change",function(){ 
+			var dataid = $("select.no-bullets.itg-dropdown option:selected").val(); 
+				var tagvalue = dataid.toLowerCase();
+				var url = tagvalue.split(' ').join('-');  
+			//alert(last_parts);
+				if( urlTitle === "main blog"){ 
+					var urlString = "/blogs/main-blog/tagged/" + url; 
+					window.location = urlString;  
+				}
+				if( urlTitles === "main blog"){ 
+					var urlString = "/blogs/main-blog/tagged/" + url; 
+					window.location = urlString;  
+				}	
+				if( urlTitle === "vape advice"){ 
+					var urlString = "/blogs/vape-advice/tagged/" + url; 
+					window.location = urlString;  
+				}	
+        	   if( urlTitles === "vape advice"){ 
+					var urlString = "/blogs/vape-advice/tagged/" + url; 
+					window.location = urlString;  
+				}	
+		}); 
+		$('select.blog_tag').on('change', function () {
+          var url = $(this).val(); // get selected value
+          if (url) { // require a URL
+              window.location = url; // redirect
+         }
+          return false;
+      });  
+	});
+</script>
+
+{% schema %} 
+{
+    "name": "Blog Sidebar",
+    "class": "section-sidebar",
+    "max_blocks": 10, 
+	"settings":[
+ { 
+	            "type": "text",
+	            "id": "cat_title",
+	            "label": "Heading",  
+	            "default": "Categories"
+	        },
+		{
+	           "type": "link_list",
+	           "id": "blog_category",
+	           "label": "Choose a link list"
+	        }
+],
+    "blocks": [
+      {
+        "type": "category",
+        "name": "Categories",
+        "limit": 1,
+        "settings": [
+	        { 
+	            "type": "text",
+	            "id": "title",
+	            "label": "Heading",  
+	            "default": "Categories"
+	        },
+	        {
+	           "type": "link_list",
+	           "id": "top_categories_link_list",
+	           "label": "Choose a link list"
+	        }
+        ]
+      },
+      {
+        "type": "recently_list",
+        "name": "Recent Posts",
+        "limit": 1,
+        "settings": [
+	        {
+	          "type": "text",
+	          "id": "title",
+	          "label": "Title",
+	          "default": "Recently Posts"
+	        },
+	        {
+	           "type": "range",
+	           "id": "blog_item_limit",
+	           "min": 1,
+		       "max": 10,
+		       "step": 1,
+	           "label": "Number of products to show",
+	           "default": 5
+	        }
+        ]
+      },
+      {
+        "type": "tags",
+        "name": "Blog Tags",
+        "limit": 1,
+        "settings": [
+	        {
+	            "type": "text",
+	            "id": "title",
+	            "label": "Heading",
+	            "default": "Blog Tags"
+	        }
+        ]
+      },
+      {
+        "type": "search",
+        "name": "Blog Search",
+        "limit": 1,
+        "settings": [
+	        {
+	            "type": "text",
+	            "id": "title",
+	            "label": "Heading",
+	            "default": "Search"
+	        }
+        ]
+      },
+      {
+        "type": "banner",
+        "name": "Banner",
+        "settings": [
+	        {
+	           "type": "image_picker",
+	           "id": "img_banner",
+	           "label":"Banner Image"
+	        },
+	        {
+	           "type": "url",
+	           "id": "link",
+	           "label": "Banner Link"
+	        }
+        ]
+      },
+      {
+        "type": "html",
+        "name": "Custom HTML",
+        "settings": [
+	        {
+	            "type": "text",
+	            "id": "title",
+	            "label": "Heading",
+	            "default": "Custom HTML"
+	        },
+	        {
+	            "type": "html",
+	            "id": "code",
+	            "label": "HTML"
+	        },
+	        {
+	            "type": "html",
+	            "id": "css",
+	            "label": "CSS"
+	        }
+        ]
+      },
+      {
+        "type": "text",
+        "name": "Text",
+        "settings": [
+            {
+	            "type": "text",
+	            "id": "title",
+	            "label": "Heading",
+	            "default": "Heading Title"
+            },
+            {
+	            "type": "richtext",
+	            "id": "text",
+	            "label": "Text",
+	            "default": "<p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores.</p>"
+            }
+        ]
+      } 
+    ] 
+}
+{% endschema %}

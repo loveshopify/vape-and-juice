@@ -1,0 +1,309 @@
+<style type="text/css">
+    .tp-home-instagram.section-{{section.id}} {
+        padding-top: {{ section.settings.padding_top }}px;
+        padding-bottom: {{ section.settings.padding_bottom }}px;
+        background-color: {{ section.settings.background_color }};
+    }
+    .instagram-wrap {margin: {{ section.settings.gutter | divided_by: -2 }}px;}
+    .instagram-wrap .slick-slide {padding: {{ section.settings.gutter | divided_by: 2 }}px;}
+    .instagram-wrap .slick-slide:before {left: {{ section.settings.gutter | divided_by: 2 }}px; right: {{ section.settings.gutter | divided_by: 2 }}px; top: {{ section.settings.gutter | divided_by: 2 }}px; bottom: {{ section.settings.gutter | divided_by: 2 }}px;}
+    .instagram-wrap>a {width: {{ 100.0 | divided_by: section.settings.images_per_row }}%; padding: {{ section.settings.gutter | divided_by: 2 }}px;}
+    
+    {% if section.settings.block_layout == 'fullwidth' %}
+        @media (min-width: 992px) {
+            .tp-home-instagram.section-{{section.id}} .container {width: 100%; padding-left: 0; padding-right: 0;}
+        }
+    {% endif %}
+    {% if section.settings.block_layout == 'extrawidth' %}
+        @media (min-width: 1300px) {
+            .tp-home-instagram.section-{{section.id}} {padding-left: 50px; padding-right: 50px;}
+            .tp-home-instagram.section-{{section.id}} .container {width: 100%; padding-left: 0; padding-right: 0;}
+        }
+    {% endif %}
+</style>
+
+{% stylesheet %}
+.tp-home-instagram .instagram-button {text-align: center; padding-top: 30px;}
+.instagram-wrap .slick-slide {position: relative;}
+.instagram-wrap .slick-slide img {width: 100%; position: relative; z-index: 0;}
+.instagram-wrap .slick-slide:before {content: ""; position: absolute; z-index: 1; background-color: rgba(0,0,0,0.6); opacity: 0; transition: all 300ms;}
+.instagram-wrap .slick-slide:after {content: "\f16d"; font-family: FontAwesome; font-size: 28px; width: 30px; height: 30px; line-height: 30px; text-align: center; z-index: 2; position: absolute; top: 50%; left: 50%; margin-top: -10px; margin-left: -10px; transform: scale(0,0); transition: all 300ms ease 100ms;}
+.instagram-wrap .slick-slide:hover:before {opacity: 1;} 
+.instagram-wrap .slick-slide:hover:after {transform: scale(1,1);}
+.instagram-wrap .slick-next {right: 20px;}
+.instagram-wrap .slick-prev {left: 20px;} 
+.instagram-wrap>a {float: left;}
+{% endstylesheet %}
+
+{{ 'instafeed.min.js' | asset_url | script_tag }}
+
+<section class="tp-home-instagram section-{{section.id}}">
+    <div class="container">
+        {% if section.settings.heading != blank %}
+        <div class="tp-block-heading wow fadeIn" data-wow-delay="200ms">
+            <h3>{{ section.settings.heading }}</h3>
+        </div>
+        {% endif %}        
+
+        <div id="instafeed" class="instagram-wrap wow fadeIn" data-wow-delay="200ms"></div>
+        
+        {% if section.settings.enable_instagram_button %}
+        <div class="instagram-button">
+            <a href="{{ section.settings.button_link }}" title="{{ section.settings.button_text }}" class="{% if section.settings.instagram_button_type == 'secondary' %}btn-secondary{% else %}btn{% endif %}">
+                {{ section.settings.button_text | split: '|' | first }}
+            </a>
+        </div>
+        {% endif %}
+    </div>
+
+    <script>
+      var feed = new Instafeed({
+        get: "{{ section.settings.instagram_get }}",
+        {% if section.settings.accessToken != blank %}accessToken: "{{ section.settings.accessToken }}", {% endif %}
+        {% if section.settings.user-id != blank %}userId: {{ section.settings.user-id }}, {% endif %}
+        {% if section.settings.instagram_tag != blank %}tagName: "{{ section.settings.instagram_tag }}", {% endif %}
+        {% if section.settings.instagram_locationId != blank %}locationId: "{{ section.settings.instagram_locationId }}", {% endif %}
+        {% if section.settings.client-id != blank %}clientId: "{{ section.settings.client-id }}",{% endif %}
+        resolution: "{{ section.settings.resolution }}",
+        limit: "{{ section.settings.limit }}",
+        after: function() {
+            $("#instafeed").slick({
+                arrows: true,
+                infinite: false,
+                slidesToShow: {{ section.settings.images_per_row }},
+                responsive: [
+                    {
+                        breakpoint: 1300,
+                        settings: {
+                            slidesToShow: 4
+                        }
+                    },
+                    {
+                        breakpoint: 992,
+                        settings: {
+                            arrows: false,
+                            dots: true,
+                            slidesToShow: 3,
+                            slidesToScroll: 3
+                        }
+                    },
+                    {
+                        breakpoint: 480,
+                        settings: {
+                            arrows: false,
+                            dots: true,
+                            slidesToShow: 2,
+                            slidesToScroll: 2
+                        }
+                    }
+                ]
+            });
+      	}
+      });
+      feed.run();
+
+    </script>
+
+</section>
+
+{% schema %}
+{
+    "name": "Instagram",
+    "class": "index-section",
+    "settings": [
+        {
+            "type": "select",
+            "id": "block_layout",
+            "label": "Layout:",
+            "options": [
+                {
+                    "value": "fullwidth",
+                    "label": "Full Width"
+                },
+                {
+                    "value": "extrawidth",
+                    "label": "Extra Width"
+                },
+                {
+                    "value": "box",
+                    "label": "Box 1170px"
+                }
+            ],
+            "default": "fullwidth"
+        },
+        {
+            "type": "range",
+            "id": "padding_top",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "px",
+            "label": "Padding Top",
+            "default": 40
+        },
+        {
+            "type": "range",
+            "id": "padding_bottom",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "px",
+            "label": "Padding Bottom",
+            "default": 40
+        },
+    	{
+            "type": "color",
+            "id": "background_color",
+            "label": "Background Color"
+        },
+    	{
+    		"type": "text",
+    		"id": "heading",
+    		"label": "Heading",
+    		"default": "#Follow us on Instagram"
+    	},
+    	{
+            "type": "header",
+            "content": "Button"
+        },
+    	{
+    		"type": "checkbox",
+    		"id": "enable_instagram_button",
+    		"label": "Enable Button Instagram?",
+            "default": true
+    	},
+    	{
+    		"type": "text",
+    		"id": "button_text",
+    		"label": "Button Instagram Text",
+    		"default": "Follow us"
+    	},
+    	{
+    		"type": "url",
+    		"id": "button_link",
+    		"label": "Button Instagram Link"
+    	},
+    	{
+            "type": "select",
+            "id": "instagram_button_type",
+            "label": "Button Type",
+            "options": [
+                {"value": "primary", "label": "Button Primary"},
+                {"value": "secondary", "label": "Button Secondary"}
+            ],
+            "default": "primary"
+        },
+        {
+            "type": "header",
+            "content": "Image"
+        },
+        {
+            "type": "range",
+            "id": "gutter",
+            "min": 0,
+            "max": 50,
+            "step": 1,
+            "unit": "px",
+            "label": "Gutter Image",
+            "default": 0
+        },
+        {
+            "type": "range",
+            "id": "limit",
+            "min": 0,
+            "max": 20,
+            "step": 1,
+            "label": "Limit Image to show",
+            "default": 10
+        },
+        {
+            "type": "range",
+            "id": "images_per_row",
+            "min": 0,
+            "max": 10,
+            "step": 1,
+            "label": "Number Image Per Row", 
+            "default": 5
+        },
+        {
+            "type": "select",
+            "id": "resolution",
+            "label": "Resolution of images",
+            "options": [
+                {
+                    "value": "thumbnail",
+                    "label": "Thumbnail"
+                },
+                {
+                    "value": "low_resolution",
+                    "label": "Low Resolution"
+                },
+                {
+                    "value": "standard_resolution",
+                    "label": "Standard Resolution"
+                }
+            ],
+            "default" : "standard_resolution"
+        },
+    	{
+            "type": "header",
+            "content": "Configuration"
+        },
+    	{
+    		"type": "select",
+    		"id": "instagram_get",
+    		"label": "Get Image by:",
+    		"options": [
+                {
+                    "value": "user",
+                    "label": "User"
+                },
+    			{
+    				"value": "tagged",
+    				"label": "Tagged"
+    			},
+    			{
+    				"value": "location",
+    				"label": "Location"
+    			}
+    		],
+    		"default": "user"
+    	},
+        {
+            "type": "text",
+            "id": "accessToken",
+            "label": "Access Token",
+            "info": "Required. [Where do I find Access Token?](http:\/\/instagram.pixelunion.net\/)",
+            "default": "7298595275.1677ed0.13a901d38bb74ab7aeb86f394630cd90"
+        },
+        {
+            "type": "text",
+            "id": "client-id",
+            "label": "Client Id",
+            "info": "Required when Get Image by: 'Tagged'. [Where do I find Client ID?](http:\/\/darkwhispering.com\/how-to\/get-a-instagram-client_id-key)"
+        },
+        {
+            "type": "text",
+            "id": "user-id",
+            "label": "User Id",
+            "info": "Required when Get Image by: 'User'. User Id is the first 10 characters of the Access Token - before the '.'",
+            "default": "7298595275"
+        },
+    	{
+    		"type": "text",
+    		"id": "instagram_tag",
+    		"label": "Tag Name",
+    		"info": "Required when Get Image by: 'Tagged'. ie: fashion"
+    	},
+    	{
+    		"type": "text",
+    		"id": "instagram_locationId",
+    		"label": "Location ID",
+    		"info": "Required when Get Image by: 'Location'."
+    	}
+    ],
+    "presets": [{
+        "name": "Instagram"
+    }]
+}
+{% endschema %}

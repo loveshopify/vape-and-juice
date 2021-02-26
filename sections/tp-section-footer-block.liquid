@@ -1,0 +1,394 @@
+{% if section.blocks.size > 0 %}
+  {% for block in section.blocks %}
+    {% assign footer_ra = settings.delay_time_ra | times: forloop.index %}
+    {% case block.type %}
+      {% when 'menu' %}
+      <div class="col-md-{{ block.settings.column }} footer-col-{{ forloop.index }} wow fadeIn" data-wow-delay="{{ footer_ra }}ms">
+        {% if block.settings.title != blank %}
+        <h3 class="footer-heading footer-toggle-heading">
+          <span>{{ block.settings.title }}</span>
+        </h3>
+        {% endif %}
+        <div class="footer-toggle-wrap">
+          {% include 'footer-link', link_lists: block.settings.menu %}
+        </div>
+      </div>
+
+      {% when 'newsletter' %}
+      <div class="col-md-{{ block.settings.column }} footer-col-{{ forloop.index }} wow fadeIn" data-wow-delay="{{ footer_ra }}ms">
+        {% if block.settings.title != blank %}
+        <h3 class="footer-heading footer-toggle-heading">
+          <span>{{ block.settings.title }}</span>
+        </h3>
+        {% endif %}
+        <div class="footer-toggle-wrap">
+          {% if block.settings.description != blank %}
+          <div class="footer-newsletter-description">{{ block.settings.description }}</div>
+          {% endif %}
+          {% include 'newsletter-form' %}
+          {% if block.settings.footer_social_media_enable %}
+            {% include 'tp-social-media' %}
+          {% endif %}
+        </div>
+      </div>
+
+      {% when 'html' %}
+      <div class="col-md-{{ block.settings.column }} footer-col-{{ forloop.index }} wow fadeIn" data-wow-delay="{{ footer_ra }}ms">
+        {% if block.settings.title != blank %}
+        <h3 class="footer-heading footer-toggle-heading">
+          <span>{{ block.settings.title }}</span>
+        </h3>
+        {% endif %}
+        <div class="footer-toggle-wrap">
+          {{ block.settings.html }}
+        </div>
+      </div>
+
+      {% when 'recently_posts' %}
+      <div class="col-md-{{ block.settings.column }} footer-col-{{ forloop.index }} wow fadeIn" data-wow-delay="{{ footer_ra }}ms">
+        {% if block.settings.title != blank %}
+        <h3 class="footer-heading footer-toggle-heading">
+          <span>{{ block.settings.title }}</span>
+        </h3>
+        {% endif %}
+        <div class="footer-toggle-wrap">
+          {% if blogs['news'].articles_count > 0 %}
+          <ul class="tp-recent-post-list">
+            {% for article in blogs['news'].articles limit: block.settings.limit_posts %}
+            <li>
+              <a href="{{ article.url }}"" class="post-image">
+              {% if article.image %}
+                <img src="{{ article | img_url: 'medium' }}" alt="Not Found"/>
+              {% endif %}
+              </a>
+              <div class="post-content">
+                <a href="{{ article.url }}">{{ article.title }}</a>
+              </div>
+            </li>
+            {% endfor %}
+          </ul>
+          {% else %}
+            <div class="tp-message">Please add more blog post</div>
+          {% endif %}
+        </div>
+      </div>
+
+      {% when 'recently_products' %}
+      <div class="col-md-{{ block.settings.column }} footer-col-{{ forloop.index }} wow fadeIn" data-wow-delay="{{ footer_ra }}ms">
+        {% if block.settings.title != blank %}
+        <h3 class="footer-heading footer-toggle-heading">
+          <span>{{ block.settings.title }}</span>
+        </h3>
+        {% endif %}
+        <div class="footer-toggle-wrap">
+          {% assign config_collection = block.settings.collection_choose | handleize %}
+          {% if config_collection != blank and collections[config_collection].handle != blank %}
+            {% assign use_collection = config_collection %}
+          {% else %}
+            {% assign use_collection = 'all' %}
+          {% endif %}
+
+          {% if collections[use_collection].products_count > 0 %}
+          <ul class="tp-recent-product-list">
+            {% for product in collections[use_collection].products limit: block.settings.limit_products %}
+            <li>
+              <a href="{{ product.url | within: collection }}">
+                <img src="{{ product.featured_image.src | product_img_url: 'medium' }}" alt="{{ image.alt | escape }}">
+              </a>
+            </li>
+            {% endfor %}
+          </ul>
+          {% endif %}
+        </div>
+      </div>
+      {% when 'clear' %}
+      <div class="clearfix hidden-xs hidden-sm">&nbsp;</div>
+
+      {% else %}
+      <div class="col-md-{{ block.settings.column }} footer-col-{{ forloop.index }} wow fadeIn" data-wow-delay="{{ footer_ra }}ms">
+        {% if block.settings.title != blank %}
+        <h3 class="footer-heading footer-toggle-heading">
+          <span>{{ block.settings.title }}</span>
+        </h3>
+        {% endif %}
+        <div class="footer-toggle-wrap">
+          {{ block.settings.html }}
+          {% if block.settings.custom_image != blank %}
+          <figure>
+            <img src="{{ block.settings.custom_image | img_url: 'master' }}" alt="{{ block.settings.custom_image.alt }}"/>
+          </figure>
+          {% endif %}
+          {% if block.settings.footer_social_media_enable %}
+            {% include 'tp-social-media' %}
+          {% endif %}
+        </div>
+      </div>
+    {% endcase %}
+  {% endfor %}
+{% endif %}
+
+{% schema %}
+  {
+    "name": "Footer Block",
+    "class": "row tp-footer-main",
+    "max_blocks": 20,
+    "blocks": [
+      {
+        "type": "menu",
+        "name": "Footer Links",
+        "settings": [
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Heading",
+            "default": "Footer Links"
+          },
+          {
+            "type": "link_list",
+            "id": "menu",
+            "label": "Add menu"
+          },
+          {
+            "type": "select",
+            "id": "column",
+            "label": "Column Width",
+            "options": [
+              { "value": "2", "label": "2/12 --> 16.66%"},
+              { "value": "3", "label": "3/12 --> 25%"},
+              { "value": "4", "label": "4/12 --> 33.33%"},
+              { "value": "5", "label": "5/12 --> 41.66%"},
+              { "value": "6", "label": "6/12 --> 50%"},
+              { "value": "7", "label": "7/12 --> 58.33%"},
+              { "value": "8", "label": "8/12 --> 66.66%"},
+              { "value": "9", "label": "9/12 --> 75%"},
+              { "value": "10", "label": "10/12 --> 83.33%"},
+              { "value": "12", "label": "12/12 --> 100%"}
+            ],
+            "default": "3"
+          }
+        ]
+      },
+      {
+        "type": "html",
+        "name": "Custom HTML",
+        "settings": [
+         {
+            "type": "text",
+            "id": "title",
+            "label": "Heading",
+            "default": "Custom HTML"
+         },
+         {
+            "type": "html",
+            "id": "html",
+            "label": "Text",
+            "default": "<p>Use this text to share information about your brand with your customers.</p>"
+         },
+         {
+            "type": "select",
+            "id": "column",
+            "label": "Column Width",
+            "options": [
+              { "value": "2", "label": "2/12 --> 16.66%"},
+              { "value": "3", "label": "3/12 --> 25%"},
+              { "value": "4", "label": "4/12 --> 33.33%"},
+              { "value": "5", "label": "5/12 --> 41.66%"},
+              { "value": "6", "label": "6/12 --> 50%"},
+              { "value": "7", "label": "7/12 --> 58.33%"},
+              { "value": "8", "label": "8/12 --> 66.66%"},
+              { "value": "9", "label": "9/12 --> 75%"},
+              { "value": "10", "label": "10/12 --> 83.33%"},
+              { "value": "12", "label": "12/12 --> 100%"}
+            ],
+            "default": "3"
+          }
+        ]
+      },
+      {
+        "type": "text",
+        "name": "Custom Text & Image",
+        "settings": [
+         {
+            "type": "text",
+            "id": "title",
+            "label": "Heading",
+            "default": "Content Text & Image"
+         },
+         {
+            "type": "html",
+            "id": "html",
+            "label": "Text",
+            "default": "<p>Use this text to share information about your brand with your customers.</p>"
+         },
+         {
+           "type": "image_picker",
+           "id": "custom_image",
+           "label": "Upload Image",
+           "info": "ie: Payment Icon"
+         },
+         {
+            "type": "checkbox",
+            "id": "footer_social_media_enable",
+            "label": "Enable Social Icon?",
+            "default": true
+          },
+          {
+            "type": "select",
+            "id": "column",
+            "label": "Column Width",
+            "options": [
+              { "value": "2", "label": "2/12 --> 16.66%"},
+              { "value": "3", "label": "3/12 --> 25%"},
+              { "value": "4", "label": "4/12 --> 33.33%"},
+              { "value": "5", "label": "5/12 --> 41.66%"},
+              { "value": "6", "label": "6/12 --> 50%"},
+              { "value": "7", "label": "7/12 --> 58.33%"},
+              { "value": "8", "label": "8/12 --> 66.66%"},
+              { "value": "9", "label": "9/12 --> 75%"},
+              { "value": "10", "label": "10/12 --> 83.33%"},
+              { "value": "12", "label": "12/12 --> 100%"}
+            ],
+            "default": "3"
+          }
+        ]
+      },
+      {
+        "type": "newsletter",
+        "name": "Newsletter",
+        "limit": 1,
+        "settings": [
+         {
+            "type": "text",
+            "id": "title",
+            "label": "Heading",
+            "default": "Newsletter"
+         },
+         {
+            "type": "textarea",
+            "id": "description",
+            "label": "Description",
+            "default": "Enter your email address for our mailing list to keep your seft update"
+         },
+         {
+            "type": "checkbox",
+            "id": "footer_social_media_enable",
+            "label": "Enable Social Icon?",
+            "default": true
+          },
+          {
+            "type": "select",
+            "id": "column",
+            "label": "Column Width",
+            "options": [
+              { "value": "2", "label": "2/12 --> 16.66%"},
+              { "value": "3", "label": "3/12 --> 25%"},
+              { "value": "4", "label": "4/12 --> 33.33%"},
+              { "value": "5", "label": "5/12 --> 41.66%"},
+              { "value": "6", "label": "6/12 --> 50%"},
+              { "value": "7", "label": "7/12 --> 58.33%"},
+              { "value": "8", "label": "8/12 --> 66.66%"},
+              { "value": "9", "label": "9/12 --> 75%"},
+              { "value": "10", "label": "10/12 --> 83.33%"},
+              { "value": "12", "label": "12/12 --> 100%"}
+            ],
+            "default": "3"
+          }
+        ]
+      },
+      {
+        "type": "recently_posts",
+        "name": "Recently Posts",
+        "settings": [
+         {
+            "type": "text",
+            "id": "title",
+            "label": "Heading",
+            "default": "Recently Post"
+         },
+         {
+            "type": "range",
+            "id": "limit_posts",
+            "min": 1,
+            "max": 10,
+            "step": 1,
+            "label": "Limit Number Post",
+            "default": 3
+          },
+         {
+            "type": "select",
+            "id": "column",
+            "label": "Column Width",
+            "options": [
+              { "value": "2", "label": "2/12 --> 16.66%"},
+              { "value": "3", "label": "3/12 --> 25%"},
+              { "value": "4", "label": "4/12 --> 33.33%"},
+              { "value": "5", "label": "5/12 --> 41.66%"},
+              { "value": "6", "label": "6/12 --> 50%"},
+              { "value": "7", "label": "7/12 --> 58.33%"},
+              { "value": "8", "label": "8/12 --> 66.66%"},
+              { "value": "9", "label": "9/12 --> 75%"},
+              { "value": "10", "label": "10/12 --> 83.33%"},
+              { "value": "12", "label": "12/12 --> 100%"}
+            ],
+            "default": "3"
+          }
+        ]
+      },
+      {
+        "type": "recently_products",
+        "name": "Recently Products",
+        "settings": [
+         {
+            "type": "text",
+            "id": "title",
+            "label": "Heading",
+            "default": "Recently Products"
+         },
+         {
+            "type": "collection",
+            "id": "collection_choose",
+            "label": "Choose Collection",
+            "info": "If you don't choose a collection, this value will be all products in your store"
+         },
+         {
+            "type": "range",
+            "id": "limit_products",
+            "min": 1,
+            "max": 20,
+            "step": 1,
+            "label": "Limit Number Products",
+            "default": 6
+          },
+         {
+            "type": "select",
+            "id": "column",
+            "label": "Column Width",
+            "options": [
+              { "value": "2", "label": "2/12 --> 16.66%"},
+              { "value": "3", "label": "3/12 --> 25%"},
+              { "value": "4", "label": "4/12 --> 33.33%"},
+              { "value": "5", "label": "5/12 --> 41.66%"},
+              { "value": "6", "label": "6/12 --> 50%"},
+              { "value": "7", "label": "7/12 --> 58.33%"},
+              { "value": "8", "label": "8/12 --> 66.66%"},
+              { "value": "9", "label": "9/12 --> 75%"},
+              { "value": "10", "label": "10/12 --> 83.33%"},
+              { "value": "12", "label": "12/12 --> 100%"}
+            ],
+            "default": "3"
+          }
+        ]
+      },
+            {
+        "type": "clear",
+        "name": "Clearing",
+        "settings": [
+         {
+            "type": "paragraph",
+            "content": "This block does not allow floating elements"
+         }
+        ]
+      }
+    ]
+  }
+{% endschema %}

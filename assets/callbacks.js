@@ -1,0 +1,7 @@
+var IASCallbacks=function($){this.list=[];this.fireStack=[];this.isFiring=false;this.isDisabled=false;this.fire=function(args){var context=args[0],deferred=args[1],callbackArguments=args[2];this.isFiring=true;for(var i=0,l=this.list.length;i<l;i++){if(this.list[i]!=undefined){if(false===this.list[i].fn.apply(context,callbackArguments)){deferred.reject();break;}}}
+this.isFiring=false;deferred.resolve();if(this.fireStack.length){this.fire(this.fireStack.shift());}};this.inList=function(callback,index){index=index||0;for(var i=index,length=this.list.length;i<length;i++){if(this.list[i].fn===callback||(callback.guid&&this.list[i].fn.guid&&callback.guid===this.list[i].fn.guid)){return i;}}
+return-1;};return this;};IASCallbacks.prototype={add:function(callback,priority){var callbackObject={fn:callback,priority:priority};priority=priority||0;for(var i=0,length=this.list.length;i<length;i++){if(priority>this.list[i].priority){this.list.splice(i,0,callbackObject);return this;}}
+this.list.push(callbackObject);return this;},remove:function(callback){var index=0;while((index=this.inList(callback,index))>-1){this.list.splice(index,1);}
+return this;},has:function(callback){return(this.inList(callback)>-1);},fireWith:function(context,args){var deferred=$.Deferred();if(this.isDisabled){return deferred.reject();}
+args=args||[];args=[context,deferred,args.slice?args.slice():args];if(this.isFiring){this.fireStack.push(args);}else{this.fire(args);}
+return deferred;},disable:function(){this.isDisabled=true;},enable:function(){this.isDisabled=false;}};

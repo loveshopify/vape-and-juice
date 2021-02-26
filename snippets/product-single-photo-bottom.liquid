@@ -1,0 +1,25 @@
+{% assign field = product.metafields.video %}
+{% assign key = 'videokey' %}
+
+{% if  field[key] != blank %}
+<div class="tp-product-photo-bottom ">
+  <div class="tp-product-photo-bottom-inner">
+
+    
+    <a class="fancybox-media nt-view-video btn-secondary" href='{{ field[key] }}' title="{{ 'products.product.play_video' | t }}">{{ 'products.product.play_video' | t }}</a>
+    <script>
+      $(document).ready(function() {
+        $('.fancybox-media').fancybox({
+          openEffect  : 'none',
+          closeEffect : 'none',
+          helpers : {
+            media : {}
+          }
+        });
+      });
+    </script>
+    
+    
+  </div>
+</div>
+{% endif%}

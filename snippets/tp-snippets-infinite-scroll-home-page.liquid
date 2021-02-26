@@ -1,0 +1,9 @@
+{% if settings.infinite_scroll_enable %}
+
+  <script>
+    jQuery(document).ready(function() {
+	    var filterCollection = new Filter(); 
+	    filterCollection.initLoadMore('tp-product-grid'); 
+    })
+  </script>
+{% endif %}

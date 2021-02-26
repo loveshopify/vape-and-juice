@@ -1,0 +1,36 @@
+<div class="tp-product-photo-wrapper tp-product-single-grid-image">
+  <div class="tp-product-photo">
+
+    {% include 'product-single-photo-thumbnails' %} 
+
+    {% include 'product-single-photo-bottom' %}
+
+  </div>
+</div>
+
+
+<script>
+  $(window).load(function (){
+    var zoomImg = $('.tp-product-single-grid-image .product-single-thumbnail img');
+    var zoomConfig = {
+      gallery:'ProductThumbs', 
+      cursor: 'pointer',
+      responsive: true, 
+      galleryActiveClass: "active", 
+      imageCrossfade: true,
+      scrollZoom: {{ settings.pd_scroll_zoom_enable }}
+    };
+
+    zoomImg.elevateZoom(zoomConfig);
+
+    $('.open-fancybox').click(function() {
+      var item = $('.fancybox');
+      $.fancybox.open(item);
+    })
+
+    if ($(window).width() < 992) {
+      $('.zoomContainer').remove();
+      zoomImg.removeData('elevateZoom');
+    }
+  });
+</script>

@@ -1,0 +1,204 @@
+{% if section.blocks.size > 0 %}
+<div class="wrap-productdetail-tab wow fadeIn" data-wow-delay="{{ settings.delay_time_ra }}ms">
+	<ul class="nav nav-tabs">
+		{% for block in section.blocks %}
+			<li {% if forloop.index == 1 %}class="active"{% endif %}><a href="#tab-{{ block.id }}" data-toggle="tab">{{ block.settings.title }}</a></li>
+		{% endfor %}
+	</ul>
+
+	<!-- Tab panes -->
+    <div class="tab-content">
+    	{% for block in section.blocks %}
+			{% case block.type %}
+		    	{% when 'description' %}
+			    <div class="tab-pane tab-description {% if forloop.index == 1 %}active{% endif %}" id="tab-{{ block.id }}">
+			    	{{ product.description }}
+				</div>
+		    	{% when 'review' %}
+
+			    <div class="tab-pane tab-reviews" id="tab-{{ block.id }}"> 
+                  
+			         <div id="stamped-main-widget" 
+                        data-widget-style="standard"
+                        data-product-id="{{ product.id }}" 
+                        data-name="{{ product.title | escape }}" 
+                        data-url="{{ shop.url }}{{ product.url }}" 
+                        data-image-url="{{ product.featured_image | product_img_url: "large" |replace: '?', '%3F' | replace: '&','%26'}}" 
+                        data-description="{{ product.description | escape }}" 
+                        data-product-sku="{{product.handle}}"
+                        data-offset="100"> 
+                        {{ product.metafields.stamped.reviews }} 
+                     </div>
+                  
+				</div>
+      
+				{% when 'sizing_guide' %}
+			    <div class="tab-pane tab-sizing-guide" id="tab-{{ block.id }}">
+			    	{% if product.metafields.sizechart.sizechartkey  != blank %}
+			          {% for field in product.metafields.sizechart %}
+			          <img src="{{ field | last }}" alt="Sizing Guide"  />
+			          {% endfor %}
+			        {% else %}
+			          	{% if block.settings.image != blank %}
+			          		<img src="{{ block.settings.image | img_url: 'master' }}" alt="Sizing Guide"/>
+		          		{% else %}
+		          			{% include 'sample', hd_height: 'height-300', hd_text: 'Please upload an image'  %}
+			        	{% endif %}
+			        {% endif %}
+				</div>
+				{% when 'tags' %}
+			    <div class="tab-pane tab-tags" id="tab-{{ block.id }}">
+			    	<ul class="tags">
+					    {% for tag in product.tags %}
+					    <li>{{ tag | link_to_tag: tag }}</li>
+					    {% endfor %}
+				    </ul>
+				</div>
+				{% when 'addition' %}
+			    <div class="tab-pane tab-addition" id="tab-{{ block.id }}">
+			    	{% assign field = product.metafields.addition %}
+					{% assign key = 'additionkey' %}
+					{% if key != blank %}
+						{{ field[key] }}
+			        {% endif %}
+                  {% assign additional_content = block.settings.page_content %}
+                   
+                  <p> {{ pages[additional_content].content }}</p>
+				</div>
+		    	{% else %}
+			    <div class="tab-pane tab-custom" id="tab-{{ block.id }}">
+			    	{{ block.settings.code }}
+				</div> 
+			{% endcase %}
+		{% endfor %}
+    </div>
+</div>
+
+{% else %}
+<div class="tp-message-empty">
+	Please go <strong>Sections --> Product Tabs</strong> to add a tab
+</div>
+{% endif %}
+
+{% schema %} 
+{
+    "name": "Product Tabs",
+    "class": "section-sidebar",
+    "max_blocks": 10,
+    "blocks": [
+      {
+        "type": "description",
+        "name": "Description Tab",
+        "limit": 1,
+        "settings": [
+            {
+	            "type": "text",
+	            "id": "title",
+	            "label": "Heading",
+	            "default": "Description"
+            },
+            {
+	            "type": "paragraph",
+	            "content": "Please go to Shopify Admin --> Products, choose a product and add content into Description field"
+            }
+        ]
+      },
+      {
+        "type": "review",
+        "name": "Reviews Tab",
+        "limit": 1,
+        "settings": [
+            {
+	            "type": "text",
+	            "id": "title",
+	            "label": "Heading",
+	            "default": "Reviews"
+            },
+            {
+	            "type": "paragraph",
+	            "content": "Please install [Product Reviews](https:\/\/apps.shopify.com\/product-reviews) app before using this tab"
+            }
+        ]
+      },
+      {
+        "type": "sizing_guide",
+        "name": "Sizing Guide Tab",
+        "limit": 1,
+        "settings": [
+            {
+	            "type": "text",
+	            "id": "title",
+	            "label": "Heading",
+	            "default": "Sizing Guide"
+            },
+            {
+            	"type": "image_picker",
+            	"id": "image",
+            	"label": "Upload an image"
+            },
+            {
+	            "type": "paragraph",
+	            "content": "Above sizechart image use for all products. If each your product has a differrent sizechart, please read our documentation"
+            }
+        ]
+      },
+      {
+        "type": "tags",
+        "name": "Tags Tab",
+        "limit": 1,
+        "settings": [
+            {
+	            "type": "text",
+	            "id": "title",
+	            "label": "Heading",
+	            "default": "Tags"
+            }
+        ]
+      },
+      {
+        "type": "addition",
+        "name": "Additional Tab",
+        "limit": 1,
+        "settings": [
+	        {
+	            "type": "text",
+	            "id": "title",
+	            "label": "Heading",
+	            "default": "Additional"
+	        },
+			{
+	            "type": "page",
+	            "id": "page_content",
+	            "label": "Select Page "
+	        },
+	        {
+	        	"type": "paragraph",
+	        	"content": "This tab shows the information for each product. Please view our documentation to add your content"
+	        }
+        ]
+      },
+      {
+        "type": "html",
+        "name": "Custom Tab",
+        "settings": [
+	        {
+	            "type": "text",
+	            "id": "title",
+	            "label": "Heading",
+	            "default": "Custom Tab"
+	        },
+	        {
+	            "type": "html",
+	            "id": "code",
+	            "label": "Content",
+	            "default": "Please add content here..."
+	        },
+	        {
+	        	"type": "paragraph",
+	        	"content": "This tab show the information for all products"
+	        }
+        ]
+      }
+    ]
+}
+{% endschema %}

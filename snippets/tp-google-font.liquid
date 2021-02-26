@@ -1,0 +1,26 @@
+{% if settings.font_1 == 'google_fonts' or settings.font_2 == 'google_fonts' or settings.font_3 == 'google_fonts' %}
+<script>
+  WebFontConfig = {
+    google: { families: [ 
+      {% if settings.font_1 == 'google_fonts' and settings.fonts_name_1 != blank %}
+      '{{ settings.fonts_name_1 }}:100,200,300,400,500,600,700,800,900'
+      {% endif %}
+
+      {% if settings.font_2 == 'google_fonts' and settings.fonts_name_2 != blank %}
+      {% if settings.font_1 == 'google_fonts' %}
+      ,
+      {% endif %}      
+      '{{ settings.fonts_name_2 }}:100,200,300,400,500,600,700,800,900'
+      {% endif %}
+
+      {% if settings.font_3 == 'google_fonts' and settings.fonts_name_3 != blank %}
+      {% if settings.font_1 == 'google_fonts' or settings.font_2 == 'google_fonts' %}
+      ,
+      {% endif %}      
+      '{{ settings.fonts_name_3 }}:100,200,300,400,500,600,700,800,900'
+      {% endif %}
+
+    ] }
+  };
+</script>
+{% endif %}

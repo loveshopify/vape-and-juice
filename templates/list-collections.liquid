@@ -1,0 +1,66 @@
+<!-- /templates/list-collections.liquid -->
+{% comment %}
+
+  This page represents the /collections and /products pages.
+  It is an optional, but highly recommended, template for your theme.
+
+  More info:
+    - http://docs.shopify.com/manual/configuration/store-customization/taking-control-of-collections-listing
+
+{% endcomment %}
+
+{% comment %}
+  Loop through each collection, except 'frontpage'
+{% endcomment %}
+
+{% case settings.list_collection_item_per_row %}
+  {% when 1 %}
+    {% assign image_size = '1140x' %}
+  {% when 2 %}
+    {% assign image_size = '570x' %}
+  {% else %}
+    {% assign image_size = '370x' %}
+{% endcase %}
+
+<div class="tp-list-collection">
+    <div class="tp-product-grid nt-collection-grid">
+    {% for collection in collections %}
+
+      {% unless collection.handle == 'frontpage' %}
+
+        {% capture collection_title %}{{ collection.title | escape }}{% endcapture %}
+        {% assign collection_count = collection.all_products_count | times: 1 %}
+
+        {% if collection_count > 0 %}
+        <div class="grid-item">
+          <div class="grid-item-inner">
+            <div class="grid-item-image">
+              <a class="grid-image" href="{{ collection.url }}">
+                {% if collection.image %}
+                  <img src="{{ collection.image.src | img_url: image_size }}" alt="{{ collection.image.alt }}" />
+                {% else %}
+                  <img src="{{ collection.products.first.featured_image | img_url: image_size }}" alt="{{ collection.products.first.featured_image.alt }}" />
+                {% endif %}
+              </a>
+            </div>
+            <div class="tp-item-des">
+              <div class="tp-product-item-name">
+                <a href="{{ collection.url }}"> {{ collection_title }} </a>
+              </div>
+              <div class="tp-product-item-price">
+                {{ collection.all_products_count }} {{ 'products.general.items' | t }}
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endif %}
+        
+
+        {% unless forloop.last %}{% endunless %}
+
+      {% endunless %}
+
+    {% endfor %}
+    </div>
+
+</div>

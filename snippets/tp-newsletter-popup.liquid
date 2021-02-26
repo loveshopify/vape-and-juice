@@ -1,0 +1,32 @@
+{% if settings.display_popup_newsletter %}
+<div id="newsletter-modal" class="newsletter-modal image-{{ settings.popup_newsletter_image_position }}">
+    <div class="modal-overlay"></div>
+    <div class="modal-window">
+        <div class="modal-content">
+            <a class="close btn" title="{{ 'general.newsletter_form.close' | t }}" data-translate="general.newsletter_form.close"></a>
+            {% if settings.popup_newsletter_image_position == 'top' or settings.popup_newsletter_image_position == 'left' %}
+            <figure class="newsletter-image">
+                <img src="{{ 'bg_popup_newsletter.png' | asset_url }}" alt="" width="auto" height="auto"/>
+            </figure>
+            {% endif %}
+            <div class="newsletter-content">
+                {% if settings.popup_newsletter_heading != blank %}
+                <h2 class="newsletter-heading">{{ settings.popup_newsletter_heading }}</h2>
+                {% endif %}
+                {% if settings.popup_newsletter_message != blank %}
+                <p class="message">{{ settings.popup_newsletter_message }}</p>
+                {% endif %}
+                <div id="mailchimp-email-subscibe">
+                  <div id="mc_embed_signup">{% include 'newsletter-form' %}</div>
+                </div>
+                <a href="javascript:void(0)" class="newsletter-msg"><span class="icon"></span>{{ settings.popup_newsletter_alert }}</a>
+            </div>
+            {% if settings.popup_newsletter_image_position == 'right' %}
+            <figure class="newsletter-image">
+                <img src="{{ 'bg_popup_newsletter.png' | asset_url }}" alt="" />
+            </figure>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endif %}

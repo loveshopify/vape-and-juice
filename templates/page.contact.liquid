@@ -1,0 +1,100 @@
+{% comment %}
+
+  This page template is a requirement if you are submitting your theme to the Shopify Theme Store.
+  Be sure to select page.contact as the template from the admin page to have this template take effect.
+
+  For information on adding more fields, visit:
+    - http://docs.shopify.com/support/configuration/store-customization/adding-fields-to-the-liquid-contact-form
+
+{% endcomment %}
+
+<div class="tp-contact-page">
+  <div class="container">
+    {% comment %}
+    <div class="tp-page-heading"><h1>{{ page.title }}</h1></div>
+    {% endcomment %}
+
+    {% comment %}
+      Regular page content goes here.
+    {% endcomment %}
+    <div class="rte wow fadeIn" data-wow-delay="{{ settings.delay_time_ra }}ms">
+      {{ page.content }}
+    </div>
+
+    {% comment %}
+      Contact form starts here
+    {% endcomment %}
+
+    
+    <div class="row">
+
+      <div class="col-sm-6">
+        <div class="tp-block-heading">
+          <h3>{{ settings.contact_html_heading }}</h3>
+        </div>
+        <div class="tp-content-html">
+          {{ settings.contact_html }}
+        </div>
+      </div>
+   
+      <div class="col-sm-6 form-vertical">
+
+        <div class="tp-block-heading">
+          <h3>{{ settings.contact_form_heading }}</h3>
+        </div>
+        <div class="tp-contact-form-description">
+          {{ settings.contact_form_description }}
+        </div>
+
+        {% form 'contact' %}
+
+          {% comment %}
+            Successful message
+          {% endcomment %}
+          {% if form.posted_successfully? %}
+            <p class="note form-success">
+              {{ 'contact.form.post_success' | t }}
+            </p>
+          {% endif %}
+
+          {{ form.errors | default_errors }}
+
+
+          <div class="tp-contact-form wow fadeIn" data-wow-delay="{{ settings.delay_time_ra | plus: 200 }}ms">
+  		      <div class="tp-contact-col-1 row">
+              <div class="col-sm-12">
+                {% assign name_attr = 'contact.form.name' | t | handle %}
+                <label for="ContactFormName" class="hidden-label">{{ 'contact.form.name' | t }}</label>
+                <input type="text" id="ContactFormName" class="input-full" name="contact[{{ name_attr }}]" placeholder="{{ 'contact.form.name' | t }}"  value="{% if form[name_attr] %}{{ form[name_attr] }}{% elsif customer %}{{ customer.name }}{% endif %}">
+              </div>
+
+              <div class="col-sm-12">
+                <label for="ContactFormEmail" class="hidden-label">{{ 'contact.form.email' | t }}</label>
+                <input type="email" id="ContactFormEmail" class="input-full" name="contact[email]" placeholder="{{ 'contact.form.email' | t }}"  value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}">
+              </div>
+
+              <div class="col-sm-12">
+                {% assign name_attr = 'contact.form.phone' | t | handle %}
+                <label for="ContactFormPhone" class="hidden-label">{{ 'contact.form.phone' | t }}</label>
+                <input type="tel" id="ContactFormPhone" class="input-full" name="contact[{{ name_attr }}]" placeholder="{{ 'contact.form.phone' | t }}" pattern="[0-9\-]*" value="{% if form[name_attr] %}{{ form[name_attr] }}{% elsif customer %}{{ customer.phone }}{% endif %}">
+              </div>
+            </div>
+            <div class="tp-contact-col-2">
+              <label for="ContactFormMessage" class="hidden-label">{{ 'contact.form.message' | t }}</label>
+              <textarea rows="10" id="ContactFormMessage" class="input-full" name="contact[body]" placeholder="{{ 'contact.form.message' | t }}">{% if form.body %}{{ form.body }}{% endif %}</textarea>
+            </div>
+
+            <button type="submit" class="btn right" value="{{ 'contact.form.send' | t }}">{{ 'contact.form.send' | t }}</button>
+          </div>
+        {% endform %}
+          
+      </div>
+    </div>
+  </div>
+
+  {% if settings.google_map_enable %}
+  <div class="tp-contact-map wow fadeIn" data-wow-delay="{{ settings.delay_time_ra }}ms">
+  {{ settings.google_map_code }}
+  </div>
+  {% endif %}
+</div>

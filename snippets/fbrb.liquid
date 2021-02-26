@@ -1,0 +1,75 @@
+<script id='virthium_store_config'>
+  (function(){
+    {% assign srb = shop.metafields.virthium.json %} 
+    {% if srb.isActive == true and srb.reviews_widget == 'Feedback Rebates' %}
+    var rem = '.fbrb-tooltip'
+    {% elsif srb.isActive == false and srb.reviews_widget != 'Feedback Rebates' %}
+    var rem = '.fbrb-avg-rating, .fbrb-number-of-reviews'
+    {% elsif srb.isActive == true and srb.reviews_widget != 'Feedback Rebates' %}
+    var rem = '.fbrb_snippet' 
+    {% else %}    
+    var rem = null    
+    {% endif %} 
+    
+    if (rem) { 
+      var snip = document.querySelectorAll('.fbrb_snippet');     
+      for (var i = 0; i < snip.length; i++) {
+        snip[i].setAttribute('style', 'min-height: 0px;');
+        brs = snip[i].getElementsByTagName('br'); 
+        while (brs.length > 0) brs[0].remove();
+      }                       
+      var elem = document.querySelectorAll(rem);
+      elem.forEach((e) => {
+        e.parentNode.removeChild(e);
+      });  
+    }
+    
+    var snip = document.getElementsByClassName('fbrb-number-of-reviews');
+    var snipLength = snip.length; 
+    for (var i = 0; i < snipLength; i++) {
+      snip[i].addEventListener('click', function() {
+        location.href = '#virthium_reviews';
+      }, false);
+    }
+    $(document).ready(function() {
+      $('.fbrb_snippet').css('height', $('.fbrb_card').height());
+    }); 
+  })();
+</script>
+
+<style>
+.fbrb_snippet {
+  display: block; 
+}
+.fbrb_snippet a {
+  margin : auto !important;
+  display: inline !important;
+}
+.fbrb-tooltip {
+  position: relative;
+  display: inline-block;
+}
+.fbrb-tooltip .fbrb-tooltiptext {
+  visibility: hidden;
+  width: 140px;
+  background-color: #333333;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 3px;
+  font-size: .75em;
+  
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 9999;
+  top: 100%;
+  left: 50%;
+  margin-left: -70px;
+}
+.fbrb-tooltip:hover .fbrb-tooltiptext {
+  visibility: visible;
+}
+.fbrb-number-of-reviews:hover {
+  cursor:pointer
+}
+</style>

@@ -1,0 +1,19 @@
+<div class="tp-product-singe-action">
+  <div class="tp-product-quantity">
+    <label for="Quantity" class="quantity-selector">{{ 'products.product.quantity' | t }}</label>
+    <input type="number" id="Quantity" name="quantity" value="1" min="1" class="quantity-selector">
+  </div>
+
+
+  <div class="tp-product-action" id="product-actions-{{product.id}}">
+    <button type="submit" name="add" id="AddToCart" class="btn-addtocart btn-large" value="{{ product.variants[0].id }}" >
+      <span id="AddToCartText">{{ 'products.product.add_to_cart' | t }}</span>
+    </button>
+  </div>
+
+  
+  <div class="tp-product-wishlist-compare">
+    {% include 'tp-snippet-wishlist' %}
+    {% include 'tp-snippet-compare' %}
+  </div>
+</div>

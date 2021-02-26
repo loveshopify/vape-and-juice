@@ -1,0 +1,272 @@
+{% comment %}
+	GEMPAGE BUILDER (https://apps.shopify.com/gempage)
+
+	You SHOULD NOT modify source code in this page because
+	It is automatically generated from GEMPAGE BUILDER
+	Try to edit page with the live editor.
+{% endcomment %}
+  <!--Start of Tawk.to Script-->
+<script type="text/javascript">
+var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+(function(){
+var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+s1.async=true;
+s1.src='https://embed.tawk.to/596bb6e66edc1c10b0346426/default';
+s1.charset='UTF-8';
+s1.setAttribute('crossorigin','*');
+s0.parentNode.insertBefore(s1,s0);
+})();
+</script>
+<!--End of Tawk.to Script-->
+
+<div class="desktop_view" id="desktop_view"> </div>
+  
+<div data="scmBannerSlider" data-id="10844" style="display: none;"></div>
+  
+{% if settings.show_fp_images %}
+    <div class="row" id="fp-images" style="margin-bottom:25px">
+      {% for i in (1..3) %}
+      {% capture fp_image %}fp_image_{{ i }}.jpg{% endcapture %}
+      {% capture fp_link %}fp_image_{{ i }}_link{% endcapture %}
+      {% capture fp_alt %}fp_image_{{ i }}_alt{% endcapture %}
+      <div class="span4">
+        <a href="{{ settings[fp_link] }}">
+          <img src="{{ fp_image | asset_url }}" alt="{{ settings[fp_alt] | escape }}" />
+        </a>
+      </div>
+      {% endfor %}
+    </div>
+{% endif %}
+
+<!-- #pixelwood-header-nav -->
+            <div class="row desktop_view" id="pixelwood-header-buttons">
+              <div class="newbannerdesktop" id="newbannerdesktop">
+              <div class="link"><a href="/pages/shipping-information" title="Free standard Delivery"> </a> <img src="https://cdn.shopify.com/s/files/1/0290/5629/t/28/assets/newbanner.png?3426823999962208717" alt="Not Found"></div>
+              
+              </div>
+<div class="row home_content">
+	<div class="span8">
+        <h3 class="strikethrough-title"><span>{{ settings.sec_head1 }}</span></h3>
+        <div class="slider horizontal" id="home_slider-premium">
+            <div class="arrow left"><i class="fa fa-fw fa-caret-left"></i></div>
+            <div class="arrow right"><i class="fa fa-fw fa-caret-right"></i></div>
+            <div class="slider-wrapper">
+                <div class="slider-track">
+                    {% for product in collections.[settings.frontpage_collection].products %}
+                        <div class="slider-product">
+                            <a class="shop-now" href="{{ product.url }}">
+                                <div class="slider-product-image">
+                                    <img src="{{ product.featured_image | product_img_url: 'medium' }}" alt="{{ product.title | escape  }}" />
+                                </div>
+                                <div class="slider-product-title">{{ product.title | escape  }}</div>
+                                <div class="slider-product-price">{{ product.price | money }}</div>
+                            </a>
+                        </div>  
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+      
+      <div id="rcsalesquares">
+  <a href="/collections/ripe-co" > <img src="https://cdn.shopify.com/s/files/1/0290/5629/t/28/assets/Ripe_co_juice_square2.png?8911371422476545652"  id="rcsquare" alt="rcsquare">
+   <a href="/pages/search-results-page?q=new" > <img src="https://cdn.shopify.com/s/files/1/0290/5629/t/28/assets/Sale_square2.png?8911371422476545652" id="salesquare" alt="salesquare">
+     </div> </a>  
+
+    </div>
+	<div class="span8">
+        <h3 class="strikethrough-title"><span>{{ settings.sec_head2 }}</span></h3>
+        <div class="slider horizontal">
+            <div class="arrow left"><i class="fa fa-fw fa-caret-left"></i></div>
+            <div class="arrow right"><i class="fa fa-fw fa-caret-right"></i></div>
+            <div class="slider-wrapper">
+                <div class="slider-track">
+                  {% for product in collections.[settings.frontpage_collection1].products limit:10 %}
+                   
+                        <div class="slider-product">
+                            <a class="shop-now" href="{{ product.url }}">
+                                <div class="slider-product-image">
+                                    <img src="{{ product.featured_image | product_img_url: 'medium' }}" alt="{{ product.title | escape  }}" />
+                                </div>
+                                <div class="slider-product-title">{{ product.title | escape  }}</div>
+                                <div class="slider-product-price">{{ product.price | money }}</div>
+                            </a>
+                          
+                          
+                          
+                            <!--   Feedback Rebates snippet added by Virthium team on May 27th, 2018. -->
+  							<div id="fbrb_snippet_{{product.id}}" class="fbrb_snippet" data-id="{{product.id}}">{{product.metafields.virthium.snippet}}</div>
+                          
+                          
+                          
+                        </div>  
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+ <a id="home_linkbanner_liquids" href="{{ settings.collection_link }}"><img src="{{ 'about_us.png' | asset_url }}" /></a>
+  	</div>
+</div>
+
+<div class="mobile_view">
+{% if settings.different_home %}
+{% if settings.enable_section_1 %}
+{% comment %}
+<div class="row">
+  	<div class=" banner_section" id="home_section_1">
+      <img src="{{ 'section_1_bg_img.jpg' | asset_url }}" class="banner_img">
+    	<div class="inner_content">
+          <div class="title_heading">
+            <h1 class="float_left white_text">{{ settings.section_1_title }}</h1>
+          </div>
+          <div class="button_sec">
+            <a href="{{settings.section_1_button_url}}" class="text_center">{{ settings.section_1_button_title }}</a>
+          </div>
+        </div>
+  	</div>
+</div>
+{% endcomment %}
+  
+<div class="row">
+  	<div class=" banner_section" id="home_section_1">
+      <img src="{{ 'section_1_bg_img.jpg' | asset_url }}" class="banner_img">
+    	<div class="inner_content">
+          <div class="title_heading">
+            <h1 class="float_left white_text">{{ settings.section_1_title }}</h1>
+          </div>
+          <div class="button_sec left_text">
+            <a href="{{settings.section_1_button_url_1}}">{{ settings.section_1_button_title_1 }}</a>
+            <a href="{{settings.section_1_button_url_2}}">{{ settings.section_1_button_title_2 }}</a>
+            <a href="{{settings.section_1_button_url_3}}">{{ settings.section_1_button_title_3 }}</a>
+            <a href="{{settings.section_1_button_url_4}}">{{ settings.section_1_button_title_4 }}</a>
+          </div>
+        </div>
+  	</div>
+</div>
+{% endif %}
+
+{% if settings.enable_section_2 %}
+<div class="row">
+  	<div class=" banner_section" id="home_section_2">
+      <img src="{{ 'section_2_bg_img.jpg' | asset_url }}" class="banner_img">
+    	<div class="inner_content">
+          <div class="title_heading">
+            <h1 class="float_left black_text">{{ settings.section_2_title }}</h1>
+          </div>
+          <div class="button_sec left_text">
+            <a href="{{settings.section_2_button_url_1}}">{{ settings.section_2_button_title_1 }}</a>
+            <a href="{{settings.section_2_button_url_2}}">{{ settings.section_2_button_title_2 }}</a>
+            <a href="{{settings.section_2_button_url_3}}">{{ settings.section_2_button_title_3 }}</a>
+            <a href="{{settings.section_2_button_url_4}}">{{ settings.section_2_button_title_4 }}</a>
+          </div>
+        </div>
+  	</div>
+</div>
+{% endif %}
+
+
+
+
+
+
+
+{% if settings.enable_section_3 %}
+<div class="row">
+  	<div class=" banner_section" id="home_section_6">
+      <img src="{{ 'section_3_bg_img.jpg' | asset_url }}" class="banner_img">
+    	<div class="inner_content">
+          <div class="title_heading">
+            <h1 class="float_left white_text">{{ settings.section_3_title }}</h1>
+            <span class="float_left white_text medium_font subtitle_text">{{ settings.section_3_stylish_title }}</span>
+          </div>
+          <div class="button_sec right_text">
+            <a href="{{settings.section_3_button_url_1}}" class="text_center">{{ settings.section_3_button_title_1 }}</a>
+          </div>
+        </div>
+  	</div>
+</div>
+{% endif %}
+  
+{% if settings.enable_section_4 %}
+<div class="row">
+  	<div class=" banner_section" id="home_section_3">
+      <img src="{{ 'section_4_bg_img.jpg' | asset_url }}" class="banner_img">
+    	<div class="inner_content">
+          <div class="title_heading">
+            <h1 class="text_center white_text small_font">{{ settings.section_4_title }}<span class="stylish_font">{{ settings.section_4_stylish_title }}</span></h1>
+          </div>
+          <div class="button_sec right_text">
+            <a href="{{settings.section_4_button_url_1}}" class="text_center">{{ settings.section_4_button_title_1 }}</a>
+          </div>
+        </div>
+  	</div>
+</div>
+{% endif %}  
+  
+{% if settings.enable_section_5 %}
+<div class="row">
+  	<div class=" banner_section" id="home_section_5">
+      <img src="{{ 'section_5_bg_img.jpg' | asset_url }}" class="banner_img">
+    	<div class="inner_content">
+          <div class="title_heading">
+            <h1 class="text_center white_text medium_font">{{ settings.section_5_title }}</h1>
+          </div>
+          <div class="button_sec">
+            <a href="{{settings.section_5_button_url}}" class="text_center">{{ settings.section_5_button_title }}</a>
+          </div>
+        </div>
+  	</div>
+</div>
+{% endif %}  
+  
+{% if settings.enable_section_6 %}
+<div class="row">
+  	<div class=" banner_section banner_1" id="home_section_4" style="background-image: url({{ 'section_6_bg_img.jpg' | asset_url }});">
+      
+    	<div class="inner_content">
+          <div class="title_heading">
+            <h1 class="float_left white_text medium_font"><span class="stylish_font">{{ settings.section_6_stylish_title }}</span><span class="normal_font">{{ settings.section_6_title }}</span></h1>
+          </div>
+          <div class="button_sec">
+            <a href="{{settings.section_6_button_url_1}}" class="text_center">{{ settings.section_6_button_title_1 }}</a>
+          </div>
+        </div>
+  	</div>
+    <div class=" banner_section banner_2" id="home_section_4" style="background-image: url({{ 'section_6_2_bg_img.jpg' | asset_url }});">
+      
+    	<div class="inner_content">
+          <div class="title_heading">
+           {% comment %}<h1 class="float_left white_text medium_font"><span class="stylish_font">{{ settings.section_6_2_stylish_title }}</span>{{ settings.section_6_2_title }}</h1>{% endcomment %}
+          </div>
+          <div class="button_sec">
+            <a href="{{settings.section_6_2_button_url_1}}" class="text_center">{{ settings.section_6_2_button_title_1 }}</a>
+          </div>
+        </div>
+  	</div>
+</div>
+{% endif %}  
+
+{% if settings.enable_section_7 %}
+<div class="row">
+  	<div class=" banner_section" id="home_section_7">
+      <img src="{{ 'section_7_bg_img.jpg' | asset_url }}" class="banner_img">
+    	<div class="inner_content">
+          <div class="title_heading">
+            <h1 class="float_left white_text">{{ settings.section_7_title }}</h1>
+          </div>
+          <div class="button_sec left_text">
+            <a href="{{settings.section_7_button_url_1}}">{{ settings.section_7_button_title_1 }}</a>
+            <a href="{{settings.section_7_button_url_2}}">{{ settings.section_7_button_title_2 }}</a>
+          </div>
+        </div>
+  	</div>
+</div>
+{% endif %}
+{% endif %}
+</div>
+
+
+

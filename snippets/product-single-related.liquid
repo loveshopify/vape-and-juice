@@ -1,0 +1,71 @@
+{% if settings.sb_block_related_product_enable %}
+
+      {% if collection == null or collection.handle == 'frontpage' or collection.handle == 'all' %}
+      {% assign found_a_collection = false %}
+      {% for c in product.collections %}
+      {% if found_a_collection == false and c.handle != 'frontpage' and c.handle != 'all' and c.all_products_count > 1 %}
+      {% assign found_a_collection = true %}
+      {% assign collection = c %}
+      {% endif %}
+      {% endfor %}
+      {% endif %}
+  {% if collection and collection.products_count > 1 %}
+  <section class="related-products wow fadeIn" data-wow-delay="{{ settings.delay_time_ra }}ms">
+
+    <div class="tp-block-heading">
+    	<h3>{{ 'products.general.related_products' | t }}</h3>
+    </div>
+    <div class="tp-product-grid">
+      {% assign current_product = product %}
+      {% assign current_product_found = false %}
+      {% for product in collection.products limit: settings.sb_block_related_product_number_limit %}
+{%- include 'bold-product' with product, hide_action: 'skip' -%}
+      {% if product.handle == current_product.handle %}
+      {% assign current_product_found = true %}
+      {% else %}
+      {% unless current_product_found == false and forloop.last %}
+      {% include 'product-grid-item' %}
+      {% endunless %}
+      {% endif %}
+      {% endfor %}
+    </div>
+
+    {% if settings.sidebar_product_page_enable or product.title contains 'Left Sidebar' or product.title contains 'Right Sidebar' %}
+      {% assign item = 3 %}
+    {% else %}
+      {% assign item = settings.sb_block_related_product_number_show | times: 1 %}
+    {% endif %}
+    
+    <script>
+      $(document).ready(function() {
+        $('.related-products .tp-product-grid').slick({
+          dots: false,
+          arrows: true,
+          autoplay: true,
+          autoplaySpeed: 5000,
+          slidesToShow : {{ item }},
+          slidesToScroll: 1,
+          responsive: [
+            {
+              breakpoint: 992,
+              settings: {
+                dots: true,
+                arrows: false,
+                slidesToShow : 3
+              }
+            },
+            {
+              breakpoint: 768,
+              settings: {
+                dots: true,
+                arrows: false,
+                slidesToShow : 2
+              }
+            }
+          ]
+        });
+      });
+    </script>
+  </section>
+  {% endif %}
+{% endif %}

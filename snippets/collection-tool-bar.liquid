@@ -1,0 +1,33 @@
+<div class="tp-collection-toolbar">
+  <div id="filter-toolbar-modal" role="dialog" class="modal fade">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title refine-result-header">Refine Results</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          {% if template contains 'alternate_withoutsidebar' %}
+
+          {% else %}
+          {% unless settings.sidebar_collection_page_enable %}
+            {% include 'collection-sidebar-1column' %}
+          {% endunless %}    
+        {% endif %}
+          {% include 'collection-sorting' %}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="tp-button-sidebar-toggle visible-xs">
+    Show Results
+  </div>
+  <div class="btn btn-primary refine-results-btn">
+    Refine Results
+  </div>
+  
+  
+  
+</div>

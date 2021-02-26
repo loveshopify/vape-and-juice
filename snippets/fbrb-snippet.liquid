@@ -1,0 +1,27 @@
+<!-- start fbrb snippet -->
+{% assign prb = product.metafields.virthium.json %}
+{% assign srb = shop.metafields.virthium.json %}
+<div id="fbrb_snippet_{{product.id}}" class="fbrb_snippet" data-id="{{product.id}}">
+  <div class="fbrb_card">
+    {% if prb.activated == true and srb.isActive != true %}
+    <div class="fbrb-tooltip">
+      <b class="feedback-rebate robots-noindex robots-nocontent noindex"> - {{prb.reward}} <span style="white-space:nowrap;">Feedback Rebate</span></b>
+      <span class="fbrb-tooltiptext">If you buy now, <b>in {{prb.available_in_words}}</b> 
+        you will get a <b>{{prb.reward}} refund</b> for your honest review on Virthium (The Reputation Network).</span>
+    </div>
+    <br />
+    {% endif %}      
+    {% if srb.reviews_widget == "Feedback Rebates" %}      
+    {% if prb == blank or prb.reviews_count == 0 %}
+    <span class="fbrb-avg-rating">
+      {% for i in (1..5) %}<img src="https://s3.amazonaws.com/virthium/app/star-off.png" alt="star-off" class="fbrb-star-image" style="width:auto; display:inline;" />{% endfor %}
+    </span>
+    {% else %}      
+    <span class="fbrb-avg-rating">{{prb.render_stars}}</span> <small class="fbrb-number-of-reviews" style="white-space:nowrap;">       
+    {{ prb.reviews_count }} {{ prb.reviews_count | pluralize: "review", "reviews" }}</small>
+    <br /> 
+    {% endif %}       
+    {% endif %}
+  </div>
+</div>
+<!-- end fbrb snippet -->

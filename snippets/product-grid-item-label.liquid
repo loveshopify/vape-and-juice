@@ -1,0 +1,18 @@
+<ul class="item-label">
+  {% if on_sale %}
+  <li class="label-sale">
+    <span>{{ product.compare_at_price | minus:product.price | times:100 | divided_by:product.compare_at_price | times: -1 }}%</span>
+  </li>
+  {% endif %}
+
+  {% if sold_out %}
+  <li><span>{{ 'collections.general.sold_out' | t }}</span></li>
+  {% endif %}
+
+  {% for tag in product.tags %}
+  {% assign tag_downcase = tag | downcase %}
+  {% if tag_downcase == 'new' %}
+  <li class="label-new"><span>{{ 'collections.general.new' | t }}</span></li>
+  {% endif %}
+  {% endfor %}
+</ul>

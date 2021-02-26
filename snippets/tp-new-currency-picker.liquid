@@ -1,0 +1,28 @@
+
+<div class="select-currency dropdown-menu">
+  <ul>
+    {% assign currency_1_length = settings.currency_1_unit | size %}
+    {% if currency_1_length > 0 %}
+    <li data-currency="{{settings.currency_1_unit}}" {% if shop.currency == settings.currency_1_unit %} class="selected" {% endif %}><span>{{settings.currency_1_unit}}</span></li> 
+    {% endif %}
+    {% assign currency_2_length = settings.currency_2_unit | size %}
+    {% if currency_2_length > 0 %}
+    <li data-currency="{{settings.currency_2_unit}}" {% if shop.currency == settings.currency_2_unit %} class="selected" {% endif %}><span>{{settings.currency_2_unit}}</span></li> 
+    {% endif %}
+    {% assign currency_3_length = settings.currency_3_unit | size %}
+    {% if currency_3_length > 0 %}
+    <li data-currency="{{settings.currency_3_unit}}" {% if shop.currency == settings.currency_3_unit %} class="selected" {% endif %}><span>{{settings.currency_3_unit}}</span></li> 
+    {% endif %}
+    {% assign currency_4_length = settings.currency_4_unit | size %}
+    {% if currency_4_length > 0 %}
+    <li data-currency="{{settings.currency_4_unit}}" {% if shop.currency == settings.currency_4_unit %} class="selected" {% endif %}><span>{{settings.currency_4_unit}}</span></li> 
+    {% endif %}
+    {% assign currency_5_length = settings.currency_5_unit | size %}
+    {% if currency_5_length > 0 %}
+    <li data-currency="{{settings.currency_5_unit}}" {% if shop.currency == settings.currency_5_unit %} class="selected" {% endif %}><span>{{settings.currency_5_unit}}</span></li> 
+    {% endif %}
+  </ul>
+  <div class="currencies-modal" style="display:none">
+    The store's currency changed to <strong></strong>
+  </div>
+</div>

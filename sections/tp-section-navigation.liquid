@@ -1,0 +1,934 @@
+{% if section.blocks.size > 0 %}
+<ul class="site-nav site-nav-horizontal">
+	{% for block in section.blocks %}
+		{% if block.settings.sub_menu != blank %}
+			{% assign link_child = block.settings.sub_menu | handleize %}
+		{% else %}
+			{% assign link_child = block.settings.title | handleize %}
+		{% endif %}
+		{% case block.type %}
+			{% when 'mega_multilist' %} 
+	    	<li class="nav-item nav-item-{{ block.id }} dropdown mega-menu">
+	    		<h3 class="nav-item-link">
+			    	<a href="{{ block.settings.link }}">
+			    		{{ block.settings.title }}
+			    		{% if block.settings.label_text != blank %}
+				    		<span class="label-menu">
+				    			{{ block.settings.label_text }}
+				    		</span>
+			    		{% endif %}
+			    	</a>
+			    	<span class="icon-plus visible-xs visible-sm" aria-hidden="true"></span>
+			    </h3>
+		    	<div class="site-nav-dropdown">
+		    		<div class="container">
+		    			{% if linklists[link_child].links.size > 0 %}
+							{% include 'tp-nav-linklist' with link_child %}
+						{% else %}
+							<div class="tp-message">Please create a linklist which called <strong>{{ block.settings.title }}</strong> at <strong>Online Store --> Navigation</strong> or choose <strong>Sub menu</strong> at <strong>Sections --> Navigation --> {{ block.settings.title }}</strong></div>
+						{% endif %}
+		    		</div>
+		    	</div>
+			</li>
+			{% when 'mega_cate_image' %} 
+	    	<li class="nav-item nav-item-{{ block.id }} dropdown mega-menu mega-image-cate">
+	    		<h3 class="nav-item-link">
+			    	<a href="{{ block.settings.link }}">
+			    		{{ block.settings.title }}
+			    		{% if block.settings.label_text != blank %}
+				    		<span class="label-menu">
+				    			{{ block.settings.label_text }}
+				    		</span>
+			    		{% endif %}
+			    	</a>
+			    	<span class="icon-plus visible-xs visible-sm" aria-hidden="true"></span>
+			    </h3>
+		    	<div class="site-nav-dropdown">
+		    		<div class="container">
+		    			{% if linklists[link_child].links.size > 0 %}
+		    			{% for l in linklists[link_child].links %}
+		    				<div class="column">
+		    					{% if  linklists[l.handle] == empty %}
+		    					<a href="{{ l.url }}">
+		    						<span>{{ l.title }}</span>
+		    						{% if collections[l.handle].image.src == blank %}
+		    							{% include 'sample', hd_height: 'height-150', hd_text: 'Please upload collection image'  %}
+		    						{% else %}
+		    						<span class="cate-image-link" >
+			    						<img src="{{ collections[l.handle].image.src | collection_img_url: '200x' }}" alt="{{ collection_title }}" />
+			    					</span>
+			    					{% endif %} 
+		    					</a>
+		    					{% else %}
+		    					<h5 class="tp-mega-heading tp-mega-cate-heading">
+		    						<a href="{{ l.url }}">{{ l.title }}</a>
+			    					<span class="icon-plus visible-xs visible-sm"></span>
+				    				{% if collections[l.handle].image.src == blank %}
+		    							{% include 'sample', hd_height: 'height-150', hd_text: 'Please upload collection image'  %}
+		    						{% else %}
+		    						<span class="cate-image-link" >
+			    						<img src="{{ collections[l.handle].image.src | collection_img_url: '200x' }}" alt="{{ collection_title }}" />
+			    					</span>
+			    					{% endif %}
+			    				</h5>
+							  	<ul class="site-nav-dropdown menu_dropdown_{{forloop.index}}">
+							    	{% for child_l in linklists[l.handle].links %}
+							    	<li>
+							      		<a href="{{ child_l.url }}" {% if child_l.active %}class="current"{% endif %}>
+							        		{{ child_l.title }}
+							      		</a>
+							    	</li>
+							    	{% endfor %}
+							  	</ul>
+							  	{% endif %}
+		    				</div>
+		    			{% endfor %}
+		    			{% else %}
+							<div class="tp-message">Please create a linklist which called <strong>{{ block.settings.title }}</strong> at <strong>Online Store --> Navigation</strong> or choose <strong>Sub menu</strong> at <strong>Sections --> Navigation --> {{ block.settings.title }}</strong></div>
+						{% endif %}
+		    		</div>
+		    	</div>
+			</li>
+			{% when 'mega_products' %} 
+	    	<li class="nav-item nav-item-{{ block.id }} dropdown mega-menu mega-menu-product-list">
+	    		<h3 class="nav-item-link">
+			    	<a href="{{ block.settings.link }}">
+			    		{{ block.settings.title }}
+			    		{% if block.settings.label_text != blank %}
+				    		<span class="label-menu">
+				    			{{ block.settings.label_text }}
+				    		</span>
+			    		{% endif %}
+			    	</a>
+			    	<span class="icon-plus visible-xs visible-sm" aria-hidden="true"></span>
+			    </h3>
+		    	<div class="site-nav-dropdown">
+		    		<div class="container">
+		    			<div class="row">
+		    				<div class="col-md-9 column-link-list">
+		    					{% if linklists[link_child].links.size > 0 %}
+									{% include 'tp-nav-linklist' with link_child %}
+								{% else %}
+									<div class="tp-message">Please create a linklist which called <strong>{{ block.settings.title }}</strong> at <strong>Online Store --> Navigation</strong> or choose <strong>Sub menu</strong> at <strong>Sections --> Navigation --> {{ block.settings.title }}</strong></div>
+								{% endif %}
+		    					{% if block.settings.banner == blank %}
+		    						{% comment %}{% include 'sample', hd_height: 'height-150', hd_text: 'Please upload banner 1'  %} {% endcomment %}
+		    					{% else %}
+						    		<a href="{{ block.settings.banner_url }}" class="banner">
+						    			<img src="{{ block.settings.banner | img_url: 'master' }}" alt="{{ block.settings.banner.alt }}" />
+						    		</a>
+							  	{% endif %}
+		    				</div>
+		    				<div class="col-md-3 column-product-list">
+		    					<h5 class="tp-mega-heading">
+		    						{{ block.settings.product_list_heading }}
+		    						<span class="icon-plus visible-xs visible-sm" aria-hidden="true"></span>
+		    					</h5>
+		    					{% if block.settings.choose_collection != blank and collections[block.settings.choose_collection].handle != blank %}
+		    						<div class="site-nav-dropdown">
+							    		{% for product in collections[block.settings.choose_collection].products limit: block.settings.limit_products %}
+							    			{% include 'product-grid-item-layout-sidebar' %}
+							    		{% endfor %}
+							    	</div>
+						    	{% else %}
+							  		<div class="tp-message-empty">Please choose a collection</div>
+							  	{% endif %}
+		    				</div>
+		    			</div>
+		    		</div>
+		    	</div>
+			</li>
+			{% when 'mega_right_banner' %} 
+	    	<li class="nav-item nav-item-{{ block.id }} dropdown mega-menu mega-menu-right-banner">
+	    		<h3 class="nav-item-link">
+			    	<a href="{{ block.settings.link }}">
+			    		{{ block.settings.title }}
+			    		{% if block.settings.label_text != blank %}
+				    		<span class="label-menu">
+				    			{{ block.settings.label_text }}
+				    		</span>
+			    		{% endif %}
+			    	</a>
+			    	<span class="icon-plus visible-xs visible-sm" aria-hidden="true"></span>
+			    </h3>
+		    	<div class="site-nav-dropdown">
+		    		<div class="container">
+		    			<div class="row">
+		    				<div class="col-md-7 column-link-list">
+		    					{% if linklists[link_child].links.size > 0 %}
+									{% include 'tp-nav-linklist' with link_child %}
+								{% else %}
+									<div class="tp-message">Please create a linklist which called <strong>{{ block.settings.title }}</strong> at <strong>Online Store --> Navigation</strong> or choose <strong>Sub menu</strong> at <strong>Sections --> Navigation --> {{ block.settings.title }}</strong></div>
+								{% endif %}
+		    				</div>
+		    				<div class="col-md-5 column-banner">
+		    					<div class="row">
+		    						<div class="col-md-6">
+		    							{% if block.settings.banner_1 == blank %}
+				    						{% include 'sample', hd_height: 'height-150', hd_text: 'Please upload banner 1'  %}
+				    					{% else %}
+								    		<a href="{{ block.settings.banner_1_url }}" class="banner">
+								    			<img src="{{ block.settings.banner_1 | img_url: 'master' }}" alt="{{ block.settings.banner_1.alt }}" />
+								    		</a>
+									  	{% endif %}
+									  	{% if block.settings.banner_2 == blank %}
+				    						{% include 'sample', hd_height: 'height-150', hd_text: 'Please upload banner 2'  %}
+				    					{% else %}
+								    		<a href="{{ block.settings.banner_2_url }}" class="banner">
+								    			<img src="{{ block.settings.banner_2 | img_url: 'master' }}" alt="{{ block.settings.banner_2.alt }}" />
+								    		</a>
+									  	{% endif %}
+		    						</div>
+		    						<div class="col-md-6">
+		    							{% if block.settings.banner_3 == blank %}
+				    						{% include 'sample', hd_height: 'height-320', hd_text: 'Please upload banner 3'  %}
+				    					{% else %}
+								    		<a href="{{ block.settings.banner_3_url }}" class="banner">
+								    			<img src="{{ block.settings.banner_3 | img_url: 'master' }}" alt="{{ block.settings.banner_3.alt }}" />
+								    		</a>
+									  	{% endif %}
+		    						</div>
+		    					</div>
+		    				</div>
+		    			</div>
+		    		</div>
+		    	</div>
+			</li>
+			{% when 'mega_left_banner' %} 
+	    	<li class="nav-item nav-item-{{ block.id }} dropdown mega-menu mega-menu-left-banner">
+	    		<h3 class="nav-item-link">
+			    	<a href="{{ block.settings.link }}">
+			    		{{ block.settings.title }}
+			    		{% if block.settings.label_text != blank %}
+				    		<span class="label-menu">
+				    			{{ block.settings.label_text }}
+				    		</span>
+			    		{% endif %}
+			    	</a>
+			    	<span class="icon-plus visible-xs visible-sm" aria-hidden="true"></span>
+			    </h3>
+		    	<div class="site-nav-dropdown">
+		    		<div class="container">
+		    			<div class="row">
+		    				<div class="col-md-4 column-banner">
+		    					{% if block.settings.banner_1 == blank %}
+		    						{% include 'sample', hd_height: 'height-150', hd_text: 'Please upload banner 1'  %}
+		    					{% else %}
+						    		<a href="{{ block.settings.banner_1_url }}" class="banner">
+						    			<img src="{{ block.settings.banner_1 | img_url: 'master' }}" alt="{{ block.settings.banner_1.alt }}" />
+						    		</a>
+							  	{% endif %}
+							  	{% if block.settings.banner_2 == blank %}
+		    						{% include 'sample', hd_height: 'height-150', hd_text: 'Please upload banner 2'  %}
+		    					{% else %}
+						    		<a href="{{ block.settings.banner_2_url }}" class="banner">
+						    			<img src="{{ block.settings.banner_2 | img_url: 'master' }}" alt="{{ block.settings.banner_2.alt }}" />
+						    		</a>
+							  	{% endif %}
+		    				</div>
+		    				<div class="col-md-8">
+		    					{% if linklists[link_child].links.size > 0 %}
+									{% include 'tp-nav-linklist' with link_child %}
+								{% else %}
+									<div class="tp-message">Please create a linklist which called <strong>{{ block.settings.title }}</strong> at <strong>Online Store --> Navigation</strong> or choose <strong>Sub menu</strong> at <strong>Sections --> Navigation --> {{ block.settings.title }}</strong></div>
+								{% endif %}
+		    				</div>
+		    			</div>
+		    		</div>
+		    	</div>
+			</li>
+			{% when 'mega_text_banner' %} 
+	    	<li class="nav-item nav-item-{{ block.id }} dropdown mega-menu mega-menu-text-banner">
+	    		<h3 class="nav-item-link">
+			    	<a href="{{ block.settings.link }}">
+			    		{{ block.settings.title }}
+			    		{% if block.settings.label_text != blank %}
+				    		<span class="label-menu">
+				    			{{ block.settings.label_text }}
+				    		</span>
+			    		{% endif %}
+			    	</a>
+			    	<span class="icon-plus visible-xs visible-sm" aria-hidden="true"></span>
+			    </h3>
+		    	<div class="site-nav-dropdown">
+		    		<div class="container">
+		    			<div class="row">
+		    				<div class="col-md-3 column-text">
+		    					{% if block.settings.heading != blank %}
+		    					<h5 class="tp-mega-heading">
+		    						{{ block.settings.heading }}
+		    						<span class="icon-plus visible-xs visible-sm" aria-hidden="true"></span>
+		    					</h5>
+		    					{% endif %}
+		    					{% if block.settings.code != blank %}
+		    					<div class="column-text-inner">
+		    						{{ block.settings.code }}
+		    					</div>
+		    					{% endif %}
+		    				</div>
+		    				<div class="col-md-6">
+		    					{% if linklists[link_child].links.size > 0 %}
+		    						{% include 'tp-nav-linklist' with link_child %}
+		    					{% else %}
+		    						<div class="tp-message">Please create a linklist which called <strong>{{ block.settings.title }}</strong> at <strong>Online Store --> Navigation</strong> or choose <strong>Sub menu</strong> at <strong>Sections --> Navigation --> {{ block.settings.title }}</strong></div>
+		    					{% endif %}
+		    				</div>
+		    				<div class="col-md-3 column-banner">
+		    					{% if block.settings.banner == blank %}
+		    						{% include 'sample', hd_height: 'height-250', hd_text: 'Please upload banner 1'  %}
+		    					{% else %}
+						    		<a href="{{ block.settings.banner_url }}" class="banner">
+						    			<img src="{{ block.settings.banner | img_url: 'master' }}" alt="{{ block.settings.banner.alt }}" />
+						    		</a>
+							  	{% endif %}
+		    				</div>
+		    			</div>
+		    		</div>
+		    	</div>
+			</li>
+			{% when 'mega_video' %} 
+	    	<li class="nav-item nav-item-{{ block.id }} dropdown mega-menu mega-menu-video">
+	    		<h3 class="nav-item-link">
+			    	<a href="{{ block.settings.link }}">
+			    		{{ block.settings.title }}
+			    		{% if block.settings.label_text != blank %}
+				    		<span class="label-menu">
+				    			{{ block.settings.label_text }}
+				    		</span>
+			    		{% endif %}
+			    	</a>
+			    	<span class="icon-plus visible-xs visible-sm" aria-hidden="true"></span>
+			    </h3>
+		    	<div class="site-nav-dropdown">
+		    		<div class="container">
+		    			<div class="row">
+		    				<div class="col-md-7">
+		    					{% if linklists[link_child].links.size > 0 %}
+									{% include 'tp-nav-linklist' with link_child %}
+								{% else %}
+									<div class="tp-message">Please create a linklist which called <strong>{{ block.settings.title }}</strong> at <strong>Online Store --> Navigation</strong> or choose <strong>Sub menu</strong> at <strong>Sections --> Navigation --> {{ block.settings.title }}</strong></div>
+								{% endif %}
+		    				</div>
+		    				<div class="col-md-5 column-video">
+		    					
+                              <a href="{{ block.settings.linkimg }}">
+                                <img src="{{ block.settings.codeimg | img_url: 'master' }}">
+                              </a>
+		    					
+		    				</div>                            
+		    				{% comment %}<div class="col-md-5 column-video">
+		    					{% if block.settings.code != blank %}
+		    						{{ block.settings.code }}
+		    					{% else %}
+		    						{% include 'sample', hd_height: 'height-250', hd_text: 'Please add video embeded code'  %}
+		    					{% endif %}
+		    				</div> {% endcomment %}
+		    			</div>
+		    		</div>
+		    	</div>
+			</li>
+			{% when 'submenu_html' %} 
+	    	<li class="nav-item nav-item-{{ block.id }} dropdown mega-menu">
+	    		<h3 class="nav-item-link">
+			    	<a href="{{ block.settings.link }}">
+			    		{{ block.settings.title }}
+			    		{% if block.settings.label_text != blank %}
+				    		<span class="label-menu">
+				    			{{ block.settings.label_text }}
+				    		</span>
+			    		{% endif %}
+			    	</a>
+			    	<span class="icon-plus visible-xs visible-sm" aria-hidden="true"></span>
+			    </h3>
+		    	<div class="site-nav-dropdown">
+		    		<div class="container">
+		    			{{ block.settings.code }}
+		    		</div>
+		    	</div>
+			</li>
+			{% when 'submenu_dropdown' %}
+	    	<li class="nav-item nav-item-{{ block.id }} dropdown simple-dropdown">
+	    		<h3 class="nav-item-link">
+			    	<a href="{{ block.settings.link }}">
+			    		{{ block.settings.title }}
+			    		{% if block.settings.label_text != blank %}
+				    		<span class="label-menu">
+				    			{{ block.settings.label_text }}
+				    		</span>
+			    		{% endif %}
+			    	</a>
+			    	<span class="icon-plus visible-xs visible-sm" aria-hidden="true"></span>
+			    </h3>
+			    {% include 'tp-dropdown-menu' with link_child %}
+			</li>
+			{% when 'menu_item_logo' %}
+			<li class="nav-item nav-item-{{ block.id }} nav-item-logo hidden">
+				{% include 'header-logo' %}
+			</li>
+	    	{% else %}
+		    <li class="nav-item nav-item-{{ block.id }}">
+		    	<h3 class="nav-item-link">
+			    	<a href="{{ block.settings.link }}">
+			    		{{ block.settings.title }}
+			    		{% if block.settings.label_text != blank %}
+				    		<span class="label-menu">
+				    			{{ block.settings.label_text }}
+				    		</span>
+			    		{% endif %}
+			    	</a>
+			    </h3>
+			</li>
+		{% endcase %}
+	{% endfor %}
+</ul>
+
+{% for block in section.blocks %}
+	{% if block.settings.label_text != blank %}
+		<style type="text/css">
+			.nav-item-{{ block.id }} .label-menu {
+				background-color: {{ block.settings.label_color }};
+			}
+			.nav-item-{{ block.id }} .label-menu:before {
+				border-top-color: {{ block.settings.label_color }};
+			}
+		</style> 
+	{% endif %}
+{% endfor %}
+
+{% else %}
+<div class="tp-message-empty">
+	Please go <strong>Sections --> Navigation</strong> to add a menu item 
+</div>
+{% endif %}
+
+
+{% schema %} 
+{
+    "name": "Navigation",
+    "class": "navigation",
+    "blocks": [
+    	{
+        	"type": "menu_item_no_children",
+        	"name": "Menu Item No Children",
+        	"settings": [
+	            {
+		            "type": "text",
+		            "id": "title",
+		            "label": "Title",
+		            "default": "Menu Item"
+	            },
+	            {
+	            	"type": "url",
+	            	"id": "link",
+	            	"label": "Link"
+	            },
+	            {
+	            	"type": "header",
+	            	"content": "Label"
+	            },
+	            {
+		            "type": "text",
+		            "id": "label_text",
+		            "label": "Label Text"
+	            },
+	            {
+	            	"type": "color",
+	            	"id": "label_color",
+	            	"label": "Label Color"
+	            }
+        	]
+      	},
+      	{
+        	"type": "menu_item_logo",
+        	"name": "Menu Item Logo",
+        	"settings": [
+	            {
+		            "type": "paragraph",
+		            "content": "This is store logo and only use for Header layout 6 or 7. Please go to Theme Settings --> Header to upload an image"
+	            }
+        	]
+      	},
+    	{
+        	"type": "submenu_dropdown",
+        	"name": "Sub Menu Dropdown",
+        	"settings": [
+	            {
+		            "type": "text",
+		            "id": "title",
+		            "label": "Title",
+		            "default": "Menu Item"
+	            },
+	            {
+	            	"type": "url",
+	            	"id": "link",
+	            	"label": "Link"
+	            },
+	            {
+	            	"type": "link_list",
+	            	"id": "sub_menu",
+	            	"label": "Sub Menu"
+	            },
+	            {
+	            	"type": "header",
+	            	"content": "Label"
+	            },
+	            {
+		            "type": "text",
+		            "id": "label_text",
+		            "label": "Label Text"
+	            },
+	            {
+	            	"type": "color",
+	            	"id": "label_color",
+	            	"label": "Label Color"
+	            }
+        	]
+      	},
+    	{
+        	"type": "mega_multilist",
+        	"name": "Mega Menu - Linklists",
+        	"settings": [
+	            {
+		            "type": "text",
+		            "id": "title",
+		            "label": "Title",
+		            "default": "Menu Item"
+	            },
+	            {
+	            	"type": "url",
+	            	"id": "link",
+	            	"label": "Link"
+	            },
+	            {
+	            	"type": "link_list",
+	            	"id": "sub_menu",
+	            	"label": "Sub Menu"
+	            },
+	            {
+	            	"type": "header",
+	            	"content": "Label"
+	            },
+	            {
+		            "type": "text",
+		            "id": "label_text",
+		            "label": "Label Text"
+	            },
+	            {
+	            	"type": "color",
+	            	"id": "label_color",
+	            	"label": "Label Color"
+	            }
+        	]
+      	},
+      	{
+        	"type": "mega_cate_image",
+        	"name": "Mega Menu - Cate Image",
+        	"settings": [
+	            {
+		            "type": "text",
+		            "id": "title",
+		            "label": "Title",
+		            "default": "Menu Item"
+	            },
+	            {
+	            	"type": "url",
+	            	"id": "link",
+	            	"label": "Link"
+	            },
+	            {
+	            	"type": "link_list",
+	            	"id": "sub_menu",
+	            	"label": "Sub Menu"
+	            },
+	            {
+	            	"type": "header",
+	            	"content": "Label"
+	            },
+	            {
+		            "type": "text",
+		            "id": "label_text",
+		            "label": "Label Text"
+	            },
+	            {
+	            	"type": "color",
+	            	"id": "label_color",
+	            	"label": "Label Color"
+	            }
+        	]
+      	},
+      	{
+        	"type": "mega_products", 
+        	"name": "Mega Menu - Products",
+        	"settings": [
+	            {
+		            "type": "text",
+		            "id": "title",
+		            "label": "Title",
+		            "default": "Menu Item"
+	            },
+	            {
+	            	"type": "url",
+	            	"id": "link",
+	            	"label": "Link"
+	            },
+	            {
+	            	"type": "link_list",
+	            	"id": "sub_menu",
+	            	"label": "Sub Menu"
+	            },
+	            {
+	            	"type": "header",
+	            	"content": "Banner"
+	            },
+	            {
+	            	"type": "image_picker",
+	            	"id": "banner",
+	            	"label": "Image"
+	            },
+	            {
+	            	"type": "url",
+	            	"id": "banner_url",
+	            	"label": "URL"
+	            },
+	            {
+	            	"type": "header",
+	            	"content": "Product List"
+	            },
+	            {
+		            "type": "text",
+		            "id": "product_list_heading",
+		            "label": "Heading",
+		            "default": "New Arrivals"
+	            },
+	            {
+	            	"type": "collection",
+	            	"id": "choose_collection",
+	            	"label": "Choose Collection"
+	            },
+	            {
+			        "type": "range",
+			        "id": "limit_products",
+			        "min": 1,
+			        "max": 6,
+			        "step": 1,
+			        "label": "Limit Product Items",
+			        "default": 3
+		      	},
+		      	{
+	            	"type": "header",
+	            	"content": "Label"
+	            },
+	            {
+		            "type": "text",
+		            "id": "label_text",
+		            "label": "Label Text"
+	            },
+	            {
+	            	"type": "color",
+	            	"id": "label_color",
+	            	"label": "Label Color"
+	            }
+        	]
+      	},
+      	{
+        	"type": "mega_right_banner",
+        	"name": "Mega Menu - Right Banner",
+        	"settings": [
+	            {
+		            "type": "text",
+		            "id": "title",
+		            "label": "Title",
+		            "default": "Menu Item"
+	            },
+	            {
+	            	"type": "url",
+	            	"id": "link",
+	            	"label": "Link"
+	            },
+	            {
+	            	"type": "link_list",
+	            	"id": "sub_menu",
+	            	"label": "Sub Menu"
+	            },
+	            {
+	            	"type": "header",
+	            	"content": "Banner 1"
+	            },
+	            {
+	            	"type": "image_picker",
+	            	"id": "banner_1",
+	            	"label": "Banner 1 - Image"
+	            },
+	            {
+	            	"type": "url",
+	            	"id": "banner_1_url",
+	            	"label": "Banner 1 - URL"
+	            },
+	            {
+	            	"type": "header",
+	            	"content": "Banner 2"
+	            },
+	            {
+	            	"type": "image_picker",
+	            	"id": "banner_2",
+	            	"label": "Banner 2 - Image"
+	            },
+	            {
+	            	"type": "url",
+	            	"id": "banner_2_url",
+	            	"label": "Banner 2 - URL"
+	            },
+	            {
+	            	"type": "header",
+	            	"content": "Banner 3"
+	            },
+	            {
+	            	"type": "image_picker",
+	            	"id": "banner_3",
+	            	"label": "Banner 3 - Image"
+	            },
+	            {
+	            	"type": "url",
+	            	"id": "banner_3_url",
+	            	"label": "Banner 3 - URL"
+	            },
+	            {
+	            	"type": "header",
+	            	"content": "Label"
+	            },
+	            {
+		            "type": "text",
+		            "id": "label_text",
+		            "label": "Label Text"
+	            },
+	            {
+	            	"type": "color",
+	            	"id": "label_color",
+	            	"label": "Label Color"
+	            }
+        	] 
+      	},
+      	{
+        	"type": "mega_left_banner",
+        	"name": "Mega Menu - Left Banner",
+        	"settings": [
+	            {
+		            "type": "text",
+		            "id": "title",
+		            "label": "Title",
+		            "default": "Menu Item"
+	            },
+	            {
+	            	"type": "url",
+	            	"id": "link",
+	            	"label": "Link"
+	            },
+	            {
+	            	"type": "link_list",
+	            	"id": "sub_menu",
+	            	"label": "Sub Menu"
+	            },
+	            {
+	            	"type": "header",
+	            	"content": "Banner 1"
+	            },
+	            {
+	            	"type": "image_picker",
+	            	"id": "banner_1",
+	            	"label": "Banner 1 - Image"
+	            },
+	            {
+	            	"type": "url",
+	            	"id": "banner_1_url",
+	            	"label": "Banner 1 - URL"
+	            },
+	            {
+	            	"type": "header",
+	            	"content": "Banner 2"
+	            },
+	            {
+	            	"type": "image_picker",
+	            	"id": "banner_2",
+	            	"label": "Banner 2 - Image"
+	            },
+	            {
+	            	"type": "url",
+	            	"id": "banner_2_url",
+	            	"label": "Banner 2 - URL"
+	            },
+	            {
+	            	"type": "header",
+	            	"content": "Label"
+	            },
+	            {
+		            "type": "text",
+		            "id": "label_text",
+		            "label": "Label Text"
+	            },
+	            {
+	            	"type": "color",
+	            	"id": "label_color",
+	            	"label": "Label Color"
+	            }
+        	] 
+      	},
+      	{
+        	"type": "mega_text_banner",
+        	"name": "Mega Menu - Text, Banner",
+        	"settings": [
+	            {
+		            "type": "text",
+		            "id": "title",
+		            "label": "Title",
+		            "default": "Menu Item"
+	            },
+	            {
+	            	"type": "url",
+	            	"id": "link",
+	            	"label": "Link"
+	            },
+	            {
+	            	"type": "link_list",
+	            	"id": "sub_menu",
+	            	"label": "Sub Menu"
+	            },
+	            {
+	            	"type": "header",
+	            	"content": "Block Text"
+	            },
+	            {
+	            	"type": "text",
+	            	"id": "heading",
+	            	"label": "Heading",
+	            	"default": "Heading Text"
+	            },
+	            {
+	            	"type": "html",
+	            	"id": "code",
+	            	"label": "Custom HTML",
+	            	"default": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus id purus et nisl elementum ornare sit amet non mie."
+	            },
+	            {
+	            	"type": "header",
+	            	"content": "Banner"
+	            },
+	            {
+	            	"type": "image_picker",
+	            	"id": "banner",
+	            	"label": "Image"
+	            },
+	            {
+	            	"type": "url",
+	            	"id": "banner_url",
+	            	"label": "URL"
+	            },
+	            {
+	            	"type": "header",
+	            	"content": "Label"
+	            },
+	            {
+		            "type": "text",
+		            "id": "label_text",
+		            "label": "Label Text"
+	            },
+	            {
+	            	"type": "color",
+	            	"id": "label_color",
+	            	"label": "Label Color"
+	            }
+        	] 
+      	},
+      	{
+        	"type": "mega_video",
+        	"name": "Mega Menu - Video",
+        	"settings": [
+	            {
+		            "type": "text",
+		            "id": "title",
+		            "label": "Title",
+		            "default": "Menu Item"
+	            },
+	            {
+	            	"type": "url",
+	            	"id": "link",
+	            	"label": "Link"
+	            },
+	            {
+	            	"type": "link_list",
+	            	"id": "sub_menu",
+	            	"label": "Sub Menu"
+	            },
+	            {
+	            	"type": "header",
+	            	"content": "Block Video"
+	            },
+	            {
+	            	"type": "url",
+	            	"id": "linkimg",
+	            	"label": "Link"
+	            },
+	            {
+	            	"type": "image_picker",
+	            	"id": "codeimg",
+	            	"label": "Image"
+	            },
+	            {
+	            	"type": "html",
+	            	"id": "code",
+	            	"label": "Embeded Code"
+	            },
+	            {
+	            	"type": "header",
+	            	"content": "Label"
+	            },
+	            {
+		            "type": "text",
+		            "id": "label_text",
+		            "label": "Label Text"
+	            },
+	            {
+	            	"type": "color",
+	            	"id": "label_color",
+	            	"label": "Label Color"
+	            }
+        	] 
+      	},
+      	{
+        	"type": "submenu_html",
+        	"name": "Mega Menu - HTML",
+        	"settings": [
+	            {
+		            "type": "text",
+		            "id": "title",
+		            "label": "Title",
+		            "default": "Menu Item"
+	            },
+	            {
+	            	"type": "url",
+	            	"id": "link",
+	            	"label": "Link"
+	            },
+	            {
+	            	"type": "html",
+	            	"id": "code",
+	            	"label": "Custom HTML"
+	            },
+	            {
+	            	"type": "header",
+	            	"content": "Label"
+	            },
+	            {
+		            "type": "text",
+		            "id": "label_text",
+		            "label": "Label Text"
+	            },
+	            {
+	            	"type": "color",
+	            	"id": "label_color",
+	            	"label": "Label Color"
+	            }
+        	]
+      	}
+    ]
+}
+{% endschema %}

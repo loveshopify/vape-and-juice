@@ -1,0 +1,52 @@
+<!-- /snippets/product-grid-item.liquid -->
+{% comment %}
+
+  This snippet is used to showcase each product during the loop,
+  'for product in collection.products' in collection.liquid.
+
+{% endcomment %}
+
+{% comment %}
+  Check if the product is on sale and set a variable to be used below.
+{% endcomment %}
+{% assign on_sale = false %}
+{% if product.compare_at_price > product.price %}
+  {% assign on_sale = true %}
+{% endif %}
+
+{% comment %}
+  Check if the product is sold out and set a variable to be used below.
+{% endcomment %}
+{% assign sold_out = true %}
+{% if product.available %}
+  {% assign sold_out = false %}
+{% endif %}
+
+
+{% capture grid-row %}{{ settings.product_item_per_row123 }}{% endcapture %}
+{% capture grid-total %}{{ settings.collection_product_item_per_page }}{% endcapture %}
+
+<div class="grid-item">
+  <div class="grid-item-inner">
+
+  {% comment %}
+  Link to your product with the 'within: collection' filter for the link to be aware of the collection.
+  This allows you to create collection-based navigation on the product page.
+
+  Results of using 'within: collection':
+  - Instead of a URL with /products/product-handle
+  you would get /collections/collection-handle/products/product-handle
+
+  For more info on navigation within a collection
+  - http://docs.shopify.com/support/your-store/collections/how-to-navigate-within-a-collection
+
+  {% endcomment %}
+
+  	{% include 'product-grid-item-img' %}
+    <div class="tp-item-des">
+      {% include 'product-grid-item-name' %}
+      {% include 'product-grid-item-price' %}
+    </div>
+    {% include 'product-grid-item-label-sale' %}
+  </div>
+</div>

@@ -1,0 +1,52 @@
+{% if settings.pd_description_enable and settings.pd_description != blank %}
+	<div class="product-description">
+	   {{ product.description | truncatewords: 30 }}
+	</div>
+{% endif %}
+
+<table class="product-specific">
+	
+	{% if settings.pd_availability_enable %}
+	<tr class="product-inventory"> 
+		<th>{{ 'products.product.availability' | t }} </th>
+		<td class="variant-inventory">
+			{% if product.selected_or_first_available_variant.inventory_management %}
+				{% assign first_inventory = product.selected_or_first_available_variant.inventory_quantity %}
+				{% if first_inventory > 0 %}
+					{{ first_inventory }} {{ 'products.product.in_stock' | t }}
+				{% else %}
+					{{ 'products.product.out_of_stock' | t }}
+				{% endif %}
+			{% else %} 
+				{{ 'products.product.in_stock' | t }}
+			{% endif %}
+		</td>
+	</tr>
+	{% endif %}
+
+	{% if settings.pd_sku_enable %}
+	<tr class="product-sku">
+		<th>{{ 'products.product.sku' | t }}</th>
+		<td class="variant-sku"></td>
+	</tr>
+	{% endif %}
+
+	{% if settings.pd_vendor_enable %}
+	<tr class="product-vendor">
+		<th>{{ 'products.product.vendor' | t }}</th>
+		<td>
+			{{ product.vendor }}
+		</td>
+	</tr>
+	{% endif %}
+
+	{% if settings.pd_product_type_enable %}
+	<tr class="product-type">
+		<th>{{ 'products.product.type' | t }}</th>
+		<td>
+			{{ product.type }}
+	    </td>
+	</tr>
+	{% endif %}
+
+</table>

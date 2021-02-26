@@ -1,0 +1,20 @@
+{% comment %}
+  If the user is on a collection product page (ie with /collections/collection-handle/products/product-handle)
+  in the URL, we can show next/previous links to other products in the collection.
+{% endcomment %}
+{% if collection %}
+  {% if collection.previous_product or collection.next_product %}
+    <p class="tp-product-next-prev">
+      {% if collection.previous_product %}
+        <span class="left btn-secondary">
+          {{ 'products.general.previous_product_html' | t | link_to: collection.previous_product }}
+        </span>
+      {% endif %}
+      {% if collection.next_product %}
+        <span class="right btn-secondary">
+          {{ 'products.general.next_product_html' | t | link_to: collection.next_product }}
+        </span>
+      {% endif %}
+    </p>
+  {% endif %}
+{% endif %}

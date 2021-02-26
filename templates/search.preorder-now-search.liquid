@@ -1,0 +1,7 @@
+{% comment %}
+Search template for Pre-order Now (https://apps.shopify.com/preorder-now)
+{% endcomment %}
+{% layout none %}
+{% paginate search.results by 50 %}
+{{ search.results | json }}
+{% endpaginate %}

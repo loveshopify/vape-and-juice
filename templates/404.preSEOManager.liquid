@@ -1,0 +1,17 @@
+<div class="page-404">
+	<figure class="wow fadeIn" data-wow-delay="{{ settings.delay_time_ra }}ms">
+		<img src="{{ 'page_404_image.png' | asset_url }}" alt="Page Not Found">
+	</figure>
+
+	{% if settings.page_404_message != blank %}
+	<h3 class="wow fadeIn" data-wow-delay="{{ settings.delay_time_ra | plus: 100 }}ms">
+		{{ settings.page_404_message }}
+	</h3>
+	{% endif %}
+
+	{% if settings.page_404_link_text != blank %}
+	<a href="{{ settings.page_404_link_url }}" class="wow fadeIn" data-wow-delay="{{ settings.delay_time_ra | plus: 200 }}ms">
+		{{ settings.page_404_link_text }}
+	</a>
+	{% endif %}
+</div>

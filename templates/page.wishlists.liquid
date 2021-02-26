@@ -1,0 +1,83 @@
+<div class="tp-page-heading"><h1>{{ page.title }}</h1></div>
+
+<div class="tp-wishlist-page">
+  <table class="wishlist-items cart-table">
+      <thead class="head">
+        <tr>
+          <th class="col-1">{{ "general.wishlist_item.image" | t}}</th>
+          <th class="col-2">{{ "general.wishlist_item.item" | t}}</th>
+          <th class="col-3">{{ "general.wishlist_item.price" | t}}</th>
+          <th class="col-4">{{ "general.wishlist_item.remove" | t}}</th>
+        </tr>
+      </thead>
+      <tbody class="items">
+      </tbody>
+  </table>
+</div>
+
+<script>
+  window.money_format = '{{shop.money_format}}';
+  $(window).load(function(){
+    if(jQuery.cookie('tp-wishlist-product-id')){
+      nt_wishlist_array = jQuery.cookie('tp-wishlist-product-id');
+      nt_wishlist_array = JSON.parse(nt_wishlist_array);
+      for(i = 0; i < nt_wishlist_array.length; i++) {
+        product_id = nt_wishlist_array[i];
+        Shopify.getProduct(product_id, function(product) {
+          featured_image = Shopify.resizeImage(product.featured_image, '120x');
+
+          str = '';
+          str += '<tr>';
+
+          str += '<td class="col-1">';
+          str += '<a href="'+product.url+'" class="product-image">';
+          str += '<img src="'+featured_image+'" alt="'+product.title+'" />';
+          str += '</a>';
+          str += '</td>';
+
+          str += '<td class="col-2">';
+          str += '<a href="'+product.url+'" class="product-title mtop">'+product.title+'</a>';
+          str += '</td>';
+
+          str += '<td class="col-3">';
+          str += '<div class="product-price">'+Shopify.formatMoney(product.price, window.money_format)+'</div>';
+          str += '</td>';
+
+          str += '<td class="col-4">';
+          str += '<a href="#" class="cart-remove" data-handle="'+product.handle+'">{{ "general.wishlist_item.remove" | t}}</a>';
+          str += '</td>';
+
+          str += '</tr>';
+
+          $('.wishlist-items>.items').prepend(str);
+
+          initRemoveProductWishlist();
+          cookieCurrency = Currency.cookie.read();
+          shopCurrency = '{{ shop.currency }}';
+          Currency.convertAll(shopCurrency, cookieCurrency);
+        })
+      }
+    } else {
+      $('.tp-wishlist-page').html("<p>"+'{{ "general.wishlist.message_no_item" | t}}'+"</p>");
+    }
+  })
+
+
+  function initRemoveProductWishlist() {
+    $('.wishlist-items .cart-remove').click(function(e){
+      e.preventDefault();
+      product_id = $(this).data('handle');
+      if(jQuery.cookie('tp-wishlist-product-id')) {
+        nt_wishlist_array = jQuery.cookie('tp-wishlist-product-id');
+        nt_wishlist_array = JSON.parse(nt_wishlist_array);
+        index = nt_wishlist_array.indexOf(product_id);
+        if(index > -1){
+          nt_wishlist_array.splice(index, 1);
+          jQuery.cookie('tp-wishlist-product-id', JSON.stringify(nt_wishlist_array), {expires:1, path:'/'});
+          location.reload()
+        }
+      }
+    })
+  }
+
+</script>

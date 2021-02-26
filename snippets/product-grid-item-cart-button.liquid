@@ -1,0 +1,13 @@
+{% assign variantCount = product.variants | size %}
+<form action="/cart/add" method="post" class="variants grid-item-cart" id="product-actions-{{ product.id }}" enctype="multipart/form-data" title="{% if variantCount > 1 %}{{ 'products.product.select_options' |t }}{% else %}{{ 'products.product.add_to_cart' |t }}{% endif %}">
+  {% if sold_out %}
+  <input class="btn add-to-cart-btn" type="submit" value="{{ 'products.product.unavailable' | t }}" disabled="disabled" />
+  {% else %}
+  {% if variantCount > 1 %}
+  <input class="btn add-to-cart-btn" type="button" onclick="window.location.href='{{product.url}}'" value="{{ 'products.product.select_options' |t }}" />
+  {% else %}
+  <input type="hidden" name="id" value="{{ product.variants[0].id }}" />
+  <input class="btn add-to-cart-btn" type="submit" value="{{ 'products.product.add_to_cart' |t }}" />
+  {% endif %}
+  {% endif %}
+</form> 

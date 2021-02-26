@@ -1,0 +1,12 @@
+{% assign img_var = imgWidth | append: 'x' | append: imgHeight %}
+
+<a href="{{ product.url | within: collection }}" class="grid-image {% if settings.product_item_image_swap %}image-swap{% endif %}">
+
+  {% if settings.product_item_image_swap %}
+  {% for image in product.images %}
+  <img src="{{ image.src | product_img_url: img_var }}" alt="{{ image.alt | escape }}" data-id="{{image.id}}" width="{{ imgWidth }}" height="{{ imgHeight }}" />
+  {% endfor %}
+  {% else %}
+  <img src="{{ product.featured_image.src | img_url: img_var }}" alt="{{ product.featured_image.alt | escape }}" data-id="{{product.featured_image.id}}" width="{{ imgWidth }}" height="{{ imgHeight }}" />
+  {% endif %}
+</a>

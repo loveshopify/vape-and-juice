@@ -1,0 +1,32 @@
+{% comment %}
+Create thumbnails if we have more than one product image
+{% endcomment %}
+
+{% if settings.pd_design_style == 'grid' or product.title contains 'Grid Image' %}
+	{% assign size = '600x' %}
+{% else %}
+	{% assign size = 'compact' %}
+{% endif %}
+
+
+{% if product.images.size > 1 %}
+<div class="product-single-thumbnails" id="ProductThumbs">
+
+  {% for image in product.images %}
+  {% assign productIndex = forloop.index | times: 0.5 %}
+  {% assign delayTime = settings.delay_time_ra | times : productIndex %}
+  <div class="thumb wow fadeIn" data-wow-delay="{{ delayTime }}ms">
+    <a href="{{ image.src | img_url: '2048x2048' }}" class="product-single-thumbnail elevatezoom-gallery fancybox" data-fancybox="group" data-image="{{ image.src | img_url: '2048x2048' }}" data-zoom-image="{{ image.src | img_url: '2048x2048' }}">
+      <img src="{{ image.src | img_url: size }}" alt="{{ image.alt | escape }}">
+    </a>
+  </div>
+  {% endfor %}
+
+</div>
+{% endif %} 
+
+{% if settings.pd_design_style == 'grid' or product.title contains 'Grid Image' %}
+<span class="open-fancybox" data-toggle="tooltip" title="{{ 'products.general.view_larger' | t }}" data-placement="left">{{ 'products.general.view_larger' | t }}</span>
+{% endif %}
+
+  

@@ -1,0 +1,17 @@
+<header class="section-header wow fadeIn" data-wow-delay="{{ settings.delay_time_ra }}ms">
+
+  <h1 class="section-header-title">{{ collection.title }}</h1>
+
+  {% if settings.collection_slideshow_enable %}
+  	{% section 'tp-slideshow-simple' %}
+  {% endif %}
+
+  
+  
+</header>
+
+{% if settings.sidebar_collection_page_enable %}
+<div class="button-sidebar-toggle">{{ 'collections.sidebar.title' | t }}</div>
+{% endif %}
+
+{% include 'collection-tool-bar' %}

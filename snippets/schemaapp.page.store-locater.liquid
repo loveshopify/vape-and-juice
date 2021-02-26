@@ -1,0 +1,33 @@
+<!-- SchemaAPP Liquid Start -->
+<meta name="schemaappversion" content="1.5">
+<script type="application/ld+json">
+{
+ "@context": "http://schema.org",
+ "@type": "Article",
+ "@id": "#{{ page.id }}",
+ "url": "{{ shop.url }}{{ page.url }}",
+ "headline": "{{ page.title }}",
+ "articleBody": "{{ page.content | strip_html | replace: '"', "&quot;" }}",
+ "datePublished": "{{ page.published_at | date : "%F" }}",
+ "dateModified": "{{ page.published_at | date : "%F" }}",
+ "mainEntityOfPage": {
+    "@type": "WebPage",
+    "url": "{{ shop.url }}{{ page.url }}"
+ },
+ "author": {
+     "@type": "Person",
+     "@id": "{{ page.author.id | default: "#author"  }}",
+     "name": "{{ page.author }}"
+ },
+ "publisher": {
+      "@type": "Organization",
+      "name": "{{ shop.name }}",
+      "url": "{{ shop.url }}",
+      "logo": {
+          "@type": "ImageObject",
+          "url": "https:{{ 'logo.png' | asset_url }}"
+      }
+ }
+}
+</script>
+<!-- SchemaAPP Liquid End -->

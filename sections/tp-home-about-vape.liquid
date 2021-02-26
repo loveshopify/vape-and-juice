@@ -1,0 +1,55 @@
+<style type="text/css">  
+</style>
+
+{% stylesheet %}
+{% endstylesheet %} 
+
+<section>
+  <div class="rte container">
+    {{pages['about-vape'].content}}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "About Vape",
+  "class": "index-section tp-collection-list-1-wrap",
+  "max_blocks": 20,
+  "settings": [],
+   "blocks" : [
+    {
+      "type" : "collection-list",
+      "name" : "Collection",
+      "settings" : [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default" : "Collection Title"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "url",
+          "id": "url",
+          "label": "URL"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "About Vape",
+      "category": "Collection",
+      "blocks": [
+        {
+          "type": "collection-list"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

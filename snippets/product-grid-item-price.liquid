@@ -1,0 +1,46 @@
+  <p class="tp-product-item-price">
+  {% comment %}
+  You can show a leading 'from' or 'up to' by checking 'product.price_varies'
+  if your variants have different prices.
+  {% endcomment %}
+
+  {% assign first_inventory = product.selected_or_first_available_variant.inventory_quantity %}
+  {% if first_inventory > 0 %}
+  <span class="tp-product-available">Only {{first_inventory}} products left!</span>
+  {% endif %}
+
+  {% if on_sale %}
+  {% if product.price_varies %}
+  {% assign sale_price = product.price | money %}
+  {{ 'products.product.on_sale_from_html' | t: price: sale_price }}
+  {% else %}
+  <strong>{{ 'products.product.on_sale' | t }}</strong>
+  {{ product.price | money }}
+
+  {% endif %}
+  {% else %}
+  {% if product.price_varies %}
+  {% assign price = product.price | money %}
+  {{ 'products.general.from_text_html' | t: price: price }}
+  {% else %}
+  {{ product.price | money }}
+  {% endif %}
+  {% endif %}
+  {% if sold_out %}
+  <strong>{{ 'products.product.sold_out' | t }}</strong>
+  {% endif %}
+  {% if on_sale %}
+  <span class="visually-hidden">{{ 'products.general.regular_price' | t }}</span>
+  <s>{{ product.compare_at_price | money }}</s>
+  {% endif %}
+    
+    
+    
+  <!--  Feedback Rebates snippet added by Virthium team on November 25th, 2018. Updated on January 18th, 2019 -->
+<!--   <div id="fbrb_snippet_{ {product.id}}" class="fbrb_snippet" data-id="{ {product.id}}">{ {product.metafields.virthium.snippet}}</div> -->
+<!--   { % include "fbrb-snippet" %} -->
+  <!--  End Feedback Rebates snippet -->
+    
+    
+    
+  </p>

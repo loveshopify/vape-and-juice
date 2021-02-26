@@ -1,0 +1,219 @@
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="https://messages.shopfront.tech/css/message-styles.min.css?1001">
+<script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", function(event) {
+        const sft_httpRequest = new XMLHttpRequest();
+        const url = 'https://messages.shopfront.tech/api/messages.json?shop_domain={{shop.domain}}'
+        var msg_cart_page, msg_collection_page, msg_home_page, msg_single_product_page
+        if(sft_httpRequest) {
+            const headers = new Headers()
+            sft_httpRequest.open('GET', url, true)
+
+            sft_httpRequest.onreadystatechange =  function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    const obj_message = JSON.parse(sft_httpRequest.response)
+                    if(obj_message.success) {
+                        const { cart_page, collection_page, home_page, single_product_page } = obj_message.messages
+                        msg_cart_page = cart_page
+                        msg_collection_page = collection_page
+                        msg_home_page = home_page
+                        msg_single_product_page = single_product_page
+                        
+                        renderHtmlMessage()
+                    }
+                }
+            }
+
+            sft_httpRequest.send()
+        }
+
+        function renderHtmlMessage() {
+        
+            var sft__home_page = document.getElementById('shopfront-home-page')
+            var sft__collection_page = document.getElementById('shopfront-collection-page')
+            var sft__product_page = document.getElementById('shopfront-product-page')
+            var sft__cart_page = document.getElementById('shopfront-cart-page')
+            var other_symbol = ["Rs."]
+
+            if(sft__home_page) {
+                var sft__message_app = document.getElementById('sft-message-app')
+                if(!sft__message_app) {
+                    sft__message_app = document.createElement('div')
+                    sft__message_app.setAttribute('id', 'sft-message-app')
+
+                    var body = document.querySelector('body')
+                    body.insertAdjacentElement('afterbegin', sft__message_app)
+                }
+                if(msg_home_page) {
+                    var message_style = ''
+                    var message_html = ''
+                    msg_home_page.forEach(function(element) {
+                        const { style, html, options } = element
+                        if(!options) {
+                            message_style += style
+                            message_html += html
+                        } else {
+                            var options_json = JSON.parse(options)
+                            if(options_json['minimum_amount'] && options_json['threshold_amount']) {
+                                var cart__subtotal = document.getElementById('sft-subtotal-cart')
+                                var cart__subtotal_txt = cart__subtotal.innerText || cart__subtotal.textContent
+                                var cart__subtotal_symbol = ''
+                                for(var i = 0; i < other_symbol.length; i++) {
+                                    cart__subtotal_symbol = cart__subtotal_txt.replace(other_symbol[i], '')
+                                }
+                                var cart__subtotal_txt_val = cart__subtotal_symbol.replace(/[^0-9\.]/g, '')
+                                var cart__subtotal_val = parseFloat(cart__subtotal_symbol.replace(/[^0-9\.]/g, ''))
+                                var minimum_amount_val = parseFloat(options_json['minimum_amount'])
+                                var threshold_amount_val = parseFloat(options_json['threshold_amount'])
+                                if((cart__subtotal_val < minimum_amount_val) &&  cart__subtotal_val > threshold_amount_val) {
+                                    var remaining_amount_val = minimum_amount_val - cart__subtotal_val
+                                    var remaining_amount_txt = cart__subtotal_txt.replace(cart__subtotal_txt_val, remaining_amount_val.toFixed(2))
+                                    message_style += style
+                                    var _html = html.replace('{remaining_amount}', remaining_amount_txt)
+                                    message_html += _html
+                                }
+                            }
+                        }
+                    })
+                    sft__message_app.innerHTML = message_style + message_html
+                }
+            }
+
+            if(sft__collection_page) {
+                var sft__message_app = document.getElementById('sft-message-collection-app')
+                if(!sft__message_app) {
+                    sft__message_app = document.createElement('div')
+                    sft__message_app.setAttribute('id', 'sft-message-collection-app')
+
+                    var main = sft__collection_page.closest('main')
+
+                    if(main) {
+                        var title = main.querySelector('h1')
+                        title.insertAdjacentElement('afterend', sft__message_app)
+                    }
+                }
+                if(msg_collection_page) {
+                    var message_style = ''
+                    var message_html = ''
+                    msg_collection_page.forEach(function(element) {
+                        const { style, html, options } = element
+                        if(!options) {
+                            message_style += style
+                            message_html += html
+                        } else {
+                            var options_json = JSON.parse(options)
+                            if(options_json['minimum_amount'] && options_json['threshold_amount']) {
+                                var cart__subtotal = document.getElementById('sft-subtotal-cart')
+                                var cart__subtotal_txt = cart__subtotal.innerText || cart__subtotal.textContent
+                                var cart__subtotal_symbol = ''
+                                for(var i = 0; i < other_symbol.length; i++) {
+                                    cart__subtotal_symbol = cart__subtotal_txt.replace(other_symbol[i], '')
+                                }
+                                var cart__subtotal_txt_val = cart__subtotal_symbol.replace(/[^0-9\.]/g, '')
+                                var cart__subtotal_val = parseFloat(cart__subtotal_symbol.replace(/[^0-9\.]/g, ''))
+                                var minimum_amount_val = parseFloat(options_json['minimum_amount'])
+                                var threshold_amount_val = parseFloat(options_json['threshold_amount'])
+                                if((cart__subtotal_val < minimum_amount_val) &&  cart__subtotal_val > threshold_amount_val) {
+                                    var remaining_amount_val = minimum_amount_val - cart__subtotal_val
+                                    var remaining_amount_txt = cart__subtotal_txt.replace(cart__subtotal_txt_val, remaining_amount_val.toFixed(2))
+                                    message_style += style
+                                    var _html = html.replace('{remaining_amount}', remaining_amount_txt)
+                                    message_html += _html
+                                }
+                            }
+                        }
+                    })
+                    sft__message_app.innerHTML = message_style + message_html
+                }
+            }
+
+            if(sft__product_page) {
+                var sft__message_app = document.getElementById('sft-message-product-app')
+                if(!sft__message_app) {
+                    sft__message_app = document.createElement('div')
+                    sft__message_app.setAttribute('id', 'sft-message-product-app')
+                    
+                    var form_add_to_cart = document.querySelector('form[action="/cart/add"]')
+                    form_add_to_cart.insertAdjacentElement('beforebegin', sft__message_app)
+                }
+                if(msg_single_product_page) {
+                    var message_style = ''
+                    var message_html = ''
+                    msg_single_product_page.forEach(function(element) {
+                        const { style, html, options } = element
+                        if(!options) {
+                            message_style += style
+                            message_html += html
+                        } else {
+                            var options_json = JSON.parse(options)
+                            if(options_json['minimum_amount'] && options_json['threshold_amount']) {
+                                var cart__subtotal = document.getElementById('sft-subtotal-cart')
+                                var cart__subtotal_txt = cart__subtotal.innerText || cart__subtotal.textContent
+                                var cart__subtotal_symbol = ''
+                                for(var i = 0; i < other_symbol.length; i++) {
+                                    cart__subtotal_symbol = cart__subtotal_txt.replace(other_symbol[i], '')
+                                }
+                                var cart__subtotal_txt_val = cart__subtotal_symbol.replace(/[^0-9\.]/g, '')
+                                var cart__subtotal_val = parseFloat(cart__subtotal_symbol.replace(/[^0-9\.]/g, ''))
+                                var minimum_amount_val = parseFloat(options_json['minimum_amount'])
+                                var threshold_amount_val = parseFloat(options_json['threshold_amount'])
+                                if((cart__subtotal_val < minimum_amount_val) &&  cart__subtotal_val > threshold_amount_val) {
+                                    var remaining_amount_val = minimum_amount_val - cart__subtotal_val
+                                    var remaining_amount_txt = cart__subtotal_txt.replace(cart__subtotal_txt_val, remaining_amount_val.toFixed(2))
+                                    message_style += style
+                                    var _html = html.replace('{remaining_amount}', remaining_amount_txt)
+                                    message_html += _html
+                                }
+                            }
+                        }
+                    })
+                    sft__message_app.innerHTML = message_style + message_html
+                }
+            }
+
+            if(sft__cart_page) {
+                var sft__message_app = document.getElementById('sft-message-cart-app')
+                if(!sft__message_app) {
+                    sft__message_app = document.createElement('div')
+                    sft__message_app.setAttribute('id', 'sft-message-cart-app')
+                    
+                    var form_cart = document.querySelector('form[action="/cart"]')
+                    form_cart.insertAdjacentElement('beforebegin', sft__message_app)
+                }
+                if(msg_cart_page) {
+                    var message_style = ''
+                    var message_html = ''
+                    msg_cart_page.forEach(function(element) {
+                        const { style, html, options } = element
+                        if(!options) {
+                            message_style += style
+                            message_html += html
+                        } else {
+                            var options_json = JSON.parse(options)
+                            if(options_json['minimum_amount'] && options_json['threshold_amount']) {
+                                var cart__subtotal = document.getElementById('sft-subtotal-cart')
+                                var cart__subtotal_txt = cart__subtotal.innerText || cart__subtotal.textContent
+                                var cart__subtotal_symbol = ''
+                                for(var i = 0; i < other_symbol.length; i++) {
+                                    cart__subtotal_symbol = cart__subtotal_txt.replace(other_symbol[i], '')
+                                }
+                                var cart__subtotal_txt_val = cart__subtotal_symbol.replace(/[^0-9\.]/g, '')
+                                var cart__subtotal_val = parseFloat(cart__subtotal_symbol.replace(/[^0-9\.]/g, ''))
+                                var minimum_amount_val = parseFloat(options_json['minimum_amount'])
+                                var threshold_amount_val = parseFloat(options_json['threshold_amount'])
+                                if((cart__subtotal_val < minimum_amount_val) &&  cart__subtotal_val > threshold_amount_val) {
+                                    var remaining_amount_val = minimum_amount_val - cart__subtotal_val
+                                    var remaining_amount_txt = cart__subtotal_txt.replace(cart__subtotal_txt_val, remaining_amount_val.toFixed(2))
+                                    message_style += style
+                                    var _html = html.replace('{remaining_amount}', remaining_amount_txt)
+                                    message_html += _html
+                                }
+                            }
+                        }
+                    })
+                    sft__message_app.innerHTML = message_style + message_html
+                }
+            }
+        }
+    });
+</script>

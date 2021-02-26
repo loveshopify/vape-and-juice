@@ -1,0 +1,636 @@
+<style type="text/css">
+  .tp-small-product-list.section-{{section.id}} {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    background-color: {{ section.settings.background_color }};
+  }
+  {% if section.settings.block_layout == 'extrawidth' %}
+    @media (min-width: 1300px) {
+      .tp-small-product-list.section-{{section.id}} .container { width: 100%; padding-left: 50px; padding-right: 50px;}
+    }
+  {% endif %}
+</style>
+<section class="tp-small-product-list section-{{section.id}}
+                {% for block in section.blocks %}
+                    {% if block.settings.yes %}yes {% endif %}
+                    {% if block.settings.no %}no {% endif %}
+                    {% if block.settings.price %}price {% endif %}
+                    {% if block.settings.quality %}quality {% endif %}
+                    {% if block.settings.battery %}battery {% endif %}
+                    {% if block.settings.cloud %}cloud {% endif %}
+                    {% if block.settings.budget == '25-50' %}25_50 {% endif %}
+                    {% if block.settings.budget == '50-75' %}50_75 {% endif %}
+                    {% if block.settings.budget == '75plus' %}75p {% endif %}
+                {% endfor %}">
+  
+   <div class="col-md-12 col-sm-12 col-xs-12">
+      <div class="vape_finder content vape_finder_custom">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+        <div id="head">
+          <h3>LOOKING FOR YOUR PERFECT VAPE KIT?</h3>
+          <div class="progress-bar">
+            <span class="progress-meter"></span>
+          </div>
+          <span class="percent-label">0% complete</span>
+        </div>
+        </div>
+        <div id="step" class="step" style="display:block;">
+          <div class="col-md-12 col-sm-12 col-xs-12">
+          <div class="finder_main_title_box">
+            <h3>LOOKING FOR YOUR PERFECT VAPE KIT?</h3>
+            <p>Find your perfect vape set up by answering a few simple questions. </p>
+           </div>
+          </div>
+          {% comment %}
+              <h1>Help me find the right starter vape kit</h1>
+           {% endcomment %}
+            <a href="#" data-open="#first-step" class="step-open btn start">START &#707;</a>
+         	<div class="what_makpup_kit">
+              <h1 class="">WHAT MAKES UP A VAPE KIT? </h1>
+              <div class="what_makpup_kit_block">
+                <a href="/collections/vape-batteries">
+                  	<img src="{{ 'battery.png' | asset_url }}" alt="buy vape battery"/>
+                </a>
+                <h5>BATTERY</h5>
+              </div>
+              <div class="what_makpup_kit_block">
+                <a href="/collections/all-tanks">
+                	<img src="{{ 'tank.png' | asset_url }}" alt="buy vape ecig tank">
+                </a>
+                <h5>TANK</h5>
+              </div>
+              <div class="what_makpup_kit_block">
+                <a href="/collections/coils">
+                	<img src="{{ 'coil.png' | asset_url }}" alt="spare vape coils"/>
+                </a>
+                <h5>COIL</h5>
+              </div>
+              <div class="what_makpup_kit_block">
+                <a href="/collections/starter-eliquids">
+                  <img src="{{ 'ejuice.png' | asset_url }}" alt="ejuice online shop"/>
+                </a>
+                <h5>EJUICE</h5>
+              </div>
+              <div class="what_makpup_kit_block">
+                <a href="/collections/vape-accessories">
+                	<img src="{{ 'charger.png' | asset_url }}" alt="buy spare vape charger" />  	
+                </a>                
+                <h5>CHARGER</h5>
+              </div>
+              <p>Use our vape finder to find all the products you need. </p>
+          </div>
+        </div>
+        <div id="first-step" class="step">
+          {% comment %}
+          <a href="#" data-open="#step" class="back">&#10094;</a>
+          {% endcomment %}
+          <h1>Is this your first vape kit?</h1>
+          <a href="#" data-open="#second-step" class="step-open btn yes_btn margin_right">Yes</a>
+          <a href="#" data-open="#second-step" class="step-open btn no_btn">No</a>
+        </div>
+        <div id="second-step" class="step">
+          <a href="#" data-open="#first-step" class="back"></a>
+          <h1>What is most important to you?</h1>
+          <a href="#" data-open="#third-step" class="step-open btn price_btn margin_right">Price</a>
+          <a href="#" data-open="#third-step" class="step-open btn quality_btn">Quality</a>
+        </div>
+        <div id="third-step" class="step">
+          <a href="#" data-open="#second-step" class="back"></a>
+          <h1>Which of the following appeals to you most?</h1>
+          <a href="#" data-open="#fourth-step" class="step-open btn battery_btn margin_right">Battery life and <br> quitting smoking</a>
+          <a href="#" data-open="#fourth-step" class="step-open btn cloud_btn">Big clouds and <br> premium flavours</a>
+        </div>
+        <div id="fourth-step" class="step step_number">
+          <a href="#" data-open="#third-step" class="back"></a>
+          <h1>Whats your budget?</h1>
+          <a href="#" data-open="#final-step" class="step-open btn 25_50_btn margin_right">£25 - £50</a>
+          <a href="#" data-open="#final-step" class="step-open btn 50_75_btn margin_right">£50 - £75</a>
+          <a href="#" data-open="#final-step" class="step-open btn 75p_btn sevenFivebutton">£75 +</a>
+        </div>
+        <div id="final-step" class="step product_step">
+          <div class="col-md-12 col-sm-12 col-xs-12">
+          
+          <div class="tp-product-grid">
+            {% for block in section.blocks %}
+             {% if block.settings.choose_product != blank %}           
+              {% assign product_name = block.settings.choose_product %}
+              {% assign products = collections['all'].products | where: 'handle', product_name %}            	
+              	{% paginate collections['all'].products by 1000 %}            		
+                  {% for product in products %}
+                      {% if product.handle == product_name %}
+                          {% assign on_sale = false %}
+
+                          {% if product.compare_at_price > product.price %}
+                              {% assign on_sale = true %}
+                          {% endif %}
+
+                          {% assign sold_out = true %}
+
+                          {% if product.available %}
+                              {% assign sold_out = false %}
+                          {% endif %}
+
+                          {% assign productIndex = forloop.index | times: 0.5 %}
+                          {% assign delayTime = settings.delay_time_ra | times : productIndex %}
+            			  <div class="grid-item wow fadeIn {{ block.settings.choose_product }} finder_product 
+                    
+                                {% if block.settings.yes %}yes_product {% endif %}
+                                {% if block.settings.no %}no_product {% endif %}
+                                {% if block.settings.price %}price_product {% endif %}
+                                {% if block.settings.quality %}quality_product {% endif %}
+                                {% if block.settings.battery %}battery_product {% endif %}
+                                {% if block.settings.cloud %}cloud_product {% endif %}
+                                {% if block.settings.budget == '25-50' %}25_50_product {% endif %}
+                                {% if block.settings.budget == '50-75' %}50_75_product {% endif %}
+                                {% if block.settings.budget == '75plus' %}75p_product {% endif %}
+                                " data-wow-delay="{{ delayTime }}ms">
+                                  
+                                <div class="grid-item-inner">
+
+                                  <div class="grid-item-image sca-qv-image">
+                                    {% include 'product-grid-item-img' %}
+                                    {% if settings.product_item_quick_view_enable %}
+                                    {% include 'sca-quick-view' %}
+                                    {% endif %}
+                                    {% include 'product-grid-item-action' %}
+                                    {% include 'product-grid-item-label' %}
+                                    {% include 'product-grid-item-countdown' %}
+                                  </div>
+                                  <div class="tp-item-des">
+                                    {% include 'product-grid-item-name' %}
+                                    {% include 'product-grid-item-price' %}
+                                    {% include 'product-grid-item-ratting' %}
+                                    {% include 'product-grid-item-variant-color' %}
+                                  </div>
+                                </div>
+                            </div>
+                      {% endif %}            
+                  {% endfor %}
+              {% endpaginate %}
+
+             {% endif %}            
+            {% endfor %}            
+          </div>
+          
+          <div class="final_step_btn">
+          	<a href="#" data-open="#step" class="step-open btn">Start Over</a>
+          </div>
+        </div>
+        </div>
+      </div>
+    </div>
+  
+</section>
+
+{% stylesheet %} 
+.tp-small-product-list .tp-block-heading {text-align: left;} 
+.tp-small-product-list .grid-sidebar .grid-image {width: 140px;}
+.vape_finder_custom .step h1 {
+    text-transform: uppercase;
+font-size: 1.5em;
+
+}
+.vape_finder_custom .back:after {
+    content: "";
+    position: absolute;
+    border: 1px solid #000;
+    width: 27px;
+    transform: rotate(50deg);
+    bottom: -22px;
+}
+.vape_finder_custom .back:before {
+    content: "";
+    position: absolute;
+    border: 1px solid #000;
+    width: 27px;
+    transform: rotate(130deg);
+}
+.finder_main_title_box p {
+    color: #8d8d8d;
+}
+.vape_finder_custom .step a.step-open {
+    background: #77be7e;
+    border-radius: 0;
+    font-size: 20px;
+    width: 250px;
+    padding: 5px 0;
+    font-family: Roboto;
+    letter-spacing: 1px;
+line-height: 23px;
+    padding: 13px;
+}
+/*.what_makpup_kit {
+       background: #dadada;
+    margin-left: -30px;
+    margin-right: -30px;
+    padding: 20px 0;
+    margin-top: 40px;
+    margin-bottom: -40px;
+
+}*/
+.what_makpup_kit {
+    background: #dadada;
+    margin-left: -129px;
+    margin-right: -129px;
+    padding: 20px 0;
+    margin-top: 40px;
+    margin-bottom: -40px;
+}
+.what_makpup_kit_block {
+    width: 15%;
+    display: inline-block;
+}
+.what_makpup_kit_block img {
+    width: 30%;
+}
+#best-vape-starter-kit nav.breadcrumb {
+    display: none;
+}
+.what_makpup_kit_block h5 {
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-bottom: 0;
+margin-top: 20px;
+}
+.what_makpup_kit p {
+    margin-bottom: 0;
+    margin-top: 10px;
+}
+.finder_main_title_box {
+    float: left;
+    width: 100%;
+    position: relative;
+    text-align: left;
+    padding-bottom: 30px;
+}
+.finder_main_title_box h3 {
+    margin: 0;
+    position: relative;
+    padding-bottom: 5px;
+    margin-bottom: 5px;
+text-transform: uppercase;
+}
+.finder_main_title_box h3:before {
+    content: "";
+    position: absolute;
+    border-bottom: 1px solid #a3a3a2;
+    width: 100%;
+    bottom: 0;
+}
+.vape_finder_custom #head {
+    text-align: left;
+}
+.vape_finder_custom #head h3 {
+    margin-bottom: 5px;
+text-transform: uppercase;
+}
+.site-nav>li, .site-nav-mobile>li {
+    padding: 12px 14px;
+}
+.vape_finder_custom .progress-bar {
+    margin-bottom: 5px;
+}
+.margin_right {
+    margin-right: 15px!important;
+}
+.vape_finder_custom .back {
+     font-size: 50px;
+left:10%;
+}
+#best-vape-starter-kit main.main-content.container {
+    width: 1600px!important;
+    padding-bottom: 40px;
+}
+@media (max-width: 2300px) and (max-width: 4500px) {
+.what_makpup_kit {
+    margin-left: -30px;
+    margin-right: -30px;
+
+}
+}
+/*@media (max-width: 2300px) and (max-width: 4500px) {
+#best-vape-starter-kit main.main-content.container {
+    width: 1900px!important;
+
+}
+}*/
+
+@media screen and (min-width: 4500px){
+.what_makpup_kit {
+        margin-left: -127%;
+    margin-right: -127%;
+}
+}
+@media screen and (max-width: 3000px) and (min-width: 2300px){
+.what_makpup_kit {
+    margin-left: -38%;
+    margin-right: -37.5%;
+}
+}
+@media screen and (max-width: 2299px) and (min-width: 2000px) {
+.what_makpup_kit {
+          margin-left: -16%;
+    margin-right: -15.5%;
+}
+}
+
+
+
+@media screen and (max-width: 2000px) and (min-width: 1650px){
+.what_makpup_kit {
+       margin-left: -5%;
+    margin-right: -4.7%;
+}
+.finder_main_title_box h3:before {
+    border-bottom: 2px solid #a3a3a2;
+}
+}
+
+@media screen and (max-width: 4500px) and (min-width: 3001px){
+.what_makpup_kit {
+        margin-left: -83%;
+    margin-right: -83%;
+}
+}
+@media screen and (max-width: 1199px) and (min-width: 1024px){
+.site-nav>li, .site-nav-mobile>li {
+    padding: 12px 14px;
+}
+}
+
+
+
+
+@media (max-width: 1600px){
+#best-vape-starter-kit main.main-content.container {
+    width: 1349px!important;
+}
+}
+@media (min-width: 1650px) and (max-width: 1650px) {
+
+.what_makpup_kit {
+        margin-left: -83%;
+    margin-right: -83%;
+}
+
+}
+@media (max-width: 1200px) {
+#best-vape-starter-kit div#shopify-section-tp-section-header-promotion-bar .alert .container{
+ width: auto!important;
+}
+}
+@media (min-width: 1200px) and (max-width: 1559px) {
+
+#best-vape-starter-kit main.main-content.container {
+    width: auto!important;
+}
+
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  .tp-small-product-list .grid-sidebar .grid-image {width: 110px;}
+  .tp-small-product-list .grid-sidebar .tp-product-item-price s {display: block; margin-left: 0;}
+}
+@media (max-width: 767px) {
+  .tp-small-product-list .row>div+div {padding-top: 20px;} 
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+.vape_finder_custom .back {
+    left: 2%;
+}
+#best-vape-starter-kit main.main-content.container {
+    width: auto!important;
+}
+}
+@media (min-width: 768px) and (max-width: 991px) {
+.vape_finder_custom .step a.step-open {
+    width: 210px;
+font-size: 17px;
+}
+
+
+#best-vape-starter-kit main.main-content.container {
+    width: auto!important;
+}
+}
+@media (min-width: 659px) and (max-width: 767px) {
+  
+  .vape_finder_custom .step a.step-open.sevenFivebutton{
+      margin-top: 20px!important;
+  }
+  .vape_finder_custom .back {
+      left: 5%;
+  }
+}
+@media (max-width: 767px) {
+
+#best-vape-starter-kit main.main-content.container {
+    width: auto!important;
+}
+}
+
+@media (min-width: 579px) and (max-width: 658px) {
+  .vape_finder_custom .step a.step-open {
+      font-size: 15px;
+      width: 187px;
+  }
+  .vape_finder_custom .step a.step-open.sevenFivebutton{
+      margin-top: 20px!important;
+  }
+  .vape_finder_custom .back {
+      left: 5%;
+  }
+}
+@media (min-width: 564px) and (max-width: 578px) {
+  .vape_finder_custom .step a.step-open {
+      font-size: 14px;
+      width: 185px;
+  }
+.vape_finder_custom .step a.step-open.sevenFivebutton{
+	margin-top: 20px!important;
+}
+.vape_finder_custom .back {
+    left: 5%;
+}
+}
+
+@media (min-width: 507px) and (max-width: 563px) {
+	.margin_right {
+        margin-right: 0px!important;
+    	margin-bottom: 20px!important;
+
+    }
+
+}
+@media (min-width: 481px) and (max-width: 503px) {
+.what_makpup_kit_block {
+    width: 18%;
+}
+	.margin_right {
+        margin-right: 0px!important;
+    	margin-bottom: 20px!important;
+
+    }
+.vape_finder_custom .step a.step-open {
+    width: 100%;
+    max-width: 251px;
+}
+}
+@media (min-width: 320px) and (max-width: 480px) {
+.what_makpup_kit_block {
+    width: 47%;
+    display: inline-block;
+    margin-bottom: 30px;
+}
+.what_makpup_kit p {
+    margin-top: 0px;
+}
+	
+    .margin_right {
+        margin-right: 0px!important;
+    	margin-bottom: 20px!important;
+    }
+  	.vape_finder_custom .back {
+    font-size: 17px;
+    left: 0px;
+    top: 34px;
+    /* top: 108px; */
+    float: left;
+    width: 100%;
+    position: relative;
+    text-align: left;
+}
+	.finder_main_title_box h3 {
+    	font-size: 20px;
+	}
+	.vape_finder_custom .step h1 {
+    	font-size: 20px;
+	}
+    .vape_finder_custom #head h3 {
+        font-size: 20px;
+    }
+
+}
+
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Vape Finder",
+  "class": "index-section",
+  "settings": [
+    {
+      "type": "select",
+      "id": "block_layout",
+      "options": [
+          { "value": "box", "label": "Box 1170"},
+          { "value": "extrawidth", "label": "Extra Width"}
+      ],
+      "label": "Block Layout",
+      "default": "box"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product_list",
+      "name": "Blocks",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Is this your first vape kit?"
+        },
+		{
+          "type": "checkbox",
+          "id": "yes",
+          "label": "Yes"
+        },
+		{
+          "type": "checkbox",
+          "id": "no",
+          "label": "No"
+        },
+		{
+          "type": "header",
+          "content": "What is most important to you?"
+        },
+		{
+          "type": "checkbox",
+          "id": "price",
+          "label": "Price"
+        },
+		{
+          "type": "checkbox",
+          "id": "quality",
+          "label": "Quality"
+        },
+		{
+          "type": "header",
+          "content": "Which of the following appeals to you most?"
+        },
+		{
+          "type": "checkbox",
+          "id": "battery",
+          "label": "Battery life and quitting smoking"
+        },
+		{
+          "type": "checkbox",
+          "id": "cloud",
+          "label": "Big clouds and premium flavours"
+        },
+		{
+          "type": "header",
+          "content": "Whats your budget?"
+        },
+		{
+          "type": "select",
+          "id": "budget",
+          "label": "Whats your budget?",
+          "options": [
+            {
+              "value": "25-50",
+              "label": "£25 to £50"
+            },
+            {
+              "value": "50-75",
+              "label": "£50 to £75"
+            },
+			{
+              "value": "75plus",
+              "label": "£75+"
+            }
+          ]
+        },
+        {
+          "type": "product",
+          "id": "choose_product",
+          "label": "Choose Product"
+        },
+        {
+          "type": "text",
+          "id": "choose_product_id",
+          "label": "Enter Product Id"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Vape Finder",
+      "category": "Product List",
+      "blocks": [
+        {
+          "type": "product_list"
+        },
+        {
+          "type": "product_list"
+        },
+        {
+          "type": "product_list"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+

@@ -1,0 +1,15 @@
+<header class="section-header wow fadeIn" data-wow-delay="{{ settings.delay_time_ra }}ms">
+
+	<h1 class="section-header-title">{{ collection.title }}</h1>
+
+  	{% section 'tp-slideshow-simple' %}
+
+	{% if collection.description != blank %}
+	<div class="rte rte-header">
+	  {{ collection.description }}
+	</div>
+	{% endif %}
+	
+</header>
+
+{% include 'collection-tool-bar-1column' %}

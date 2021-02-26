@@ -1,0 +1,1191 @@
+<style type="text/css">
+  .tp-home-collection-list-2.section-{{section.id}} {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+      background: {{ section.settings.section_bg }};
+  }
+  {% if section.settings.block_layout == 'extrawidth' %}
+    @media (min-width: 1300px){
+      .tp-home-collection-list-2.section-{{section.id}} .container {width: 100%; padding-left: 50px; padding-right: 50px;}
+    }
+  {% endif %}
+  {% if section.settings.block_layout == 'fullwidth' %}
+    @media (min-width: 992px){
+      .tp-home-collection-list-2.section-{{section.id}} {overflow-x: hidden;}
+      .tp-home-collection-list-2.section-{{section.id}} .container {width: 100%; padding-left: 0; padding-right: 0;}
+    }
+  {% endif %}
+  @media (min-width: 768px) {
+    .tp-home-collection-list-2.section-{{section.id}} .row-cat-item,
+    .tp-home-collection-list-2.section-{{section.id}} .row-cat-item .row {
+      margin: {{ section.settings.gutter |divided_by: -2 }}px;
+    }
+    .tp-home-collection-list-2.section-{{section.id}} .row-cat-item .cat-item {
+      padding: {{ section.settings.gutter | divided_by: 2 }}px;
+    }
+  }
+  {% for block in section.blocks %}
+  .tp-home-collection-list-2.section-{{section.id}} .block-{{block.id}} .cat-item-inner .cat-title {
+    color: {{ block.settings.title_color }};
+    background-color: {{ block.settings.title_bg }};
+  }
+  .tp-home-collection-list-2.section-{{section.id}} .block-{{block.id}} .cat-item-inner:hover .cat-title {
+    color: {{ settings.color_primary }};
+  }
+  {% endfor %}
+</style>
+
+<section class="tp-home-collection-list-2 section-{{section.id}}">
+  <div class="container">
+    {% if section.settings.heading != blank %}
+      <div class="tp-block-heading wow fadeInUp" data-wow-delay="{{ settings.delay_time_ra }}ms">
+        <h3><a href="/collections/all">{{ section.settings.heading }}</a></h3>
+      </div>
+    {% endif %}
+    {% if section.blocks.size > 0 %}
+      {% capture sample_height %}height-{{ 540 | plus: section.settings.gutter }}{% endcapture %}
+      {% for block in section.blocks %}
+        {% case block.type %}
+          {% when 'grid-3-items-1' %}
+            <div class="row row-cat-item block-{{block.id}}">
+              <div class="cat-item col-sm-6">
+                <a class="cat-item-inner" href="{{ block.settings.collection_1_url }}">
+                  {% if block.settings.image_1 != blank %}
+                    <img src="{{ block.settings.image_1 | img_url: 'master' }}" alt="{{ block.settings.image_1.alt }}" />
+                  {% else %}
+                    
+                    {% include 'sample', hd_height: sample_height, hd_text: 'Please upload the image of collection 1'  %}
+                  {% endif %}
+                  {% if block.settings.heading_1 != blank %}
+                    <span class="cat-title">
+                      {{ block.settings.heading_1 }}
+                    </span>
+                  {% endif %}
+                </a>
+              </div>
+              <div class="cat-item col-sm-6">
+                <div class="row">
+                  <div class="cat-item col-sm-12 wow fadeIn" data-wow-delay="{{ settings.delay_time_ra | plus: 50 }}ms">
+                    <a class="cat-item-inner" href="{{ block.settings.collection_2_url }}">
+                      {% if block.settings.image_2 != blank %}
+                        <img src="{{ block.settings.image_2 | img_url: 'master' }}" alt="{{ block.settings.image_2.alt }}" />
+                      {% else %}
+                        {% include 'sample', hd_height: 'height-270', hd_text: 'Please upload the image of collection 2'  %}
+                      {% endif %}
+                      {% if block.settings.heading_2 != blank %}
+                        <span class="cat-title">
+                          {{ block.settings.heading_2 }}
+                        </span>
+                      {% endif %}
+                    </a>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="cat-item col-sm-12 wow fadeIn" data-wow-delay="{{ settings.delay_time_ra }}ms">
+                    <a class="cat-item-inner" href="{{ block.settings.collection_3_url }}">
+                      {% if block.settings.image_3 != blank %}
+                        <img src="{{ block.settings.image_3 | img_url: 'master' }}" alt="{{ block.settings.image_3.alt }}" />
+                      {% else %}
+                        {% include 'sample', hd_height: 'height-270', hd_text: 'Please upload the image of collection 3'  %}
+                      {% endif %}
+                      {% if block.settings.heading_3 != blank %}
+                        <span class="cat-title">
+                          {{ block.settings.heading_3 }}
+                        </span>
+                      {% endif %}
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          {% when 'grid-3-items-2' %}
+            <div class="row row-cat-item block-{{block.id}}">
+              <div class="cat-item col-sm-6">
+                <div class="row">
+                  <div class="cat-item col-sm-12 wow fadeIn" data-wow-delay="{{ settings.delay_time_ra | plus: 50 }}ms">
+                    <a class="cat-item-inner" href="{{ block.settings.collection_1_url }}">
+                      {% if block.settings.image_1 != blank %}
+                        <img src="{{ block.settings.image_1 | img_url: 'master' }}" alt="{{ block.settings.image_1.alt }}" />
+                      {% else %}
+                        {% include 'sample', hd_height: 'height-270', hd_text: 'Please upload the image of collection 1'  %}
+                      {% endif %}
+                      {% if block.settings.heading_1 != blank %}
+                        <span class="cat-title">
+                          {{ block.settings.heading_1 }}
+                        </span>
+                      {% endif %}
+                    </a>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="cat-item col-sm-12 wow fadeIn" data-wow-delay="{{ settings.delay_time_ra }}ms">
+                    <a class="cat-item-inner" href="{{ block.settings.collection_2_url }}">
+                      {% if block.settings.image_2 != blank %}
+                        <img src="{{ block.settings.image_2 | img_url: 'master' }}" alt="{{ block.settings.image_2.alt }}" />
+                      {% else %}
+                        {% include 'sample', hd_height: 'height-270', hd_text: 'Please upload the image of collection 2'  %}
+                      {% endif %}
+                      {% if block.settings.heading_2 != blank %}
+                        <span class="cat-title">
+                          {{ block.settings.heading_2 }}
+                        </span>
+                      {% endif %}
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="cat-item col-sm-6">
+                <a class="cat-item-inner" href="{{ block.settings.collection_3_url }}">
+                  {% if block.settings.image_3 != blank %}
+                    <img src="{{ block.settings.image_3 | img_url: 'master' }}" alt="{{ block.settings.image_3.alt }}" />
+                  {% else %}
+                    {% include 'sample', hd_height: sample_height, hd_text: 'Please upload the image of collection 3'  %}
+                  {% endif %}
+                  {% if block.settings.heading_3 != blank %}
+                    <span class="cat-title">
+                      {{ block.settings.heading_3 }}
+                    </span>
+                  {% endif %}
+                </a>
+              </div>
+            </div>
+          {% when 'grid-4-items-1' %}
+            <div class="row row-cat-item block-{{block.id}}">
+              <div class="cat-item col-sm-6">
+                <a class="cat-item-inner" href="{{ block.settings.collection_1_url }}">
+                  {% if block.settings.image_1 != blank %}
+                    <img src="{{ block.settings.image_1 | img_url: 'master' }}" alt="{{ block.settings.image_1.alt }}" />
+                  {% else %}
+                    {% include 'sample', hd_height: sample_height, hd_text: 'Please upload the image of collection 1'  %}
+                  {% endif %}
+                  {% if block.settings.heading_1 != blank %}
+                    <span class="cat-title">
+                      {{ block.settings.heading_1 }}
+                    </span>
+                  {% endif %}
+                </a>
+              </div>
+              <div class="cat-item col-sm-6">
+                <div class="row">
+                  <div class="cat-item col-sm-12 wow fadeIn" data-wow-delay="{{ settings.delay_time_ra | plus: 50 }}ms">
+                    <a class="cat-item-inner" href="{{ block.settings.collection_2_url }}">
+                      {% if block.settings.image_2 != blank %}
+                        <img src="{{ block.settings.image_2 | img_url: 'master' }}" alt="{{ block.settings.image_2.alt }}" />
+                      {% else %}
+                        {% include 'sample', hd_height: 'height-270', hd_text: 'Please upload the image of collection 2'  %}
+                      {% endif %}
+                      {% if block.settings.heading_2 != blank %}
+                        <span class="cat-title">
+                          {{ block.settings.heading_2 }}
+                        </span>
+                      {% endif %}
+                    </a>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="cat-item col-sm-6 wow fadeIn" data-wow-delay="{{ settings.delay_time_ra }}ms">
+                    <a class="cat-item-inner" href="{{ block.settings.collection_3_url }}">
+                      {% if block.settings.image_3 != blank %}
+                        <img src="{{ block.settings.image_3 | img_url: 'master' }}" alt="{{ block.settings.image_3.alt }}" />
+                      {% else %}
+                        {% include 'sample', hd_height: 'height-270', hd_text: 'Please upload the image of collection 3'  %}
+                      {% endif %}
+                      {% if block.settings.heading_3 != blank %}
+                        <span class="cat-title">
+                          {{ block.settings.heading_3 }}
+                        </span>
+                      {% endif %}
+                    </a>
+                  </div>
+                  <div class="cat-item col-sm-6 wow fadeIn" data-wow-delay="{{ settings.delay_time_ra }}ms">
+                    <a class="cat-item-inner" href="{{ block.settings.collection_4_url }}">
+                      {% if block.settings.image_4 != blank %}
+                        <img src="{{ block.settings.image_4 | img_url: 'master' }}" alt="{{ block.settings.image_4.alt }}" />
+                      {% else %}
+                        {% include 'sample', hd_height: 'height-270', hd_text: 'Please upload the image of collection 4'  %}
+                      {% endif %}
+                      {% if block.settings.heading_4 != blank %}
+                        <span class="cat-title">
+                          {{ block.settings.heading_4 }}
+                        </span>
+                      {% endif %}
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          {% when 'grid-4-items-2' %}
+            <div class="row row-cat-item block-{{block.id}}">
+              <div class="cat-item col-sm-6">
+                <div class="row">
+                  <div class="cat-item col-sm-6 wow fadeIn" data-wow-delay="{{ settings.delay_time_ra }}ms">
+                    <a class="cat-item-inner" href="{{ block.settings.collection_1_url }}">
+                      {% if block.settings.image_1 != blank %}
+                        <img src="{{ block.settings.image_1 | img_url: 'master' }}" alt="{{ block.settings.image_1.alt }}" />
+                      {% else %}
+                        {% include 'sample', hd_height: 'height-270', hd_text: 'Please upload the image of collection 1'  %}
+                      {% endif %}
+                      {% if block.settings.heading_1 != blank %}
+                        <span class="cat-title">
+                          {{ block.settings.heading_1 }}
+                        </span>
+                      {% endif %}
+                    </a>
+                  </div>
+                  <div class="cat-item col-sm-6 wow fadeIn" data-wow-delay="{{ settings.delay_time_ra }}ms">
+                    <a class="cat-item-inner" href="{{ block.settings.collection_2_url }}">
+                      {% if block.settings.image_2 != blank %}
+                        <img src="{{ block.settings.image_2 | img_url: 'master' }}" alt="{{ block.settings.image_2.alt }}" />
+                      {% else %}
+                        {% include 'sample', hd_height: 'height-270', hd_text: 'Please upload the image of collection 2'  %}
+                      {% endif %}
+                      {% if block.settings.heading_2 != blank %}
+                        <span class="cat-title">
+                          {{ block.settings.heading_2 }}
+                        </span>
+                      {% endif %}
+                    </a>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="cat-item col-sm-12 wow fadeIn" data-wow-delay="{{ settings.delay_time_ra | plus: 50 }}ms">
+                    <a class="cat-item-inner" href="{{ block.settings.collection_3_url }}">
+                      {% if block.settings.image_3 != blank %}
+                        <img src="{{ block.settings.image_3 | img_url: 'master' }}" alt="{{ block.settings.image_3.alt }}" />
+                      {% else %}
+                        {% include 'sample', hd_height: 'height-270', hd_text: 'Please upload the image of collection 3'  %}
+                      {% endif %}
+                      {% if block.settings.heading_3 != blank %}
+                        <span class="cat-title">
+                          {{ block.settings.heading_3 }}
+                        </span>
+                      {% endif %}
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="cat-item col-sm-6">
+                <a class="cat-item-inner" href="{{ block.settings.collection_4_url }}">
+                  {% if block.settings.image_4 != blank %}
+                    <img src="{{ block.settings.image_4 | img_url: 'master' }}" alt="{{ block.settings.image_4.alt }}" />
+                  {% else %}
+                    {% include 'sample', hd_height: sample_height, hd_text: 'Please upload the image of collection 4'  %}
+                  {% endif %}
+                  {% if block.settings.heading_4 != blank %}
+                    <span class="cat-title">
+                      {{ block.settings.heading_4 }}
+                    </span>
+                  {% endif %}
+                </a>
+              </div>
+            </div>
+          {% when 'grid-5-items-2' %} 
+            <div class="row row-cat-item block-{{block.id}}">
+              <div class="cat-item col-sm-4">
+                <div class="row">
+                  <div class="cat-item col-sm-12 wow fadeIn" data-wow-delay="{{ settings.delay_time_ra }}ms">
+                    <a class="cat-item-inner" href="{{ block.settings.collection_1_url }}">
+                      {% if block.settings.image_1 != blank %}
+                        <img src="{{ block.settings.image_1 | img_url: 'master' }}" alt="{{ block.settings.image_1.alt }}" />
+                      {% else %}
+                        {% include 'sample', hd_height: 'height-270', hd_text: 'Please upload the image of collection 1'  %}
+                      {% endif %}
+                      {% if block.settings.heading_1 != blank %}
+                        <span class="cat-title">
+                          {{ block.settings.heading_1 }}
+                        </span>
+                      {% endif %}
+                    </a>
+                  </div>
+                  <div class="cat-item col-sm-12 wow fadeIn" data-wow-delay="{{ settings.delay_time_ra | plus: 50 }}ms">
+                    <a class="cat-item-inner" href="{{ block.settings.collection_2_url }}">
+                      {% if block.settings.image_2 != blank %}
+                        <img src="{{ block.settings.image_2 | img_url: 'master' }}" alt="{{ block.settings.image_2.alt }}" />
+                      {% else %}
+                        {% include 'sample', hd_height: 'height-270', hd_text: 'Please upload the image of collection 2'  %}
+                      {% endif %}
+                      {% if block.settings.heading_2 != blank %}
+                        <span class="cat-title">
+                          {{ block.settings.heading_2 }}
+                        </span>
+                      {% endif %}
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="cat-item col-sm-4 wow fadeIn" data-wow-delay="{{ settings.delay_time_ra }}ms">
+                <a class="cat-item-inner" href="{{ block.settings.collection_3_url }}">
+                  {% if block.settings.image_3 != blank %}
+                    <img src="{{ block.settings.image_3 | img_url: 'master' }}" alt="{{ block.settings.image_3.alt }}" />
+                  {% else %}
+                    {% include 'sample', hd_height: sample_height, hd_text: 'Please upload the image of collection 3'  %}
+                  {% endif %}
+                  {% if block.settings.heading_3 != blank %}
+                    <span class="cat-title">
+                      {{ block.settings.heading_3 }}
+                    </span>
+                  {% endif %}
+                </a>
+              </div>
+              <div class="cat-item col-sm-4">
+                <div class="row">
+                  <div class="cat-item col-sm-12 wow fadeIn" data-wow-delay="{{ settings.delay_time_ra }}ms">
+                    <a class="cat-item-inner" href="{{ block.settings.collection_4_url }}">
+                      {% if block.settings.image_4 != blank %}
+                        <img src="{{ block.settings.image_4 | img_url: 'master' }}" alt="{{ block.settings.image_4.alt }}" />
+                      {% else %}
+                        {% include 'sample', hd_height: 'height-270', hd_text: 'Please upload the image of collection 4'  %}
+                      {% endif %}
+                      {% if block.settings.heading_4 != blank %}
+                        <span class="cat-title">
+                          {{ block.settings.heading_4 }}
+                        </span>
+                      {% endif %}
+                    </a>
+                  </div>
+                  <div class="cat-item col-sm-12 wow fadeIn" data-wow-delay="{{ settings.delay_time_ra | plus: 50 }}ms">
+                    <a class="cat-item-inner" href="{{ block.settings.collection_5_url }}">
+                      {% if block.settings.image_5 != blank %}
+                        <img src="{{ block.settings.image_5 | img_url: 'master' }}" alt="{{ block.settings.image_5.alt }}" />
+                      {% else %}
+                        {% include 'sample', hd_height: 'height-270', hd_text: 'Please upload the image of collection 5'  %}
+                      {% endif %}
+                      {% if block.settings.heading_5 != blank %}
+                        <span class="cat-title">
+                          {{ block.settings.heading_5 }}
+                        </span>
+                      {% endif %}
+                    </a>
+                  </div>
+                </div>
+               </div>
+            </div>
+          {% else %}
+            <div class="row row-cat-item block-{{block.id}}">
+              <div class="cat-item col-sm-4 wow fadeIn" data-wow-delay="{{ settings.delay_time_ra }}ms">
+                <a class="cat-item-inner" href="collections/{{ section.settings.collection_1_choose | handleize }}">
+                  {% if block.settings.image_1 != blank %}
+                    <img src="{{ block.settings.image_1 | img_url: 'master' }}" alt="{{ block.settings.image_1.alt }}" />
+                  {% else %}
+                    {% include 'sample', hd_height: sample_height, hd_text: 'Please upload the image of collection 1'  %}
+                  {% endif %}
+                  <span class="cat-info">
+                    <span class="cat-info-inner">
+                      {% assign count_1 = collections[section.settings.collection_1_choose].products_count | times: 1 %}
+                      {% if block.settings.heading_1 != blank %}
+                        <span class="cat-title">
+                          {{ block.settings.heading_1 }}
+                          {% if count_1 > 0 %}
+                            <sup class="cat-count">({{ count_1 }})</sup>
+                          {% endif %}
+                        </span>
+                      {% endif %}
+                    </span>
+                  </span>
+                </a>
+              </div>
+              <div class="cat-item col-sm-8">
+
+                <div class="row">
+                  <div class="cat-item col-sm-7 wow fadeIn" data-wow-delay="{{ settings.delay_time_ra }}ms">
+                    <a class="cat-item-inner" href="collections/{{ section.settings.collection_2_choose | handleize }}">
+                      {% if block.settings.image_2 != blank %}
+                        <img src="{{ block.settings.image_2 | img_url: 'master' }}" alt="{{ block.settings.image_2.alt }}" />
+                      {% else %}
+                        {% include 'sample', hd_height: 'height-270', hd_text: 'Please upload the image of collection 2'  %}
+                      {% endif %}
+                      <span class="cat-info">
+                        <span class="cat-info-inner">
+                          {% assign count_2 = collections[section.settings.collection_2_choose].products_count | times: 1 %}
+                          {% if block.settings.heading_2 != blank %}
+                            <span class="cat-title">
+                              {{ block.settings.heading_2 }}
+                              {% if count_2 > 0 %}
+                                <sup class="cat-count">({{ count_2 }})</sup>
+                              {% endif %}
+                            </span>
+                          {% endif %}
+                          </span>
+                      </span>
+                    </a>
+                  </div>
+
+                  <div class="cat-item col-sm-5 wow fadeIn" data-wow-delay="{{ settings.delay_time_ra }}ms">
+                    <a class="cat-item-inner" href="collections/{{ section.settings.collection_3_choose | handleize }}">
+                      {% if block.settings.image_3 != blank %}
+                        <img src="{{ block.settings.image_3 | img_url: 'master' }}" alt="{{ block.settings.image_3.alt }}" />
+                      {% else %}
+                        {% include 'sample', hd_height: 'height-270', hd_text: 'Please upload the image of collection 3'  %}
+                      {% endif %}
+                      <span class="cat-info">
+                        <span class="cat-info-inner">
+                          {% assign count_3 = collections[section.settings.collection_3_choose].products_count | times: 1 %}
+                          {% if block.settings.heading_3 != blank %}
+                            <span class="cat-title">
+                              {{ block.settings.heading_3 }}
+                              {% if count_3 > 0 %}
+                                <sup class="cat-count">({{ count_3 }})</sup>
+                              {% endif %}
+                            </span>
+                          {% endif %}
+                          </span>
+                      </span>
+                    </a>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="cat-item col-sm-5 wow fadeIn" data-wow-delay="{{ settings.delay_time_ra | plus: 50 }}ms">
+                    <a class="cat-item-inner" href="collections/{{ section.settings.collection_4_choose | handleize }}">
+                      {% if block.settings.image_4 != blank %}
+                        <img src="{{ block.settings.image_4 | img_url: 'master' }}" alt="{{ block.settings.image_4.alt }}" />
+                      {% else %}
+                        {% include 'sample', hd_height: 'height-270', hd_text: 'Please upload the image of collection 4'  %}
+                      {% endif %}
+                      <span class="cat-info">
+                        <span class="cat-info-inner">
+                          {% assign count_4 = collections[section.settings.collection_4_choose].products_count | times: 1 %}
+                          {% if block.settings.heading_4 != blank %}
+                            <span class="cat-title">
+                              {{ block.settings.heading_4 }}
+                              {% if count_4 > 0 %}
+                                <sup class="cat-count">({{ count_4 }})</sup>
+                              {% endif %}
+                            </span>
+                          {% endif %}
+                          </span>
+                      </span>
+                    </a>
+                  </div>
+
+                  <div class="cat-item col-sm-7 wow fadeIn" data-wow-delay="{{ settings.delay_time_ra | plus: 50 }}ms">
+                    <a class="cat-item-inner" href="collections/{{ section.settings.collection_5_choose | handleize }}">
+                      {% if block.settings.image_5 != blank %}
+                        <img src="{{ block.settings.image_5 | img_url: 'master' }}" alt="{{ block.settings.image_5.alt }}" />
+                      {% else %}
+                        {% include 'sample', hd_height: 'height-270', hd_text: 'Please upload the image of collection 5'  %}
+                      {% endif %}
+                      <span class="cat-info">
+                        <span class="cat-info-inner">
+                          {% assign count_5 = collections[section.settings.collection_5_choose].products_count | times: 1 %}
+                          {% if block.settings.heading_5 != blank %}
+                            <span class="cat-title">
+                              {{ block.settings.heading_5 }}
+                              {% if count_5 > 0 %}
+                                <sup class="cat-count">({{ count_5 }})</sup>
+                              {% endif %}
+                            </span>
+                          {% endif %}
+                          </span>
+                      </span>
+                    </a>
+                  </div>
+                </div>
+
+               </div>
+            </div>
+        {% endcase %}
+      {% endfor %}
+    {% endif %}
+  </div>
+</section>
+
+{% stylesheet %}
+.tp-home-collection-list-2 .row-cat-item .row {clear: both;}
+.tp-home-collection-list-2 .cat-item-inner {display: block; position: relative;} 
+.tp-home-collection-list-2 .cat-item-inner .cat-title {position: absolute; left: 50%; bottom: 15px; max-width: calc(100% - 20px); display: inline-block; font-size: 14px; font-weight: 700; text-transform: uppercase; z-index: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding: 9px 15px; transform: translateX(-50%); -webkit-transform: translateX(-50%);} 
+@media (max-width: 767px) {
+  .tp-home-collection-list-2 .row-cat-item .cat-item {margin-bottom: 15px;}
+  .tp-home-collection-list-2 .row-cat-item .cat-item .row+.row .cat-item:last-child {margin-bottom: 0;}
+  .tp-home-collection-list-2 .row-cat-item .cat-item img {width: 100%;} 
+}
+{% endstylesheet %}
+
+
+{% schema %}
+{
+  "name": "Collection List 2",
+  "class": "index-section", 
+  "max_blocks": 20,
+  "settings": [
+    {
+      "type": "select",
+      "id": "block_layout",
+      "options": [
+        { "value": "box", "label": "Box 1170px" },
+        { "value": "fullwidth", "label": "Full Width" },
+        { "value": "extrawidth", "label": "Extra Width" }
+      ],
+      "label": "Layout",
+      "default": "box"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "gutter",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "label": "Gutter Item",
+      "default": 30
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default" : "Shop by Categories"
+    },
+    {
+      "type": "color",
+      "id": "section_bg",
+      "label": "Section Background",
+      "default": "#fff"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "grid-3-items-1",
+      "name": "Grid 3-Items 1",
+      "settings": [
+        {
+          "type": "header",
+          "content" : "Collection 1"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_1",
+          "label": "Collection 1 - Image"
+        },
+        {
+          "type": "text",
+          "id": "heading_1",
+          "label": "Collection 1 - Title",
+          "default" : "Collection 1 - Title"
+        },
+        {
+          "type": "url",
+          "id": "collection_1_url",
+          "label": "Collection 1 - URL"
+        },
+        {
+          "type": "header",
+          "content" : "Collection 2"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_2",
+          "label": "Collection 2 - Image"
+        },
+        {
+          "type": "text",
+          "id": "heading_2",
+          "label": "Collection 2 - Title",
+          "default" : "Collection 2 - Title"
+        },
+        {
+          "type": "url",
+          "id": "collection_2_url",
+          "label": "Collection 2 - URL"
+        },
+        {
+          "type": "header",
+          "content" : "Collection 3"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_3",
+          "label": "Collection 3 - Image"
+        },
+        {
+          "type": "text",
+          "id": "heading_3",
+          "label": "Collection 3 - Title",
+          "default" : "Collection 3 - Title"
+        },
+        {
+          "type": "url",
+          "id": "collection_3_url",
+          "label": "Collection 3 - URL"
+        },
+        {
+          "type": "header",
+          "content" : "Color Settings"
+        },
+        {
+          "type": "color",
+          "id": "title_bg",
+          "label": "Collection Title Background",
+          "default": "#1d1d1d"
+        },
+        {
+          "type": "color",
+          "id": "title_color",
+          "label": "Collection Title Color",
+          "default": "#fff"
+        }
+      ]
+    },
+    {
+      "type": "grid-3-items-2",
+      "name": "Grid 3-Items 2",
+      "settings": [
+        {
+          "type": "header",
+          "content" : "Collection 1"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_1",
+          "label": "Collection 1 - Image"
+        },
+        {
+          "type": "text",
+          "id": "heading_1",
+          "label": "Collection 1 - Title",
+          "default" : "Collection 1 - Title"
+        },
+        {
+          "type": "url",
+          "id": "collection_1_url",
+          "label": "Collection 1 - URL"
+        },
+        {
+          "type": "header",
+          "content" : "Collection 2"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_2",
+          "label": "Collection 2 - Image"
+        },
+        {
+          "type": "text",
+          "id": "heading_2",
+          "label": "Collection 2 - Title",
+          "default" : "Collection 2 - Title"
+        },
+        {
+          "type": "url",
+          "id": "collection_2_url",
+          "label": "Collection 2 - URL"
+        },
+        {
+          "type": "header",
+          "content" : "Collection 3"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_3",
+          "label": "Collection 3 - Image"
+        },
+        {
+          "type": "text",
+          "id": "heading_3",
+          "label": "Collection 3 - Title",
+          "default" : "Collection 3 - Title"
+        },
+        {
+          "type": "url",
+          "id": "collection_3_url",
+          "label": "Collection 3 - URL"
+        },
+        {
+          "type": "header",
+          "content" : "Color Settings"
+        },
+        {
+          "type": "color",
+          "id": "title_bg",
+          "label": "Collection Title Background",
+          "default": "#1d1d1d"
+        },
+        {
+          "type": "color",
+          "id": "title_color",
+          "label": "Collection Title Color",
+          "default": "#fff"
+        }
+      ]
+    },
+    {
+      "type": "grid-4-items-1",
+      "name": "Grid 4-Items 1",
+      "settings": [
+        {
+          "type": "header",
+          "content" : "Collection 1"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_1",
+          "label": "Collection 1 - Image"
+        },
+        {
+          "type": "text",
+          "id": "heading_1",
+          "label": "Collection 1 - Title",
+          "default" : "Collection 1 - Title"
+        },
+        {
+          "type": "url",
+          "id": "collection_1_url",
+          "label": "Collection 1 - URL"
+        },
+        {
+          "type": "header",
+          "content" : "Collection 2"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_2",
+          "label": "Collection 2 - Image"
+        },
+        {
+          "type": "text",
+          "id": "heading_2",
+          "label": "Collection 2 - Title",
+          "default" : "Collection 2 - Title"
+        },
+        {
+          "type": "url",
+          "id": "collection_2_url",
+          "label": "Collection 2 - URL"
+        },
+        {
+          "type": "header",
+          "content" : "Collection 3"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_3",
+          "label": "Collection 3 - Image"
+        },
+        {
+          "type": "text",
+          "id": "heading_3",
+          "label": "Collection 3 - Title",
+          "default" : "Collection 3 - Title"
+        },
+        {
+          "type": "url",
+          "id": "collection_3_url",
+          "label": "Collection 3 - URL"
+        },
+        {
+          "type": "header",
+          "content" : "Collection 4"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_4",
+          "label": "Collection 4 - Image"
+        },
+        {
+          "type": "text",
+          "id": "heading_4",
+          "label": "Collection 4 - Title",
+          "default" : "Collection 4 - Title"
+        },
+        {
+          "type": "url",
+          "id": "collection_4_url",
+          "label": "Collection 4 - URL"
+        },
+        {
+          "type": "header",
+          "content" : "Color Settings"
+        },
+        {
+          "type": "color",
+          "id": "title_bg",
+          "label": "Collection Title Background",
+          "default": "#1d1d1d"
+        },
+        {
+          "type": "color",
+          "id": "title_color",
+          "label": "Collection Title Color",
+          "default": "#fff"
+        }
+      ]
+    },
+    {
+      "type": "grid-4-items-2",
+      "name": "Grid 4-Items 2",
+      "settings": [
+        {
+          "type": "header",
+          "content" : "Collection 1"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_1",
+          "label": "Collection 1 - Image"
+        },
+        {
+          "type": "text",
+          "id": "heading_1",
+          "label": "Collection 1 - Title",
+          "default" : "Collection 1 - Title"
+        },
+        {
+          "type": "url",
+          "id": "collection_1_url",
+          "label": "Collection 1 - URL"
+        },
+        {
+          "type": "header",
+          "content" : "Collection 2"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_2",
+          "label": "Collection 2 - Image"
+        },
+        {
+          "type": "text",
+          "id": "heading_2",
+          "label": "Collection 2 - Title",
+          "default" : "Collection 2 - Title"
+        },
+        {
+          "type": "url",
+          "id": "collection_2_url",
+          "label": "Collection 2 - URL"
+        },
+        {
+          "type": "header",
+          "content" : "Collection 3"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_3",
+          "label": "Collection 3 - Image"
+        },
+        {
+          "type": "text",
+          "id": "heading_3",
+          "label": "Collection 3 - Title",
+          "default" : "Collection 3 - Title"
+        },
+        {
+          "type": "url",
+          "id": "collection_3_url",
+          "label": "Collection 3 - URL"
+        },
+        {
+          "type": "header",
+          "content" : "Collection 4"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_4",
+          "label": "Collection 4 - Image"
+        },
+        {
+          "type": "text",
+          "id": "heading_4",
+          "label": "Collection 4 - Title",
+          "default" : "Collection 4 - Title"
+        },
+        {
+          "type": "url",
+          "id": "collection_4_url",
+          "label": "Collection 4 - URL"
+        },
+        {
+          "type": "header",
+          "content" : "Color Settings"
+        },
+        {
+          "type": "color",
+          "id": "title_bg",
+          "label": "Collection Title Background",
+          "default": "#1d1d1d"
+        },
+        {
+          "type": "color",
+          "id": "title_color",
+          "label": "Collection Title Color",
+          "default": "#fff"
+        }
+      ]
+    },
+    {
+      "type": "grid-5-items-1",
+      "name": "Grid 5-Items 1",
+      "settings": [
+        {
+          "type": "header",
+          "content" : "Collection 1"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_1",
+          "label": "Collection 1 - Image"
+        },
+        {
+          "type": "text",
+          "id": "heading_1",
+          "label": "Collection 1 - Title",
+          "default" : "Collection 1 - Title"
+        },
+        {
+          "type": "url",
+          "id": "collection_1_url",
+          "label": "Collection 1 - URL"
+        },
+        {
+          "type": "header",
+          "content" : "Collection 2"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_2",
+          "label": "Collection 2 - Image"
+        },
+        {
+          "type": "text",
+          "id": "heading_2",
+          "label": "Collection 2 - Title",
+          "default" : "Collection 2 - Title"
+        },
+        {
+          "type": "url",
+          "id": "collection_2_url",
+          "label": "Collection 2 - URL"
+        },
+        {
+          "type": "header",
+          "content" : "Collection 3"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_3",
+          "label": "Collection 3 - Image"
+        },
+        {
+          "type": "text",
+          "id": "heading_3",
+          "label": "Collection 3 - Title",
+          "default" : "Collection 3 - Title"
+        },
+        {
+          "type": "url",
+          "id": "collection_3_url",
+          "label": "Collection 3 - URL"
+        },
+        {
+          "type": "header",
+          "content" : "Collection 4"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_4",
+          "label": "Collection 4 - Image"
+        },
+        {
+          "type": "text",
+          "id": "heading_4",
+          "label": "Collection 4 - Title",
+          "default" : "Collection 4 - Title"
+        },
+        {
+          "type": "url",
+          "id": "collection_4_url",
+          "label": "Collection 4 - URL"
+        },
+        {
+          "type": "header",
+          "content" : "Collection 5"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_5",
+          "label": "Collection 5 - Image"
+        },
+        {
+          "type": "text",
+          "id": "heading_5",
+          "label": "Collection 5 - Title",
+          "default" : "Collection 5 - Title"
+        },
+        {
+          "type": "url",
+          "id": "collection_5_url",
+          "label": "Collection 5 - URL"
+        },
+        {
+          "type": "header",
+          "content" : "Color Settings"
+        },
+        {
+          "type": "color",
+          "id": "title_bg",
+          "label": "Collection Title Background",
+          "default": "#1d1d1d"
+        },
+        {
+          "type": "color",
+          "id": "title_color",
+          "label": "Collection Title Color",
+          "default": "#fff"
+        }
+      ]
+    },
+    {
+      "type": "grid-5-items-2",
+      "name": "Grid 5-Items 2",
+      "settings": [
+        {
+          "type": "header",
+          "content" : "Collection 1"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_1",
+          "label": "Collection 1 - Image"
+        },
+        {
+          "type": "text",
+          "id": "heading_1",
+          "label": "Collection 1 - Title",
+          "default" : "Collection 1 - Title"
+        },
+        {
+          "type": "url",
+          "id": "collection_1_url",
+          "label": "Collection 1 - URL"
+        },
+        {
+          "type": "header",
+          "content" : "Collection 2"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_2",
+          "label": "Collection 2 - Image"
+        },
+        {
+          "type": "text",
+          "id": "heading_2",
+          "label": "Collection 2 - Title",
+          "default" : "Collection 2 - Title"
+        },
+        {
+          "type": "url",
+          "id": "collection_2_url",
+          "label": "Collection 2 - URL"
+        },
+        {
+          "type": "header",
+          "content" : "Collection 3"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_3",
+          "label": "Collection 3 - Image"
+        },
+        {
+          "type": "text",
+          "id": "heading_3",
+          "label": "Collection 3 - Title",
+          "default" : "Collection 3 - Title"
+        },
+        {
+          "type": "url",
+          "id": "collection_3_url",
+          "label": "Collection 3 - URL"
+        },
+        {
+          "type": "header",
+          "content" : "Collection 4"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_4",
+          "label": "Collection 4 - Image"
+        },
+        {
+          "type": "text",
+          "id": "heading_4",
+          "label": "Collection 4 - Title",
+          "default" : "Collection 4 - Title"
+        },
+        {
+          "type": "url",
+          "id": "collection_4_url",
+          "label": "Collection 4 - URL"
+        },
+        {
+          "type": "header",
+          "content" : "Collection 5"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_5",
+          "label": "Collection 5 - Image"
+        },
+        {
+          "type": "text",
+          "id": "heading_5",
+          "label": "Collection 5 - Title",
+          "default" : "Collection 5 - Title"
+        },
+        {
+          "type": "url",
+          "id": "collection_5_url",
+          "label": "Collection 5 - URL"
+        },
+        {
+          "type": "header",
+          "content" : "Color Settings"
+        },
+        {
+          "type": "color",
+          "id": "title_bg",
+          "label": "Collection Title Background",
+          "default": "#1d1d1d"
+        },
+        {
+          "type": "color",
+          "id": "title_color",
+          "label": "Collection Title Color",
+          "default": "#fff"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collection List 2",
+      "category": "Collection",
+      "blocks": [
+        {
+          "type": "grid-5-items-1"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

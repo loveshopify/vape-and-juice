@@ -1,0 +1,815 @@
+<style type="text/css">
+  .template-index .slick-slideshow-wrapper.section-{{ section.id }} {
+      padding-top: {{ section.settings.padding_top }}px !important;
+      padding-bottom: {{ section.settings.padding_bottom }}px !important;
+  }
+  {% if section.settings.block_layout == 'fullwidth' %}
+    .slick-slideshow-wrapper.section-{{section.id}}>.container {width: 100%; padding: 0;}
+  {% endif %}
+  {% if section.settings.block_layout == 'extrawidth' %}
+    @media (min-width: 1300px) {
+      .template-index .slick-slideshow-wrapper.section-{{section.id}} {padding-left: 50px; padding-right: 50px;}
+      .template-index .slick-slideshow-wrapper.section-{{section.id}} .container {width: 100%; padding-left: 0; padding-right: 0;}
+    }
+  {% endif %}
+</style>
+
+{% stylesheet %}
+.slick-slideshow.slick-slider {max-width: 100%;}
+.slick-slideshow .slick-item {position: relative;}
+.slick-slideshow .slick-item .slideshow-text {position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2; text-align: center;} 
+.slick-slideshow .slick-item .slideshow-text:before {content: ""; height: 100%; width: 0; display: inline-block; vertical-align: middle;}
+.slick-slideshow .slick-item .slideshow-text .container {display: inline-block; vertical-align: middle; max-width: 94%;  opacity: 0; position: relative; text-align: left; margin-top: 30px; transition: all 0.8s cubic-bezier(0.44, 0.13, 0.48, 0.87) 0.3s; -webkit-transition: all 0.8s cubic-bezier(0.44, 0.13, 0.48, 0.87) 0.3s;}
+.slick-slideshow .slick-item.slick-active .slideshow-text .container {opacity: 1; margin-top: 0;}
+.slick-slideshow .slick-item-text .sample-text {opacity: 0.5; -webkit-opacity: 0.5;}
+.slick-slideshow .slick-item-text .slideshow-content-1 {padding: 15px 0; line-height: 1.1;}
+.slick-slideshow .slick-item-text .slideshow-content-2 {padding: 15px 0; line-height: 1.1;} 
+.slick-slideshow .slick-item-text .slideshow-button {padding: 20px 0 15px;}
+.slick-slideshow .slick-item-text .slideshow-button .btn+.btn {margin-left: 10px;} 
+.slick-slideshow .slick-prev {left: 30px;} 
+.slick-slideshow .slick-next {right: 30px;}
+.slick-slideshow .slick-dots {position: absolute; left: 0; bottom: 20px;} 
+.slick-slideshow.slick-dotted.slick-slider {margin-bottom: 0;}
+.slick-slideshow .slick-dots li:not(.slick-active) button {border-color: rgba(255,255,255,0.6); box-shadow: 0 0 1px rgba(0,0,0,0.2);}
+.slick-slideshow .slick-item:not(.slick-current):after {content: ""; position: absolute; top: 0; left: 0; bottom: 0; right: 0; background-color: rgba(0,0,0,0.3);} 
+.slick-slideshow:not(.slick-slider) .slick-item:nth-child(n+2) {display: none;}
+.slick-slideshow:not(.slick-slider) .slick-item .slideshow-text .container {opacity: 1;} 
+.slick-slideshow .slideshow-image {position: relative; z-index: 0;}
+@media (max-width: 991px) {
+  .template-index .slick-slideshow {height: 60vh;}
+  .template-index .slick-slideshow .slick-item,
+  .template-index .slick-slideshow .slideshow-image,  
+  .template-index .slick-slideshow .slick-list, 
+  .template-index .slick-slideshow .slick-track {height: 100%;}
+  .template-index .slick-slideshow .slideshow-image img {width: 100%; height: 100%; object-fit: cover;} 
+}
+@media (max-width: 767px) {
+  .slick-slideshow .slick-item .slideshow-text .container {width: 98%;}
+  .slick-slideshow .slick-item-text .slideshow-content-1 {font-size: 18px !important;}
+  .slick-slideshow .slick-item-text .slideshow-content-2 {font-size: 40px !important; padding-top: 0; padding-bottom: 0;}
+  .slick-slideshow .slick-item-text .btn-large {line-height: 40px; padding: 0 10px; font-size: 12px;}
+}
+{% endstylesheet %}
+
+{% if section.blocks.size > 0 %}
+<section class="slick-slideshow-wrapper section-{{ section.id }}">
+    <div class="slick-slideshow {% if section.settings.enable_center_mode %}slick-center-mode{% endif %} container">
+        {% for block in section.blocks %}
+          {% case block.type %}
+            {% when 'image' %}
+              <div class="slick-item">
+                {% if block.settings.slideshow_image != blank %}
+                  <a href="{{ block.settings.slideshow_link }}" class="slideshow-image">
+                      <img src="{{ block.settings.slideshow_image | img_url : 'master'}}" alt="{{ block.settings.slideshow_image.alt }}" width="auto" height="auto"/>
+                  </a>
+                {% else %}
+                  {% capture msg %}Please upload image {{ forloop.index }}{% endcapture %}
+                  {% if template contains 'index' %}
+                    {% include 'sample', hd_height: 'height-500', hd_text: msg  %}
+                  {% else %}
+                    {% include 'sample', hd_height: 'height-300', hd_text: msg  %}
+                  {% endif %}
+                {% endif %}
+              </div>
+            {% when 'image_text' %}
+              <div class="slick-item slick-item-text">
+                {% if block.settings.slideshow_image != blank %}
+                  <div class="slideshow-image">
+                      <img src="{{ block.settings.slideshow_image | img_url : '1920x'}}" alt="{{ block.settings.slideshow_image.alt }}" width="auto" height="auto"/>
+                  </div>
+                {% else %}
+                  {% capture msg %}Please upload image {{ forloop.index }}{% endcapture %}
+                  {% if template contains 'index' %}
+                    {% include 'sample', hd_height: 'height-500', hd_text: msg  %}
+                  {% else %}
+                    {% include 'sample', hd_height: 'height-300', hd_text: msg  %}
+                  {% endif %}
+                {% endif %}
+                <div class="slideshow-text">
+                  <div class="container" style="text-align: {{ block.settings.content_align }};">
+                    {% if block.settings.content_1 != blank %}
+                    <div class="slideshow-content-1" style="color: {{ block.settings.content_1_color }}; font-size: {{ block.settings.content_1_font_size }}px; font-weight: {{ block.settings.content_1_font_weight }}; font-style: {{ block.settings.content_1_font_style }};">{{ block.settings.content_1 }}</div>
+                    {% endif %}
+                    {% if block.settings.content_2 != blank %}
+                    <div class="slideshow-content-2" style="color: {{ block.settings.content_2_color }}; font-size: {{ block.settings.content_2_font_size }}px; font-weight: {{ block.settings.content_2_font_weight }}; font-style: {{ block.settings.content_2_font_style }};">{{ block.settings.content_2 }}</div>
+                    {% endif %}
+                    {% if block.settings.button != blank %}
+                    <div class="slideshow-button">
+                      <a href="{{ block.settings.button_link }}" class="btn btn-large">{{ block.settings.button }}</a>
+                    </div>
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+            {% when 'image_text_2button' %}
+              <div class="slick-item slick-item-text">
+                {% if block.settings.slideshow_image != blank %}
+                  <div class="slideshow-image">
+                      <img src="{{ block.settings.slideshow_image | img_url : '1920x'}}" alt="{{ block.settings.slideshow_image.alt }}" width="auto" height="auto"/>
+                  </div>
+                {% else %}
+                  {% capture msg %}Please upload image {{ forloop.index }}{% endcapture %}
+                  {% if template contains 'index' %}
+                    {% include 'sample', hd_height: 'height-500', hd_text: msg  %}
+                  {% else %}
+                    {% include 'sample', hd_height: 'height-300', hd_text: msg  %}
+                  {% endif %}
+                {% endif %}
+                <div class="slideshow-text">
+                  <div class="container" style="text-align: {{ block.settings.content_align }};">
+                    {% if block.settings.content_1 != blank %}
+                    <div class="slideshow-content-1" style="color: {{ block.settings.content_1_color }}; font-size: {{ block.settings.content_1_font_size }}px; font-weight: {{ block.settings.content_1_font_weight }}; font-style: {{ block.settings.content_1_font_style }};">{{ block.settings.content_1 }}</div>
+                    {% endif %}
+                    {% if block.settings.content_2 != blank %}
+                    <div class="slideshow-content-2" style="color: {{ block.settings.content_2_color }}; font-size: {{ block.settings.content_2_font_size }}px; font-weight: {{ block.settings.content_2_font_weight }}; font-style: {{ block.settings.content_2_font_style }};">{{ block.settings.content_2 }}</div>
+                    {% endif %}
+                    {% if block.settings.button_1 != blank or block.settings.button_2 != blank %}
+                    <div class="slideshow-button">
+                      {% if block.settings.button_1 != blank %}
+                      <a href="{{ block.settings.button_1_link }}" class="btn btn-large">{{ block.settings.button_1 }}</a>
+                      {% endif %}
+                      {% if block.settings.button_2 != blank %}
+                      <a href="{{ block.settings.button_2_link }}" class="btn btn-large">{{ block.settings.button_2 }}</a>
+                      {% endif %}
+                    </div>
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+            {% else %}
+              <div class="slick-item item-video">
+                {{ block.settings.video_embed_code }}
+              </div>
+          {% endcase %}
+        {% endfor %}
+    </div>
+    <script type="text/javascript">
+        $(document).ready(function() {
+          $(".section-{{ section.id }} .slick-slideshow").slick({
+            dots: true,
+            arrows: true,
+            autoplay: false,
+            lazyLoad: 'ondemand',
+            autoplaySpeed: {{ section.settings.speed | times: 1000 }},
+            {% if section.settings.animation == 'fade' %}
+            fade: true,
+            {% endif %}
+            {% if section.settings.enable_center_mode %}
+            centerMode: true,
+            centerPadding: '{{ section.settings.center_padding }}px',
+            infinite: true,
+            {% else %}
+            infinite: false,
+            {% endif %}
+            responsive: [
+              {
+                breakpoint: 991,
+                settings: {
+                  dots: true,
+                  arrows: false,
+                  centerMode: false
+                }
+              }
+            ]
+          });
+        });
+        {% if settings.header_fixed_enable %}
+          $(window).on('load resize', function(){
+            var $height = $('.site-header').height() - 20;
+            var $slideText = $('.slick-slideshow .slick-item .slideshow-text .container');
+            if ($(window).width() >= 1300) {
+              $slideText.css('padding-top', $height);
+            }
+            else {
+              $slideText.css('padding-top', '');
+            }
+          })
+        {% endif %}
+    </script>
+</section>
+{% endif %}
+
+{% schema %}
+  {
+    "name": "Slideshow",
+    "class": "index-section",
+    "max_blocks": 10,
+    "settings": [
+      {
+        "type": "select",
+        "id": "block_layout",
+        "label": "Block Layout",
+        "options": [
+          {
+            "value": "fullwidth",
+            "label": "Full Width"
+          },
+          {
+            "value": "extrawidth",
+            "label": "Extra Width"
+          },
+          {
+            "value": "box",
+            "label": "Box 1170"
+          }
+        ],
+        "default":   "box"
+      },
+      {
+        "type": "range",
+        "id": "padding_top",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "label": "Padding Top",
+        "default": 0
+      },
+      {
+        "type": "range",
+        "id": "padding_bottom",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "label": "Padding Bottom",
+        "default": 30
+      },
+      {
+        "type": "range",
+        "id": "speed",
+        "min": 0,
+        "max": 10,
+        "step": 1,
+        "unit": "s",
+        "label": "Slideshow Speed",
+        "default": 5
+      },
+      {
+        "type": "radio",
+        "id": "animation",
+        "options": [
+            {"value": "slide","label": "Slide"},
+            {"value": "fade","label": "Fade"}
+        ],
+        "label": "Choose Animation",
+        "default": "slide"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_center_mode",
+        "label": "Enable Center Mode?",
+        "default": false
+      },
+      {
+        "type": "range",
+        "id": "center_padding",
+        "min": 0,
+        "max": 200,
+        "step": 5,
+        "unit": "px",
+        "label": "Center Padding",
+        "default": 100
+      }
+    ],
+    "blocks" : [
+        {
+          "type" : "image",
+          "name" : "Only Image",
+          "settings" : [
+              {
+                  "type": "image_picker",
+                  "id": "slideshow_image",
+                  "label": "Slideshow Image"
+              },
+              {
+                  "type": "url",
+                  "id": "slideshow_link",
+                  "label": "Slideshow Link"
+              }
+          ]
+        },
+        {
+          "type" : "image_text",
+          "name" : "Image & Text",
+          "settings" : [
+            {
+              "type": "image_picker",
+              "id": "slideshow_image",
+              "label": "Slideshow Image"
+            },
+            {
+              "type": "header",
+              "content": "Content"
+            },
+            {
+              "type": "select",
+              "id": "content_align",
+              "label": "Content Align",
+              "options": [
+                { "value": "center", "label": "Center"},
+                { "value": "right", "label": "Right"},
+                { "value": "left", "label": "Left"}
+              ],
+              "default": "center"
+            },
+            {
+              "type": "textarea",
+              "id": "content_1",
+              "label": "Content 1",
+              "default": "Content Text 1"
+            },
+            {
+              "type":      "range",
+              "id":        "content_1_font_size",
+              "min":       10,
+              "max":        100,
+              "step":       1,
+              "unit":       "px",
+              "label":     "Content 1 - Font Size",
+              "default":   30
+            },
+            {
+              "type": "select",
+              "id": "content_1_font_family",
+              "label": "Content 1 - Font Family",
+              "options": [
+                {
+                  "value": "font_family_1",
+                  "label": "Font 1"
+                },
+                {
+                  "value": "font_family_2",
+                  "label": "Font 2"
+                },
+                {
+                  "value": "font_family_3",
+                  "label": "Font 3"
+                }
+              ],
+              "default": "font_family_1"
+            },
+            {
+              "type": "select",
+              "id": "content_1_font_weight",
+              "label": "Content 1 - Font Weight",
+              "options": [
+                {
+                  "value": "300",
+                  "label": "Light"
+                },
+                {
+                  "value": "400",
+                  "label": "Normal"
+                },
+                {
+                  "value": "500",
+                  "label": "Medium"
+                },
+                {
+                  "value": "600",
+                  "label": "Semi Bold"
+                },
+                {
+                  "value": "700",
+                  "label": "Bold"
+                },
+                {
+                  "value": "800",
+                  "label": "Extra Bold"
+                },
+                {
+                  "value": "900",
+                  "label": "Black (Heavy)"
+                }
+              ],
+              "default": "700"
+            },
+            {
+              "type": "select",
+              "id": "content_1_font_style",
+              "label": "Content 1 - Font Style",
+              "options": [
+                {
+                  "value": "normal",
+                  "label": "Normal"
+                },
+                {
+                  "value": "italic",
+                  "label": "Italic"
+                },
+                {
+                  "value": "oblique",
+                  "label": "Oblique"
+                }
+              ],
+              "default": "normal"
+            },
+            {
+              "type": "color",
+              "id": "content_1_color",
+              "label": "Content 1 - Color",
+              "default": "#fff"
+            },
+            {
+              "type": "paragraph",
+              "content": "-----------------------------------------"
+            },
+            {
+              "type": "textarea",
+              "id": "content_2",
+              "label": "Content Text 2",
+              "default": "Content Text 2"
+            },
+            {
+              "type":      "range",
+              "id":        "content_2_font_size",
+              "min":       10,
+              "max":        100,
+              "step":       1,
+              "unit":       "px",
+              "label":     "Content 2 - Font Size",
+              "default":   50
+            },
+            {
+              "type": "select",
+              "id": "content_2_font_family",
+              "label": "Content 2 - Font Family",
+              "options": [
+                {
+                  "value": "font_family_1",
+                  "label": "Font 1"
+                },
+                {
+                  "value": "font_family_2",
+                  "label": "Font 2"
+                },
+                {
+                  "value": "font_family_3",
+                  "label": "Font 3"
+                }
+              ],
+              "default":"font_family_1"
+            },
+            {
+              "type": "select",
+              "id": "content_2_font_weight",
+              "label": "Content 2 - Font Weight",
+              "options": [
+                {
+                  "value": "300",
+                  "label": "Light"
+                },
+                {
+                  "value": "400",
+                  "label": "Normal"
+                },
+                {
+                  "value": "500",
+                  "label": "Medium"
+                },
+                {
+                  "value": "600",
+                  "label": "Semi Bold"
+                },
+                {
+                  "value": "700",
+                  "label": "Bold"
+                },
+                {
+                  "value": "800",
+                  "label": "Extra Bold"
+                },
+                {
+                  "value": "900",
+                  "label": "Black (Heavy)"
+                }
+              ],
+              "default": "700"
+            },
+            {
+              "type": "select",
+              "id": "content_2_font_style",
+              "label": "Content 2 - Font Style",
+              "options": [
+                {
+                  "value": "normal",
+                  "label": "Normal"
+                },
+                {
+                  "value": "italic",
+                  "label": "Italic"
+                },
+                {
+                  "value": "oblique",
+                  "label": "Oblique"
+                }
+              ],
+              "default":"normal"
+            },
+            {
+              "type": "color",
+              "id": "content_2_color",
+              "label": "Content 2 - Color",
+              "default": "#fff"
+            },
+            {
+              "type": "header",
+              "content": "Button"
+            },
+            {
+              "type": "text",
+              "id": "button",
+              "label": "Button",
+              "default": "Shop Now"
+            },
+            {
+              "type": "url",
+              "id": "button_link",
+              "label": "Button Link"
+            }
+          ]
+        },
+        {
+          "type" : "image_text_2button",
+          "name" : "Image & Text & 2 Button",
+          "settings" : [
+              {
+                  "type": "image_picker",
+                  "id": "slideshow_image",
+                  "label": "Slideshow Image"
+              },
+              {
+                "type": "header",
+                "content": "Content"
+              },
+              {
+                "type": "select",
+                "id": "content_align",
+                "label": "Content Align",
+                "options": [
+                  { "value": "center", "label": "Center"},
+                  { "value": "right", "label": "Right"},
+                  { "value": "left", "label": "Left"}
+                ],
+                "default": "center"
+              },
+              {
+                "type": "textarea",
+                "id": "content_1",
+                "label": "Content 1",
+                "default": "Content Text 1"
+              },
+              {
+                "type":      "range",
+                "id":        "content_1_font_size",
+                "min":       10,
+                "max":        100,
+                "step":       1,
+                "unit":       "px",
+                "label":     "Content 1 - Font Size",
+                "default":   30
+              },
+              {
+                "type": "select",
+                "id": "content_1_font_family",
+                "label": "Content 1 - Font Family",
+                "options": [
+                  {
+                    "value": "font_family_1",
+                    "label": "Font 1"
+                  },
+                  {
+                    "value": "font_family_2",
+                    "label": "Font 2"
+                  },
+                  {
+                    "value": "font_family_3",
+                    "label": "Font 3"
+                  }
+                ],
+                "default": "font_family_1"
+              },
+              {
+                "type": "select",
+                "id": "content_1_font_weight",
+                "label": "Content 1 - Font Weight",
+                "options": [
+                  {
+                    "value": "300",
+                    "label": "Light"
+                  },
+                  {
+                    "value": "400",
+                    "label": "Normal"
+                  },
+                  {
+                    "value": "500",
+                    "label": "Medium"
+                  },
+                  {
+                    "value": "600",
+                    "label": "Semi Bold"
+                  },
+                  {
+                    "value": "700",
+                    "label": "Bold"
+                  },
+                  {
+                    "value": "800",
+                    "label": "Extra Bold"
+                  },
+                  {
+                    "value": "900",
+                    "label": "Black (Heavy)"
+                  }
+                ],
+                "default": "700"
+              },
+              {
+                "type": "select",
+                "id": "content_1_font_style",
+                "label": "Content 1 - Font Style",
+                "options": [
+                  {
+                    "value": "normal",
+                    "label": "Normal"
+                  },
+                  {
+                    "value": "italic",
+                    "label": "Italic"
+                  },
+                  {
+                    "value": "oblique",
+                    "label": "Oblique"
+                  }
+                ],
+                "default": "normal"
+              },
+              {
+                "type": "color",
+                "id": "content_1_color",
+                "label": "Content 1 - Color",
+                "default": "#fff"
+              },
+              {
+                "type": "paragraph",
+                "content": "-----------------------------------------"
+              },
+              {
+                "type": "textarea",
+                "id": "content_2",
+                "label": "Content Text 2",
+                "default": "Content Text 2"
+              },
+              {
+                "type":      "range",
+                "id":        "content_2_font_size",
+                "min":       10,
+                "max":        100,
+                "step":       1,
+                "unit":       "px",
+                "label":     "Content 2 - Font Size",
+                "default":   50
+              },
+              {
+                "type": "select",
+                "id": "content_2_font_family",
+                "label": "Content 2 - Font Family",
+                "options": [
+                  {
+                    "value": "font_family_1",
+                    "label": "Font 1"
+                  },
+                  {
+                    "value": "font_family_2",
+                    "label": "Font 2"
+                  },
+                  {
+                    "value": "font_family_3",
+                    "label": "Font 3"
+                  }
+                ],
+                "default":"font_family_1"
+              },
+              {
+                "type": "select",
+                "id": "content_2_font_weight",
+                "label": "Content 2 - Font Weight",
+                "options": [
+                  {
+                    "value": "300",
+                    "label": "Light"
+                  },
+                  {
+                    "value": "400",
+                    "label": "Normal"
+                  },
+                  {
+                    "value": "500",
+                    "label": "Medium"
+                  },
+                  {
+                    "value": "600",
+                    "label": "Semi Bold"
+                  },
+                  {
+                    "value": "700",
+                    "label": "Bold"
+                  },
+                  {
+                    "value": "800",
+                    "label": "Extra Bold"
+                  },
+                  {
+                    "value": "900",
+                    "label": "Black (Heavy)"
+                  }
+                ],
+                "default": "700"
+              },
+              {
+                "type": "select",
+                "id": "content_2_font_style",
+                "label": "Content 2 - Font Style",
+                "options": [
+                  {
+                    "value": "normal",
+                    "label": "Normal"
+                  },
+                  {
+                    "value": "italic",
+                    "label": "Italic"
+                  },
+                  {
+                    "value": "oblique",
+                    "label": "Oblique"
+                  }
+                ],
+                "default":"normal"
+              },
+              {
+                "type": "color",
+                "id": "content_2_color",
+                "label": "Content 2 - Color",
+                "default": "#fff"
+              },
+              {
+                "type": "header",
+                "content": "Button"
+              },
+              {
+                  "type": "text",
+                  "id": "button_1",
+                  "label": "Button 1",
+                  "default": "Shop Now"
+              },
+              {
+                  "type": "url",
+                  "id": "button_1_link",
+                  "label": "Button 1 - Link"
+              },
+              {
+                  "type": "text",
+                  "id": "button_2",
+                  "label": "Button 2",
+                  "default": "View More"
+              },
+              {
+                  "type": "url",
+                  "id": "button_2_link",
+                  "label": "Button 2 - Link"
+              }
+          ]
+        },
+        {
+          "type": "video",
+          "name": "Video",
+          "settings": [
+              {
+              "type": "textarea",
+              "id": "video_embed_code",
+              "label": "YouTube video Embed Code"
+              }
+          ]
+        }
+    ],
+    "presets": [
+      {
+        "name": "Slideshow",
+        "category": "Slideshow",
+        "blocks": [
+          {
+            "type": "image"
+          },
+          {
+            "type": "image"
+          },
+          {
+            "type": "image" 
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

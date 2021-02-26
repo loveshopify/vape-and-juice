@@ -1,0 +1,18 @@
+<div class="tp-product-page-price">
+    <span class="visually-hidden">{{ 'products.general.regular_price' | t }}</span>
+    <span id="ProductPrice" class="h2" itemprop="price" content="{{ current_variant.price | divided_by: 100 }}">
+      {{ current_variant.price | money }}
+    </span>
+
+    {% if product.compare_at_price_max > product.price %}
+      <span class="visually-hidden">{{ 'products.general.sale_price' | t }}</span>
+      <p id="ComparePrice">
+        {{ current_variant.compare_at_price | money }}
+      </p>
+    {% endif %}
+  {% comment %}
+  <!--  Feedback Rebates snippet added by Virthium team on November 25th, 2018. -->
+  <div id="fbrb_snippet_{{product.id}}" class="fbrb_snippet" data-id="{{product.id}}">{{product.metafields.virthium.snippet}}</div>
+  <!--  End Feedback Rebates snippet -->{% endcomment %}
+  
+</div>

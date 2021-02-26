@@ -1,0 +1,52 @@
+<!-- /snippets/collection-sidebar.liquid -->
+{% comment %}
+
+  Side navigation for the product types, vendors, and tags.
+  These can be based on the current collection or all products. Details in comments below.
+
+  Note: Clicking on a tag will filter the products within the current collection.
+  Clicking on a type or vendor link will take you out of the current collection
+  to a standalone collection page. E.g. /collections/vendors?q=Pepsi
+
+{% endcomment %}
+
+{% comment %}
+  Product tags in the current collection
+{% endcomment %}
+
+<div class="tp-sidebar tp-sidebar-toggle">
+  {% if settings.clsb_category_enable %}
+  	{% include 'tp-collection-sb-category' %}
+  {% endif %}
+
+  {% if settings.clsb_product_filter_enable %}
+  	{% include 'tp-collection-sb-product-filters' %}
+  {% endif %}
+
+  {% if settings.clsb_block_feature_product_enable %}
+  	{% include 'tp-collection-sb-featured-product' %}
+  {% endif %}
+
+  {% if settings.clsb_block_popular_tags_enable %}
+  	{% include 'collection-sb-tags' %}
+  {% endif %}
+
+  {% if settings.clsb_static_block_1_enable %}
+    {% include 'tp-collection-sb-static-block-1' %}
+  {% endif %}
+
+  {% if settings.clsb_banner_enable %}
+    {% include 'tp-collection-sb-banner' %}
+  {% endif %}
+
+  {% if settings.clsb_static_block_2_enable %}
+  	{% include 'tp-collection-sb-static-block-2' %}
+  {% endif %}
+</div>
+
+<script>
+  jQuery(window).load(function(){
+      var filter = new Filter();
+      filter.initViewMoreTagsBlock();
+  })
+</script>

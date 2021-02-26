@@ -1,0 +1,216 @@
+{% include 'shogun-products', content: article %}
+<!-- /templates/article.liquid -->
+{% comment %}
+
+  Comments will not appear right after they are submitted, either to be checked for spam
+  or to await moderation. When a comment is submitted, the browser is redirected to a page
+  that includes the new comment id in its URL.
+    Example: http://shopname.myshopify.com/blogs/news/2022072-my-post?comment=3721372
+
+  More information:
+    - http://docs.shopify.com/themes/liquid-variables/comment 
+
+{% endcomment %}
+
+{% assign number_of_comments = article.comments_count %}
+
+{% comment %}
+  If a comment was just submitted and it has no blank fields, we have an extra comment to count.
+{% endcomment %}
+{% if comment and comment.created_at %}
+  {% assign number_of_comments = article.comments_count | plus: 1 %}
+{% endif %}
+
+
+<script type="application/ld+json">
+{ "@context": "https://schema.org", 
+ "@type": "Article",
+ "headline": "{{ article.title }}",
+ "image": "{{ article | img_url: 'master' }}",
+ "author": "{{article.author}}", 
+"publisher": {
+    "@type": "Organization",
+    "name": "{{ shop.name }}",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://cdn.shopify.com/s/files/1/0290/5629/t/72/assets/logo.png?67160"
+    }
+  },
+ "url": "https://vapeandjuice.co.uk/",
+   "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "{{ page.url }}"
+  },
+ "datePublished": "{{article.published_at}}",
+ "dateCreated": "{{article.published_at}}",
+ "dateModified": "{{article.published_at}}",
+ "articleBody": "{{ article.content | strip_html | replace: '"', "&quot;" }}"
+ }
+</script>
+
+<div  class="row article">
+    
+    {% if settings.sidebar_blog_page_enable %}
+      <div class="button-sidebar-toggle visible-xs">{{ 'collections.sidebar.title' | t }}</div>
+    {% endif %}
+
+    {% comment %}
+    <div class="col-sm-12 nt-page-heading">
+      <h1>{{ article.title }}</h1>
+    </div>
+    {% endcomment %}
+
+    {% if settings.sidebar_blog_page_enable %}
+    <article class="col-sm-9 {% if settings.sidebar_blog_page_position == "left" %}pull-right{% endif %}" ">
+    {% else %}
+       <article class="col-sm-12" >
+    {% endif %}
+
+
+    <header class="wow fadeIn" data-wow-delay="{{ settings.delay_time_ra }}ms">
+    	<h1  class="tp-blog-name">{{ article.title }}</h1>
+	    <div  class="tp-date"> <span class="article__date">{{ article.published_at | time_tag: format: 'month_day_year' }}</span><span  class="tp-author">{{ article.author }}</span></div> 
+	</header>
+
+    {% comment %}
+	{% if article.image %}
+	    {{ article | img_url: 'master' | img_tag: article.title }}
+	{% endif %}
+    {% endcomment %}
+	  
+
+    <div class="rte wow fadeIn" data-wow-delay="{{ settings.delay_time_ra }}ms">
+      {{ article.content }}
+    </div>
+
+    {% comment %}
+      Show off meta information like comments and tags.
+    {% endcomment %}
+    <ul class="inline-list wow fadeIn" data-wow-delay="{{ settings.delay_time_ra }}ms">
+      {% include 'tags-article' %}
+    </ul>
+
+    {% comment %}
+      Create links to the next and previous articles, if available.
+    {% endcomment %}
+    {% if blog.next_article or blog.previous_article %}
+      <p class="article-controls clearfix wow fadeIn" data-wow-delay="{{ settings.delay_time_ra | plus: 100 }}ms">
+        {% if blog.previous_article %}
+          <span class="left">
+            {{ 'blogs.article.older_post' | t | link_to: blog.previous_article }}
+          </span>
+        {% endif %}
+        {% if blog.next_article %}
+          <span class="right">
+            {{ 'blogs.article.newer_post' | t | link_to: blog.next_article }}
+          </span>
+        {% endif %}
+      </p>
+    {% endif %}
+
+
+    {% if blog.comments_enabled? %}
+
+      {% comment %}
+        Just like blog.liquid page, define how many comments should be on each page.
+      {% endcomment %}
+      {% paginate article.comments by 5 %}
+        {% comment %}
+          #comments is required, it is used as an anchor link by Shopify.
+        {% endcomment %}
+        <div id="comments" class="comments wow fadeIn" data-wow-delay="{{ settings.delay_time_ra | plus: 200 }}ms">
+        
+          <h3>{{ 'blogs.comments.with_count' | t: count: number_of_comments }}</h3>
+
+          {% if comment and comment.created_at %}
+            <p class="note form-success">
+              {% if blog.moderated %}
+                {{ 'blogs.comments.success_moderated' | t }}
+              {% else %}
+                {{ 'blogs.comments.success' | t }}
+              {% endif %}
+            </p>
+          {% endif %}
+
+          {% if number_of_comments > 0 %}
+            <ul class="no-bullets">
+              {% comment %}
+                If a comment was just submitted with no blank field, show it.
+              {% endcomment %}
+              {% if comment and comment.created_at %}
+                <li id="{{ comment.id }}" class="comment first{% if article.comments_count == 0 %} last{% endif %}">
+                  {% include 'comment' %}
+                </li>
+              {% endif %}
+
+              {% comment %}
+                Showing the rest of the comments.
+              {% endcomment %}
+              {% for comment in article.comments %}
+                <li id="{{ comment.id }}" class="comment{% unless number_of_comments > article.comments_count %}{% if forloop.first %} first{% endif %}{% endunless %}{% if forloop.last %} last {% endif %}">
+                  {% include 'comment' %}
+                </li>
+
+                {% unless forloop.last %}
+                  <li></li>
+                {% endunless %}
+              {% endfor %}
+            </ul>
+
+            {% if paginate.pages > 1 %}
+
+              <div class="pagination">
+                {{ paginate | default_pagination | replace: '&laquo; Previous', '&larr;' | replace: 'Next &raquo;', '&rarr;' }}
+              </div>
+            {% endif %}
+
+            <hr>
+
+          {% endif %}
+
+          <div class="form-vertical">
+            {% form 'new_comment', article %}
+              <h3>{{ 'blogs.comments.title' | t }}</h3>
+
+              {{ form.errors | default_errors }}
+
+              <div class="grid">
+
+                <div class="grid-item large--one-half">
+                  <label for="CommentAuthor" class="hidden-label">{{ 'blogs.comments.name' | t }}</label>
+                  <input type="text" name="comment[author]" id="CommentAuthor" class="input-full{% if form.errors contains 'author' %} error{% endif %}" placeholder="{{ 'blogs.comments.name' | t }}" value="{{ form.author }}" >
+
+                  <label for="CommentEmail" class="hidden-label">{{ 'blogs.comments.email' | t }}</label>
+                  <input type="email" name="comment[email]" id="CommentEmail" class="input-full{% if form.errors contains 'email' %} error{% endif %}" placeholder="{{ 'blogs.comments.email' | t }}" value="{{ form.email }}" >
+                </div>
+
+                <div class="grid-item large--one-half">
+                  <label for="CommentBody" class="hidden-label">{{ 'blogs.comments.message' | t }}</label>
+                  <textarea name="comment[body]" id="CommentBody" class="input-full{% if form.errors contains 'body' %} error{% endif %}" placeholder="{{ 'blogs.comments.message' | t }}">{{ form.body }}</textarea>
+                </div>
+
+              </div>
+
+              {% if blog.moderated? %}
+                <p>{{ 'blogs.comments.moderated' | t }}</p>
+              {% endif %}
+
+              <input type="submit" class="btn" value="{{ 'blogs.comments.post' | t }}">
+            {% endform %}
+          </div>
+
+        </div>
+      {% endpaginate %}
+    {% endif %}
+
+  </article>
+
+
+ {% if settings.sidebar_blog_page_enable %}
+   <aside class="col-sm-3 pull-left" role="complementary">
+    {% section 'tp-section-blog-sidebar' %}
+  </aside>
+  {% endif %}
+
+</div>
+

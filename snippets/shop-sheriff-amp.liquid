@@ -1,0 +1,68 @@
+{% comment %}Managed by ShopSheriff Shopify app{% endcomment %}
+
+{% if template contains 'product' %}
+  {% unless product.handle.size > 0 %}
+    {% assign denyAmp = true %}
+  {% endunless %}
+  {% assign amp_path = '/products/' | append: product.handle %}
+{% endif %}
+{% if template contains 'collection' %}
+  {% unless collection.handle == 'all' %}
+  {% unless current_tags %}
+  {% unless collection.current_type %}
+  {% unless collection.current_vendor %}
+  {% if collection.products_count %}
+    {% assign amp_path = '/collections/' | append: collection.handle %}
+    {% if current_page > 1 %}
+      {% assign amp_path = amp_path | append: '?page=' | append: current_page %}
+    {% endif %}
+    {% assign ssmeta = collection.metafields.shopsheriff %}
+    {% if ssmeta %}
+      {% assign ssMetaVisible = collection.metafields.shopsheriff.amp-visibility %}
+      {% if ssMetaVisible == 0 %}
+        {% assign denyAmp = true %}
+      {% endif %}
+    {% endif %}
+  {% endif %}
+  {% endunless %}
+  {% endunless %}
+  {% endunless %}
+  {% endunless %}
+{% endif %}
+
+{% if template == 'blog' %}
+  {% unless blog.handle == 'all' %}
+  {% unless current_tags %}
+    {% assign amp_path = '/blogs/' | append: blog.handle %}
+    {% if current_page > 1 %}
+    {% assign amp_path = amp_path | append: '?page=' | append: current_page %}
+    {% endif %}
+  {% endunless %}
+  {% endunless %}
+{% endif %}
+{% if template == 'article' %}
+  {% assign denyAmp = true %}
+  {% for tag in article.tags %}
+  {% if tag == 'amp' %}
+  {% assign denyAmp = false %}
+  {% endif %}
+  {% endfor %}
+  
+  {% assign amp_path = '' | append: article.url %}
+{% endif %}
+{% if template == 'page' %}
+  {% assign amp_path = '/pages/' | append : page.handle %}
+  {% assign ssmeta = page.metafields.shopsheriff %}
+  {% if ssmeta %}
+    {% assign ssMetaVisible = page.metafields.shopsheriff.amp-visibility %}
+    {% if ssMetaVisible == 0 %}
+      {% assign denyAmp = true %}
+    {% endif %}
+  {% endif %}
+{% endif %}
+      
+{% unless denyAmp %}
+{% if amp_path %}
+   <link rel="amphtml" href="{{ 'https://' | append: 'vapeandjuice.co.uk/a/s' | append: amp_path  }}">
+{% endif %}
+{% endunless %}

@@ -1,0 +1,264 @@
+<style type="text/css">
+  .tp-home-recently-blog.section-{{ section.id }} {
+      background-color: {{ section.settings.home_blog_bg_color }};
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+  .tp-home-recently-blog.section-{{ section.id }} .tp-blog-wrap {margin: 0 -{{ section.settings.gutter | divided_by: 2 }}px;}
+  .tp-home-recently-blog.section-{{ section.id }} .tp-blog-wrap .tp-blog-item { padding: 0 {{ section.settings.gutter | divided_by: 2 | remove: 'px'}}px; }
+  .tp-home-recently-blog.section-{{ section.id }}.style-2 .tp-blog-date,
+  .tp-home-recently-blog.section-{{ section.id }}.style-3 .tp-blog-date {left: {{ section.settings.gutter | divided_by: 2 | plus: 20 }}px;}
+  .tp-blog-wrap .tp-blog-name a {color: {{ settings.color_blog_name }};}
+  .tp-blog-wrap .tp-blog-name a:hover {text-decoration: none; color: {{ settings.color_link_hover }}; }
+
+  
+  {% if section.settings.block_layout == 'extrawidth' %}
+    @media (min-width: 1300px) {
+      .tp-home-recently-blog.section-{{ section.id }} .container { width: 100%; padding-left: 50px; padding-right: 50px;}
+    }
+  {% endif %}
+  @media (min-width: 992px) {
+    .tp-home-recently-blog.section-{{ section.id }} .tp-blog-item { width: {{ 100 | divided_by: section.settings.home_blog_number_per_row }}%; float: left; }
+    .tp-home-recently-blog.section-{{ section.id }} .slick-prev {left: {{ section.settings.gutter | divided_by: 2 | minus: 20 }}px;}
+    .tp-home-recently-blog.section-{{ section.id }} .slick-next {right: {{ section.settings.gutter | divided_by: 2 | minus: 20 }}px;}
+  }
+</style>
+
+{% stylesheet %}
+.tp-blog-item {position: relative;}
+.tp-blog-item img { width: 100%; }
+.tp-blog-item .tp-blog-name {margin-bottom: 15px;}
+.tp-blog-item .tp-blog-image {margin-bottom: 20px;}
+.tp-blog-item .tp-blog-image:hover {opacity: .9;} 
+.tp-blog-item .tp-blog-date {display: block; margin-bottom: 5px; text-transform: uppercase; font-size: 12px;} 
+
+.tp-home-recently-blog.style-2 .tp-blog-item {text-align: center;}
+.tp-home-recently-blog.style-2 .tp-blog-date,
+.tp-home-recently-blog.style-3 .tp-blog-date {position: absolute; top: 20px; background: #fff; color: #000; padding: 5px 10px; min-width: 50px;}
+.tp-home-recently-blog.style-2 .tp-blog-date .day,
+.tp-home-recently-blog.style-3 .tp-blog-date .day {display: block; font-size: 20px; font-weight: 700; line-height: 1;}
+
+@media (min-width: 992px) {
+  .tp-home-recently-blog.style-3 .tp-blog-item {display: flex; display: -webkit-flex; display: -ms-flex; flex-wrap: wrap; -webkit-flex-wrap: wrap; -ms-flex-wrap: wrap; align-items: center; -wenkit-align-items: center; -ms-align-items: center;}
+  .tp-home-recently-blog.style-3 .tp-blog-image {flex: 0 0 52%; -wenkit-flex: 0 0 52%; -ms-flex: 0 0 52%; max-width: 52%; margin: 0; padding-right: 25px;}
+  .tp-home-recently-blog.style-3 .tp-blog-description {flex: 0 0 48%; -wenkit-flex: 0 0 48%; -ms-flex: 0 0 48%; max-width: 48%; }
+}
+{% endstylesheet %}
+
+
+<section class="tp-home-recently-blog section-{{ section.id }} {{ section.settings.blog_style }}">
+  <div class="container">
+    {% if section.settings.heading != blank %}
+      <div class="tp-block-heading wow fadeIn" data-wow-delay="{{ settings.delay_time_ra }}ms">
+        <h3><a href="">{{ section.settings.heading }}</a></h3>
+      </div>
+    {% endif %}
+	{%- assign blog = blogs[section.settings.choose_blog] -%}
+    {% assign blog_count = blog.articles_count %}
+    {% if blog_count > 0 %}
+    <div class="tp-blog-wrap">
+      {% assign item_limit = section.settings.home_blog_number %}
+        {% for article in blog.articles limit: item_limit %}
+          {% assign productIndex = forloop.index | times: 0.5 %}
+          {% assign delayTime = settings.delay_time_ra | times : productIndex %}
+          <div class="tp-blog-item wow fadeIn" data-wow-delay="{{ delayTime }}ms">
+
+            <div class="tp-blog-image">
+              <a class="article-featured-image" href="{{ article.url }}">
+                <img src="{{ article.image | img_url: 'master'}}" title="{{ article.title }}" alt="Not Found" width="auto" height="auto">
+              </a>
+            </div>
+
+            {% if section.settings.blog_date_enable %}
+              {% capture date %}<time datetime="{{ article.published_at | date: '%m-%d' }}">{{ article.published_at | date: format: 'month_day' }}</time>{% endcapture %}
+              {% if section.settings.blog_style == 'style-1' %}
+              <div class="tp-blog-date">{{ article.published_at | date: format: 'month_day_year' }}</div>
+              {% else %}
+              <div class="tp-blog-date">{{ article.published_at | date: "<span class='month'>%b</span><span class='day'> %d</span>" }}</div>
+              {% endif %}
+            {% endif %}
+
+            <div class="tp-blog-description">
+
+              <h3 class="tp-blog-name"><a href="{{ article.url }}">{{ article.title }}</a></h3>
+
+              {% if section.settings.blog_description_enable %}
+              <div class="rte">
+                {% if article.excerpt.size > 0 %}
+                  {{ article.excerpt }}
+                {% else %}
+                  {{ article.content | strip_html | truncatewords: 25 }}
+                {% endif %}
+              </div>
+              {% endif %}
+              {% if section.settings.blog_button_enable %}
+              <p class="view-more"><a href="{{ article.url }}" class="btn">{{ 'blogs.article.read_more' | t }}</a></p>
+              {% endif %}
+            </div>
+          </div>
+        {% endfor %}
+    </div>
+    {% else %}
+      <div class="tp-message">
+        <p>Please choose a blog to show at <strong>Section --> Lastest Post --> Choose Blog</strong></p>
+      </div>
+    {% endif %}
+
+    <script type="text/javascript">
+      $(document).ready(function() {
+        $(".section-{{ section.id }} .tp-blog-wrap").slick({
+          arrows: true,
+          infinite: false,
+          slidesToShow: {{ section.settings.home_blog_number_per_row }},
+          responsive: [
+            {
+              breakpoint: 992,
+              settings: {
+                arrows: false,
+                dots: true,
+                slidesToShow: 2,
+                slidesToScroll: 2
+              }
+            },
+            {
+              breakpoint: 480,
+              settings: {
+                arrows: false,
+                dots: true,
+                slidesToShow: 1,
+                slidesToScroll: 1
+              }
+            }
+          ]
+        });
+      })
+    </script>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Lastest Post",
+  "class": "index-section",
+  "settings": [
+    {
+      "type": "select",
+      "id": "block_layout",
+      "options": [
+          { "value": "box", "label": "Box 1170"},
+          { "value": "extrawidth", "label": "Extra Width"}
+      ],
+      "label": "Block Layout",
+      "default": "box"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 40
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Latest News"
+    },
+    {
+      "type": "blog",
+      "id": "choose_blog",
+      "label": "Choose Blog"
+    },
+    {
+      "type": "select",
+      "id": "blog_style",
+      "label": "Choose Style",
+      "options": [
+        {
+          "value": "style-1",
+          "label": "Style 1"
+        },
+        {
+          "value": "style-2",
+          "label": "Style 2"
+        },
+        {
+          "value": "style-3",
+          "label": "Style 3"
+        }
+      ],
+      "default": "style-1"
+    },
+    {
+      "type": "range",
+      "id": "home_blog_number_per_row",
+      "min": 0,
+      "max": 10,
+      "step": 1,
+      "label": "Number Blog Per Row",
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "home_blog_number",
+      "min": 0,
+      "max": 10,
+      "step": 1,
+      "label": "Limit Number Blog",
+      "default": 5
+    },
+    {
+      "type": "range",
+      "id": "gutter",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "label": "Gutter",
+      "default": 30
+    },
+    {
+      "type": "checkbox",
+      "id": "blog_date_enable",
+      "label": "Enable Date?",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "blog_description_enable",
+      "label": "Enable Short Description?",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "blog_button_enable",
+      "label": "Enable Read more Button?",
+      "default": true
+    }, 
+    {
+      "type": "color",
+      "id": "home_blog_bg_color",
+      "label": "Background Color",
+      "default": "#fff"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Lastest Post"
+    }
+  ]
+}
+{% endschema %}

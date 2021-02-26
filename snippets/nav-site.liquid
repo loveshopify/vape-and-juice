@@ -1,0 +1,10 @@
+<nav class="nav-bar isiDevice">
+  <div class="container">
+    <div class="hidden-xs site-nav-wrapper">
+      {% if settings.nav_vertical_enable %}
+      {% include 'tp-nav-vertical' %}
+      {% endif %}
+      {% include 'tp-nav-horizontal' %}
+    </div>
+  </div>
+</nav>
